@@ -1,0 +1,97 @@
+/* Root Container for Header */
+.header-container {
+    /* width: 100%; */
+}
+
+/* Container for nav bar */
+#container-nav {
+    margin-left: auto;
+    max-width: 2560px;
+    padding-top: 25px;
+    position: absolute;
+    z-index: 10;
+    width: 100%;
+}
+#container-nav ul {
+    list-style-type: none;
+}
+
+/* Elements for nav bar  --- START */
+#get-started {
+    padding-right: 50px;
+    border-right: solid 1px #ecf0f1;
+    margin-right: 50px;
+}
+#dev-info {
+    padding-right: 55px;
+}
+#container-nav ul li a {
+    font-family: monospace;
+    position: relative;
+    display: block;
+    text-decoration: none;
+    font-size: 15px;
+    color: #ecf0f1;
+    transition: 0.75s;
+}
+#container-nav ul li a::after {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 4px;
+    top: 80%;
+    left: 0;
+    background: #3590d5;
+    transition: transform 0.75s;
+    transform: scaleX(0);
+    transform-origin: center;
+}
+#container-nav ul li a:hover {
+    color: #3590d5;
+    cursor: pointer;
+}
+#container-nav ul li a:hover::after {
+    transform: scaleX(1);
+    transform-origin: center;
+}
+/* Elements for nav bar  --- END */
+
+/* Image for header */
+.header-mountain-pic {
+    /* padding-top: 61%; */
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Container for Image. Set to max size. */
+.top-header-container {
+    /* height: 100%;*/
+    margin: 0 auto;
+}
+
+
+.about-content, .dev-info-content {
+    width: 50%;
+    margin: auto;
+    font-size: 15px;
+    line-height: 200%;
+}
+
+
+#about-header {
+    text-align: center;
+    overflow: hidden;
+}
+#dev-info-header {
+    text-align: center;
+    overflow: hidden;
+}
+hr {
+    height: 3px;
+    width: 50%;
+}
+h2 {
+    margin: 100px 100px 0 100px;
+    font-size: 75px;
+    font-family: monospace;
+}
