@@ -11,19 +11,38 @@
     position: absolute;
     z-index: 10;
     width: 100%;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 #container-nav ul {
     list-style-type: none;
 }
+
+.navBar-left {
+    display: inline;
+}
+
+.navBar-left li {
+    float: left;
+}
+#dev-info {
+    float: right;
+}
+
+
+/* .navBar-right {
+    display: inline;
+}
+
+.navBar-right li {
+    float:right
+} */
 
 /* Elements for nav bar  --- START */
 #get-started {
     padding-right: 50px;
     border-right: solid 1px #ecf0f1;
     margin-right: 50px;
-}
-#dev-info {
-    padding-right: 55px;
 }
 #container-nav ul li a {
     font-family: monospace;

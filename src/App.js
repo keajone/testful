@@ -9,6 +9,8 @@ import TestTool from './components/TestTool';
 // Styling
 import './App.css';
 
+// Route paths
+// TODO: Is this the "React" way?
 const HomePath = "/";
 const TestToolPath = "/Test-Tool";
 
@@ -17,8 +19,8 @@ function App() {
     <Router>
       <div id="App">
         <Switch>
-          {/* <Route exact path={HomePath} component={Home}/> */}
-          <Route exact path={TestToolPath} component={TestTool}/>
+          <Route exact path={HomePath} component={Home} />
+          <Route exact path={TestToolPath} component={TestTool} />
         </Switch>
       </div>
     </Router>

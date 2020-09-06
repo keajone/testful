@@ -11,12 +11,12 @@ function Home() {
 
         <div className="header-container">
             
-            <div className="container-fluid" id="container-nav" >
-                <ul className="navbar-nav">
+            <div id="container-nav" >
+                <ul className="navBar-left">
                     <li id="get-started"><Link to={TestToolPath}>Get Started</Link></li>
                     <li><a href="#about-header">About</a></li>
-                </ul>
-                <ul className="navbar-nav navbar-right">
+                {/* </ul> */}
+                {/* <ul className="navBar-right"> */}
                     <li id="dev-info"><a href="#dev-info-header">Developer Info</a></li>
                 </ul>
             </div>
