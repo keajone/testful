@@ -11,6 +11,12 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
+// This is for a bug with CodeMirror. When tabs are clicked, the editor must refresh.
+var codeEditors = document.querySelectorAll('.CodeMirror');
+for (let i = 0; i < codeEditors.length; i++) {
+    codeEditors[i].CodeMirror.refresh();
+}
+
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA

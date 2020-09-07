@@ -1,10 +1,11 @@
 import React from 'react';
 import {} from 'react-router-dom';
 
-// import {HomePath} from '../App';
+import {HomePath} from '../../App';
 import ToolNav from './ToolNav';
+import ToolMain from './ToolMain';
 
-import './TestTool.css';
+import '../css/Tool/TestTool.css';
 
 function TestTool() {
 
@@ -12,7 +13,8 @@ function TestTool() {
 
         <div className="test-tool-container">
 
-            <ToolNav />
+            <ToolNav homePath={HomePath}/>
+            <ToolMain />
 
         </div>
     );

@@ -1,0 +1,64 @@
+/**
+*   Profile Tabs CSS file.
+*/
+
+/* Default Tab configuration -- mainly for debugging purposes */
+.tab-list {  
+    border-bottom: 1px solid rgb(141, 141, 141);
+    padding-left: 0;
+    margin-bottom: 0px;
+}
+.tab-list-item {
+    cursor: pointer;
+    display: inline-block;
+    list-style: none;
+    margin-bottom: -1px;
+    padding: 0.5rem 0.75rem;
+}
+.tab-list-active {
+    background-color: rgb(216, 216, 216);
+    border: solid rgb(141, 141, 141);
+    border-width: 1px 1px 0 1px;
+}
+.tab-list-item label {
+    cursor: pointer;
+    margin-bottom: 0px;
+}
+
+
+.tabs-profile > .tab-content {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom: 3px solid #ccc;
+    border-left: 3px solid #ccc;
+    border-right: 3px solid #ccc;
+    padding: 20px;
+    overflow: auto;
+}
+.tabs-profile {
+    height: 100%;
+}
+.tabs-profile > .tab-list {  
+    padding-left: 0;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border: 3px solid #ccc;
+}
+.tabs-profile  > .tab-list > .tab-list-item {
+    margin: -3px;
+    padding: 5px 20px 5px 20px;
+}
+.tabs-profile > .tab-list > .tab-list-active {
+    background-color: white;
+    border: solid #ccc;
+    border-bottom: 0px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-width: 3px 3px 0 3px;
+}
+.request-method-select {
+    min-width: 90px;
+    width: 5%;
+    font-size: 12px;
+    margin-bottom: 0px;
+}

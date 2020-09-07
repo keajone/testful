@@ -1,0 +1,17 @@
+/**
+*   ToolMain CSS file 
+*/
+
+.ToolMain {
+    height: 1000px;
+}
+
+.ToolMainWindow {
+    margin-top: 25px;
+    border-radius: 10px;
+    /* height: 800px; */
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    background-color: white;
+}

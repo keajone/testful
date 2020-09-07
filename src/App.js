@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 // Components
 import Home from './components/Home';
-import TestTool from './components/TestTool';
+import TestTool from './components/Tool/TestTool';
 
 // Styling
 import './App.css';

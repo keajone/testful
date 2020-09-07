@@ -1,9 +1,9 @@
-/* Root Container for Header */
-.header-container {
-    /* width: 100%; */
-}
+/* Root Container for Home page */
+/* .header-container { } */
 
-/* Container for nav bar */
+/*---------------------------------------------
+*  Nav bar -- START
+* ---------------------------------------------*/
 #container-nav {
     margin-left: auto;
     max-width: 2560px;
@@ -17,28 +17,15 @@
 #container-nav ul {
     list-style-type: none;
 }
-
 .navBar-left {
     display: inline;
 }
-
 .navBar-left li {
     float: left;
 }
 #dev-info {
     float: right;
 }
-
-
-/* .navBar-right {
-    display: inline;
-}
-
-.navBar-right li {
-    float:right
-} */
-
-/* Elements for nav bar  --- START */
 #get-started {
     padding-right: 50px;
     border-right: solid 1px #ecf0f1;
@@ -53,50 +40,56 @@
     color: #ecf0f1;
     transition: 0.75s;
 }
-#container-nav ul li a::after {
+#container-nav ul li a::after { /* hover effects */
     position: absolute;
     content: "";
     width: 100%;
     height: 4px;
-    top: 80%;
+    top: 100%;
     left: 0;
     background: #3590d5;
     transition: transform 0.75s;
     transform: scaleX(0);
     transform-origin: center;
 }
-#container-nav ul li a:hover {
+#container-nav ul li a:hover { /* hover effects */
     color: #3590d5;
     cursor: pointer;
 }
-#container-nav ul li a:hover::after {
+#container-nav ul li a:hover::after { /* hover effects */
     transform: scaleX(1);
     transform-origin: center;
 }
-/* Elements for nav bar  --- END */
+/*---------------------------------------------
+*  Nav bar -- END
+* ---------------------------------------------*/
 
-/* Image for header */
+
+
+/*---------------------------------------------
+*  Image -- Start
+* ---------------------------------------------*/
 .header-mountain-pic {
-    /* padding-top: 61%; */
     width: 100%;
     object-fit: cover;
 }
-
-/* Container for Image. Set to max size. */
 .top-header-container {
-    /* height: 100%;*/
     margin: 0 auto;
 }
+/*---------------------------------------------
+*  Image -- END
+* ---------------------------------------------*/
 
 
+/*---------------------------------------------
+* Other sections -- START
+* ---------------------------------------------*/
 .about-content, .dev-info-content {
     width: 50%;
     margin: auto;
     font-size: 15px;
     line-height: 200%;
 }
-
-
 #about-header {
     text-align: center;
     overflow: hidden;
@@ -114,3 +107,6 @@ h2 {
     font-size: 75px;
     font-family: monospace;
 }
+/*---------------------------------------------
+*  Other sections -- END
+* ---------------------------------------------*/

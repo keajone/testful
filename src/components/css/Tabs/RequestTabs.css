@@ -1,0 +1,50 @@
+/**
+*   Request Tabs CSS file. For request header/body editing windows.
+*/
+
+.tabs-request {
+    height: 100%;
+    margin-top: 10px;
+    width: 49%;
+    margin-right: 2%;
+    float: left;
+}
+.tabs-request > .tab-content {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom: 3px solid #3590d5;
+    border-left: 3px solid #3590d5;
+    border-right: 3px solid #3590d5;
+    padding: 3px;
+}
+.tabs-request > .tab-list {
+    background-color: #3590d5;
+    border: 0px;
+    margin: 0px;
+}
+.tabs-request > .tab-list:first-child {
+    padding-left: 5px;
+}
+.tabs-request  > .tab-list > .tab-list-item {
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 3px;
+    border: 0;
+    margin: 0px;
+    background-color: #3590d5;
+
+
+    height: 100%;
+    text-align: center;
+    width: 45px;
+    font-size: 10px;
+    color: white;
+}
+.tabs-request  > .tab-list > .tab-list-item > label {
+    cursor: pointer;
+    margin-bottom: 0px;
+}
+.tabs-request > .tab-list > .tab-list-active {
+    border-bottom: 2px solid #14212d;
+}

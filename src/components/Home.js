@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 import {TestToolPath} from '../App';
 
-import './Home.css';
+import './css/Home.css';
 
 function Home() {
 
@@ -15,8 +15,6 @@ function Home() {
                 <ul className="navBar-left">
                     <li id="get-started"><Link to={TestToolPath}>Get Started</Link></li>
                     <li><a href="#about-header">About</a></li>
-                {/* </ul> */}
-                {/* <ul className="navBar-right"> */}
                     <li id="dev-info"><a href="#dev-info-header">Developer Info</a></li>
                 </ul>
             </div>
