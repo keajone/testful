@@ -2,6 +2,31 @@
 *   Response Tabs CSS file. For response header/body viewing windows.
 */
 
+/**
+* default values -- for debugging
+*/
+.tab-list {  
+    border-bottom: 1px solid rgb(141, 141, 141);
+    padding-left: 0;
+    margin-bottom: 0px;
+}
+.tab-list-item {
+    cursor: pointer;
+    display: inline-block;
+    list-style: none;
+    margin-bottom: -1px;
+    padding: 0.5rem 0.75rem;
+}
+.tab-list-active {
+    background-color: rgb(216, 216, 216);
+    border: solid rgb(141, 141, 141);
+    border-width: 1px 1px 0 1px;
+}
+.tab-list-item label {
+    cursor: pointer;
+    margin-bottom: 0px;
+}
+
 .tabs-response {
     height: 100%;
     margin-top: 10px;
@@ -11,13 +36,13 @@
 .tabs-response > .tab-content {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
-    border-bottom: 3px solid #3590d5;
-    border-left: 3px solid #3590d5;
-    border-right: 3px solid #3590d5;
+    border-bottom: 3px solid #0741ad;
+    border-left: 3px solid #0741ad;
+    border-right: 3px solid #0741ad;
     padding: 3px;
 }
 .tabs-response > .tab-list {
-    background-color: #3590d5;
+    background-color: #0741ad;
     border: 0px;
     margin: 0px;
 }
@@ -31,7 +56,7 @@
     padding-bottom: 3px;
     border: 0;
     margin: 0px;
-    background-color: #3590d5;
+    background-color: #0741ad;
 
 
     height: 100%;
@@ -41,5 +66,5 @@
     color: white;
 }
 .tabs-response > .tab-list > .tab-list-active {
-    border-bottom: 2px solid #14212d;
+    border-bottom: 4px solid #ad7307;
 }

@@ -1,16 +1,9 @@
-/* #request-window .CodeMirror {
-    border: 1px solid grey;
-    min-width: 49%;
-    float: left;
-    margin-right: 3%;
-} */
+#mode-dropdown {
+    position: relative;
+    z-index: 50;
+    float: right;
+    bottom: 324.5px;
+    left: 3px;
+    font-size: 10px;
 
-/* .editor-seperator {
-    width: 6%;
-} */
-
-/* #response-window .CodeMirror {
-    border:1px solid grey;
-    width: 49%;
-    margin-left: 3%;
-}  */
+}

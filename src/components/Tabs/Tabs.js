@@ -26,6 +26,7 @@ class Tabs extends Component {
 
     this.state = {
       activeTab: this.props.children[0].props.label,
+      plusTab: "+",
     };
   }
 
@@ -33,13 +34,16 @@ class Tabs extends Component {
     var codeEditors = document.querySelectorAll('.CodeMirror');
     for (let i = 0; i < codeEditors.length; i++) {
       codeEditors[i].CodeMirror.refresh();
-      console.log(codeEditors[i].CodeMirror);
     }
   }
 
   onClickTabItem = (tab) => {
-    this.setState({ activeTab: tab });
-    setTimeout(this.refreshEditors, 5);
+    if (tab == this.state.plusTab) {
+      console.log("plus tab clicked");
+    } else {
+      this.setState({ activeTab: tab });
+      setTimeout(this.refreshEditors, 5);
+    }
   }
 
   render() {

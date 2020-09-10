@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import CodeMirror from 'react-codemirror';
+import {UnControlled as CodeMirror} from 'react-codemirror2';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
+import 'codemirror/mode/xml/xml';
+import 'codemirror/mode/htmlmixed/htmlmixed';
 
 import '../css/Previews/TextEditor.css';
 
@@ -9,37 +11,49 @@ class TextEditor extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          code: "// JSON code here",
+            mode: props.mode,
+            code: props.value,
         };
+        this.name = props.name;
     }
-
-    updateText = (newText) => {
+    changeMode = (event) => {
+		var mode = event.target.value;
+		this.setState({
+			mode: mode,
+			code: this.code
+        });
+        this.props.onModeChange(mode, "mode", this.name);
+	}
+    updateText = (e, d, newText) => {
         this.setState({
 			code: newText,
-		});
+        });
+        console.log(newText);
+        this.props.onValueChange(newText, "value", this.name);
     }
-
     render() {
         var options = {
             lineNumbers: true,
-            mode: 'javascript',
+            lineWrapping: true,
+            mode: this.props.mode,
             smartIndent: false,
             autoRefresh: true,
         };
-        return <CodeMirror value={this.state.code} onChange={this.updateText} options={options} />
-        // if (this.props.type === "request") {
-		//     return (
-        //         <span id="request-window">
-        //         <CodeMirror value={this.state.code} onChange={this.updateText} options={options} />
-        //         </span>
-        //     );
-        // } else {
-        //     return (
-        //         <span id="response-window">
-        //         <CodeMirror value={this.state.code} onChange={this.updateText} options={options} />
-        //         </span>
-        //     );
-        // }
+        console.log(this.props.value);
+
+        return (
+            <div>
+                <CodeMirror value={this.props.value} onChange={this.updateText} options={options} />
+                <span id="mode-dropdown">
+                    <select onChange={this.changeMode} value={this.props.mode}>
+                        <option value="javascript">JSON</option>
+                        <option value="htmlmixed">HTML</option>
+                        <option value="xml">XML</option>
+                        <option value="text">Text</option>
+                    </select>
+                </span>
+            </div>
+        );
     }
 }
 

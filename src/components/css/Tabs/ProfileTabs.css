@@ -2,63 +2,92 @@
 *   Profile Tabs CSS file.
 */
 
-/* Default Tab configuration -- mainly for debugging purposes */
-.tab-list {  
-    border-bottom: 1px solid rgb(141, 141, 141);
-    padding-left: 0;
-    margin-bottom: 0px;
-}
-.tab-list-item {
+.nav-tabs .tab {
+    background-color: white;
+    padding: 5px 10px 5px 10px;
+    margin-right: 5px;
+    border-top: 3px solid white;
+    border-bottom: 3px solid white;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
     cursor: pointer;
-    display: inline-block;
-    list-style: none;
-    margin-bottom: -1px;
-    padding: 0.5rem 0.75rem;
+    margin-bottom: -9px;
 }
-.tab-list-active {
-    background-color: rgb(216, 216, 216);
-    border: solid rgb(141, 141, 141);
-    border-width: 1px 1px 0 1px;
+.nav-tabs .active {
+    border-top: 3px solid #0741ad;
 }
-.tab-list-item label {
+.add-tab-li {
+    border-top: 3px solid #0741ad;
+    background-color: #0741ad;
+    padding: 0px;
+    margin-right: 5px;
+    border-bottom: 3px solid 0741ad;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    width: 30px;
+    height: 25px;
+    position: relative;
+    top: 15px;
+    text-align: center;
+    font-size: 20px;
+    color: white;
     cursor: pointer;
-    margin-bottom: 0px;
+    line-height: 17px;
+}
+.add-tab-li:hover {
+    border-top: 3px solid #0741ad;
+    background-color: white;
+    color: #ad7307;
 }
 
+.delete-btn {
+    margin-left: 5px;
+    /* padding: 0px; */
+    /* border: 1px solid red; */
+}
+.delete-btn span {
+    /* border: 1px solid red; */
+    /* position: relative; */
+    /* height: 10px; */
+}
 
-.tabs-profile > .tab-content {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom: 3px solid #ccc;
-    border-left: 3px solid #ccc;
-    border-right: 3px solid #ccc;
+.tabs-content {
     padding: 20px;
     overflow: auto;
-}
-.tabs-profile {
-    height: 100%;
-}
-.tabs-profile > .tab-list {  
-    padding-left: 0;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border: 3px solid #ccc;
-}
-.tabs-profile  > .tab-list > .tab-list-item {
-    margin: -3px;
-    padding: 5px 20px 5px 20px;
-}
-.tabs-profile > .tab-list > .tab-list-active {
     background-color: white;
-    border: solid #ccc;
-    border-bottom: 0px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-width: 3px 3px 0 3px;
 }
 .request-method-select {
-    min-width: 90px;
-    width: 5%;
+    width: 12%;
     font-size: 12px;
     margin-bottom: 0px;
+    display: inline-block;
+    margin-right: 2%;
+}
+.request-url {
+    width: 35%;
+    display: inline-block;
+    margin-right: 5px;
+}
+.send-btn {
+    position: relative;
+    top: 27px;
+    float: right;
+    /* border: 2px solid purple; */
+    /* margin: 0 auto; */
+}
+.send-btn > button {
+    color: white;
+}
+#request-header {
+    display: inline-block;
+    width: 49%;
+    margin-right: 2%;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 12px;
+}
+#response-header {
+    width: 49%;
+    display: inline-block;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 12px;
 }
