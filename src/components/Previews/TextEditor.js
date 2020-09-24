@@ -39,7 +39,6 @@ class TextEditor extends Component {
             smartIndent: false,
             autoRefresh: true,
         };
-        console.log(this.props.value);
 
         return (
             <div>

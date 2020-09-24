@@ -8,7 +8,7 @@ import TextEditor from "../Previews/TextEditor";
 
 class ProfileTabs extends React.Component {
 
-  counter = 2;
+  // counter = 2;
 
   state = {
     tabs: [
@@ -41,8 +41,10 @@ class ProfileTabs extends React.Component {
         responseHeaderMode: "javascript",
         responseBodyMode: "javascript",
     },
+    counter: 1,
   };
 
+  // Renders all the tabs as well as a 'plus' to add another tab profile.
   createTabs = () => {
     const { tabs, currentTab } = this.state;
 
@@ -55,7 +57,7 @@ class ProfileTabs extends React.Component {
         </label>
         <button onClick={() => this.handleDeleteTab(tab)} 
             type="button" className="close delete-btn" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+            &times;
         </button>
         </li>
       );
@@ -89,6 +91,7 @@ class ProfileTabs extends React.Component {
         httpMethod: e.target.value
       }
     });
+    localStorage.setItem('profiles',JSON.stringify(this.state));
   };
 
   // Handler for changing the URL.
@@ -111,6 +114,7 @@ class ProfileTabs extends React.Component {
         url: e.target.value
       }
     });
+    localStorage.setItem('profiles',JSON.stringify(this.state));
   };
 
   // Handler for changing text editor info (value/mode).
@@ -151,20 +155,26 @@ class ProfileTabs extends React.Component {
         else if (element === "responseHeader") { this.setState({ tabs: updatedTabs, currentTab: { ...currentTab, responseHeaderMode: value }}); }
         else if (element === "responseBody") { this.setState({ tabs: updatedTabs, currentTab: { ...currentTab, responseBodyMode: value }}); }
     }
+    localStorage.setItem('profiles',JSON.stringify(this.state));
   };
 
   handleSelectTab = tab => {
     this.setState({
       currentTab: tab,
     });
+    localStorage.setItem('profiles',JSON.stringify(this.state));
   };
 
   handleAddTab = () => {
     const { tabs } = this.state;
 
+    if (tabs.length == 0) {
+      this.state.counter = 1;
+    }
+
     const newTabObject =
       { id: uuid(), 
-        name: `Profile ${this.counter}`, 
+        name: `Profile ${this.state.counter}`, 
         httpMethod: "GET",
         url: "",
         requestHeader: "// JSON",
@@ -176,12 +186,14 @@ class ProfileTabs extends React.Component {
         responseHeaderMode: "javascript",
         responseBodyMode: "javascript",
     };
-    this.counter += 1;
 
-    this.setState({
+    const newState = {
       tabs: [...tabs, newTabObject],
       currentTab: newTabObject,
-    });
+      counter: this.state.counter + 1,
+    };
+    this.setState(newState);
+    localStorage.setItem('profiles',JSON.stringify(newState));
   };
 
   handleDeleteTab = tabToDelete => {
@@ -195,27 +207,76 @@ class ProfileTabs extends React.Component {
     const previousTab =
       tabs[tabToDeleteIndex - 1] || tabs[tabToDeleteIndex + 1] || {};
 
-    this.setState({
+    const newState = {
       tabs: updatedTabs,
-      currentTab: previousTab
-    });
+      currentTab: previousTab,
+      counter: this.state.counter,
+    };
+    this.setState(newState);
+    localStorage.setItem('profiles',JSON.stringify(newState));
   };
 
+  // React Life Cycle, loading from localstorage on refresh.
+  componentDidMount() {
+      if (localStorage.getItem('profiles')) {
+          this.profilesData = JSON.parse(localStorage.getItem('profiles'));
+          this.setState(this.profilesData);
+      } else {
+          this.setState({
+              tabs: [
+                  // default profile
+                  { id: 1, 
+                    name: "Profile 1", 
+                    httpMethod: "GET",
+                    url: "",
+                    requestHeader: "// JSON",
+                    requestBody: "// JSON",
+                    responseHeader: "// JSON",
+                    responseBody: "// JSON",
+                    requestHeaderMode: "javascript",
+                    requestBodyMode: "javascript",
+                    responseHeaderMode: "javascript",
+                    responseBodyMode: "javascript",
+                  },
+                ],
+                currentTab: {   
+                    id: 1, 
+                    name: "Profile 1", 
+                    httpMethod: "GET",
+                    url: "",
+                    requestHeader: "// JSON",
+                    requestBody: "// JSON",
+                    responseHeader: "// JSON",
+                    responseBody: "// JSON",
+                    requestHeaderMode: "javascript",
+                    requestBodyMode: "javascript",
+                    responseHeaderMode: "javascript",
+                    responseBodyMode: "javascript",
+                },
+          })
+      }
+  }
+
   render() {
+
+    if (this.state.tabs.length === 0) {
+        return (
+            <div className="no-profiles">
+                Make a <button className="btn btn-primary" onClick={this.handleAddTab}>New</button> profile to begin testing your API!
+            </div>
+        );
+    }
     const { currentTab } = this.state;
-    return (
+    return currentTab !== {} ? (
       <div className="container">
         <div className="well">
-          
           {this.createTabs()}
           <div className="tab-content">
               <div>
-
                 <div className="tabs-content">
                         <div className="form-group request-method-select">
                             <label>HTTP Method:</label>
                             <select onChange={this.handleHttpChange} value={currentTab.httpMethod} className="form-control">
-                                {console.log(currentTab.httpMethod === "GET")}
                                 <option>GET</option>
                                 <option>POST</option>
                                 <option>PUT</option>
@@ -223,17 +284,13 @@ class ProfileTabs extends React.Component {
                                 <option>DELETE</option>
                             </select>
                         </div>
-
                         <div className="form-group request-url">
                             <input onChange={this.handleUrlChange} value={currentTab.url} type="text" className="form-control" placeholder="URL" name="url-input" />
                         </div>
-                        
                         <div className="form-group send-btn">
                             <button type="button" className="btn btn-primary">SEND</button>
                         </div>
-
                         <br/>
-
                         <h4 id="request-header">Request</h4>
                         <h4 id="response-header">Response</h4>
                         <br/>
@@ -253,8 +310,6 @@ class ProfileTabs extends React.Component {
                                     onModeChange={this.handleEditorChange}/>
                             </div>
                         </Tabs>
-
-                        
                         <Tabs tabType="tabs-response">
                             <div label="Header">
                                 <TextEditor name="responseHeader" 
@@ -276,6 +331,8 @@ class ProfileTabs extends React.Component {
           </div>
         </div>
       </div>
+    ) : (
+        <p>empty</p>
     );
   }
 }

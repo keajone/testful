@@ -17,7 +17,7 @@ const ToolNav = ({homePath}) => (
             {/* Start collapsable content */}
 
             {/* Create test cases */}
-            <li>
+            <li className="dropdown-container">
                 <div className="dropdown">
                     <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                         Create Test Case
@@ -31,7 +31,7 @@ const ToolNav = ({homePath}) => (
             </li>
 
             {/* Create test suites */}
-            <li>
+            <li className="dropdown-container">
                 <div className="dropdown">
                     <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                         Create Test Suite

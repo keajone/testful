@@ -39,3 +39,20 @@
     border-color: #0741ad;
     color: #d8e0f2;
 }
+.dropdown-container {
+    position: relative;
+    z-index: 1000;
+}
+/* .dropdown {
+     margin-top: 30%;
+    transform-style: preserve-3d;
+    transform: translate3d(0,38px,0) !important;
+ }
+ .dropdown-menu{
+     height: auto !important;
+     overflow: hidden;
+     position: fixed !important;
+     z-index: 1000;
+     transform-style: preserve-3d;
+     transform: translate3d(0,38px,0) !important;
+ } */
