@@ -3,12 +3,11 @@ import React from "react";
 import uuid from "uuid";
 
 // Component imports
+import Content from './ProfileTabContent';
 import Tabs from "./Tabs";
 import TextEditor from "../Previews/TextEditor";
 
 class ProfileTabs extends React.Component {
-
-  // counter = 2;
 
   state = {
     tabs: [
@@ -84,14 +83,16 @@ class ProfileTabs extends React.Component {
         return tab;
       }
     });
-    this.setState({
+    const newState = {
       tabs: updatedTabs,
       currentTab: {
         ...currentTab,
         httpMethod: e.target.value
-      }
-    });
-    localStorage.setItem('profiles',JSON.stringify(this.state));
+      },
+      counter: this.state.counter,
+    }
+    this.setState(newState);
+    localStorage.setItem('profiles',JSON.stringify(newState));
   };
 
   // Handler for changing the URL.
@@ -107,14 +108,16 @@ class ProfileTabs extends React.Component {
         return tab;
       }
     });
-    this.setState({
+    const newState = {
       tabs: updatedTabs,
       currentTab: {
         ...currentTab,
         url: e.target.value
-      }
-    });
-    localStorage.setItem('profiles',JSON.stringify(this.state));
+      },
+      counter: this.state.counter,
+    }
+    this.setState(newState);
+    localStorage.setItem('profiles',JSON.stringify(newState));
   };
 
   // Handler for changing text editor info (value/mode).
@@ -141,32 +144,39 @@ class ProfileTabs extends React.Component {
         return tab;
       }
     });
+    var newState;
     if (type === "value")
     {
-        if (element === "requestHeader") { this.setState({ tabs: updatedTabs, currentTab: { ...currentTab, requestHeader: value }}); }
-        else if (element === "requestBody") { this.setState({ tabs: updatedTabs, currentTab: { ...currentTab, requestBody: value }}); }
-        else if (element === "responseHeader") { this.setState({ tabs: updatedTabs, currentTab: { ...currentTab, responseHeader: value }}); }
-        else if (element === "responseBody") { this.setState({ tabs: updatedTabs, currentTab: { ...currentTab, responseBody: value }}); }
+        if (element === "requestHeader") { newState = { tabs: updatedTabs, currentTab: { ...currentTab, requestHeader: value }}; }
+        else if (element === "requestBody") { newState = { tabs: updatedTabs, currentTab: { ...currentTab, requestBody: value }}; }
+        else if (element === "responseHeader") { newState = { tabs: updatedTabs, currentTab: { ...currentTab, responseHeader: value }}; }
+        else if (element === "responseBody") { newState = { tabs: updatedTabs, currentTab: { ...currentTab, responseBody: value }}; }
     } 
     else if (type === "mode")
     {
-        if (element === "requestHeader") { this.setState({ tabs: updatedTabs, currentTab: { ...currentTab, requestHeaderMode: value }}); }
-        else if (element === "requestBody") { this.setState({ tabs: updatedTabs, currentTab: { ...currentTab, requestBodyMode: value }}); }
-        else if (element === "responseHeader") { this.setState({ tabs: updatedTabs, currentTab: { ...currentTab, responseHeaderMode: value }}); }
-        else if (element === "responseBody") { this.setState({ tabs: updatedTabs, currentTab: { ...currentTab, responseBodyMode: value }}); }
+        if (element === "requestHeader") { newState = { tabs: updatedTabs, currentTab: { ...currentTab, requestHeaderMode: value }}; }
+        else if (element === "requestBody") { newState = { tabs: updatedTabs, currentTab: { ...currentTab, requestBodyMode: value }}; }
+        else if (element === "responseHeader") { newState = { tabs: updatedTabs, currentTab: { ...currentTab, responseHeaderMode: value }}; }
+        else if (element === "responseBody") { newState = { tabs: updatedTabs, currentTab: { ...currentTab, responseBodyMode: value }}; }
     }
-    localStorage.setItem('profiles',JSON.stringify(this.state));
+    newState.counter = this.state.counter;
+    this.setState(newState);
+    localStorage.setItem('profiles',JSON.stringify(newState));
   };
 
   handleSelectTab = tab => {
-    this.setState({
+    const newState = {
+      tabs: this.state.tabs,
       currentTab: tab,
-    });
-    localStorage.setItem('profiles',JSON.stringify(this.state));
+      counter: this.state.counter,
+    }
+    this.setState(newState);
+    localStorage.setItem('profiles',JSON.stringify(newState));
   };
 
   handleAddTab = () => {
     const { tabs } = this.state;
+    console.log(tabs);
 
     if (tabs.length == 0) {
       this.state.counter = 1;
@@ -217,7 +227,7 @@ class ProfileTabs extends React.Component {
   };
 
   // React Life Cycle, loading from localstorage on refresh.
-  componentDidMount() {
+  componentWillMount() {
       if (localStorage.getItem('profiles')) {
           this.profilesData = JSON.parse(localStorage.getItem('profiles'));
           this.setState(this.profilesData);
@@ -271,64 +281,11 @@ class ProfileTabs extends React.Component {
       <div className="container">
         <div className="well">
           {this.createTabs()}
-          <div className="tab-content">
-              <div>
-                <div className="tabs-content">
-                        <div className="form-group request-method-select">
-                            <label>HTTP Method:</label>
-                            <select onChange={this.handleHttpChange} value={currentTab.httpMethod} className="form-control">
-                                <option>GET</option>
-                                <option>POST</option>
-                                <option>PUT</option>
-                                <option>PATCH</option>
-                                <option>DELETE</option>
-                            </select>
-                        </div>
-                        <div className="form-group request-url">
-                            <input onChange={this.handleUrlChange} value={currentTab.url} type="text" className="form-control" placeholder="URL" name="url-input" />
-                        </div>
-                        <div className="form-group send-btn">
-                            <button type="button" className="btn btn-primary">SEND</button>
-                        </div>
-                        <br/>
-                        <h4 id="request-header">Request</h4>
-                        <h4 id="response-header">Response</h4>
-                        <br/>
-                        <Tabs tabType="tabs-request">
-                            <div label="Header">
-                                <TextEditor name="requestHeader" 
-                                    value={currentTab.requestHeader} 
-                                    mode={currentTab.requestHeaderMode} 
-                                    onValueChange={this.handleEditorChange} 
-                                    onModeChange={this.handleEditorChange}/>
-                            </div>
-                            <div label="Body">
-                                <TextEditor name="requestBody" 
-                                    value={currentTab.requestBody} 
-                                    mode={currentTab.requestBodyMode} 
-                                    onValueChange={this.handleEditorChange} 
-                                    onModeChange={this.handleEditorChange}/>
-                            </div>
-                        </Tabs>
-                        <Tabs tabType="tabs-response">
-                            <div label="Header">
-                                <TextEditor name="responseHeader" 
-                                    value={currentTab.responseHeader} 
-                                    mode={currentTab.responseHeaderMode} 
-                                    onValueChange={this.handleEditorChange} 
-                                    onModeChange={this.handleEditorChange}/>
-                            </div>
-                            <div label="Body">
-                                <TextEditor name="responseBody"
-                                    value={currentTab.responseBody} 
-                                    mode={currentTab.responseBodyMode} 
-                                    onValueChange={this.handleEditorChange} 
-                                    onModeChange={this.handleEditorChange}/>
-                            </div>
-                        </Tabs>                        
-                    </div>
-              </div>
-          </div>
+          <Content currentTab={currentTab} 
+            handleHttpChange={this.handleHttpChange} handleAddTab={this.handleAddTab} 
+            handleDeleteTab={this.handleDeleteTab} handleEditorChange={this.handleEditorChange}
+            handleSelectTab={this.handleSelectTab} handleUrlChange={this.handleUrlChange} 
+          />
         </div>
       </div>
     ) : (
