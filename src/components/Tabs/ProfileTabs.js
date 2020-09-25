@@ -47,7 +47,7 @@ class ProfileTabs extends React.Component {
 
     const allTabs = tabs.map(tab => {
       return (
-        <li className={currentTab.id === tab.id ? "tab active" : "tab"}>
+        <li className={currentTab.id === tab.id ? "tab active" : "tab"} key={tab.id}>
         <label
             onClick={() => this.handleSelectTab(tab)}>
             {tab.name}
@@ -141,6 +141,7 @@ class ProfileTabs extends React.Component {
       } else {
         return tab;
       }
+      return {}; // gets rid of warning message, shouldnt execute though.
     });
     var newState;
     if (type === "value")
@@ -176,8 +177,12 @@ class ProfileTabs extends React.Component {
     const { tabs } = this.state;
     console.log(tabs);
 
-    if (tabs.length == 0) {
-      this.state.counter = 1;
+    if (tabs.length === 0) {
+      this.setState({
+        tabs: this.state.tabs,
+        currentTab: this.state.currentTab,
+        counter: 1,
+      });
     }
 
     const newTabObject =
@@ -225,7 +230,7 @@ class ProfileTabs extends React.Component {
   };
 
   // React Life Cycle, loading from localstorage on refresh.
-  componentWillMount() {
+  componentDidMount() {
       if (localStorage.getItem('profiles')) {
           this.profilesData = JSON.parse(localStorage.getItem('profiles'));
           this.setState(this.profilesData);

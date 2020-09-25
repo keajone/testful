@@ -16,8 +16,8 @@ class ProfileTabContent extends React.Component {
         this.handleUrlChange = props.handleUrlChange;
     }
 
-    componentWillReceiveProps(props) {
-        this.setState({currentTab: props.currentTab});
+    static getDerivedStateFromProps(props) {
+        return {currentTab: props.currentTab};
     }
 
     handleSendClick = async (e) => {

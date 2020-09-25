@@ -20,7 +20,7 @@ function Home() {
             </div>
 
             <div className="top-header-container"> 
-                <img className="header-mountain-pic" src="./mountains.jpg"/>
+                <img className="header-mountain-pic" src="./mountains.jpg" alt="Testful"/>
             </div>
             <div id="about-header">
                 <h2>About</h2><hr />
@@ -58,7 +58,8 @@ function Home() {
             </div>
             <div className="dev-info-content">
                 <p>
-                    <a href="https://gitlab.com/keajone/testful/">Source Code</a> | <a>Documentation</a><br/>
+                    <a className="btn btn-primary" href="https://gitlab.com/keajone/testful/">Source Code</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" className="btn btn-primary">Documentation</button><br/>
                 </p>
                 <h3>Quick Tutorial:</h3>
             </div>

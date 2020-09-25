@@ -38,7 +38,7 @@ class Tabs extends Component {
   }
 
   onClickTabItem = (tab) => {
-    if (tab == this.state.plusTab) {
+    if (tab === this.state.plusTab) {
       console.log("plus tab clicked");
     } else {
       this.setState({ activeTab: tab });
@@ -78,7 +78,7 @@ class Tabs extends Component {
           {children.map((child) => {
             return (
                 // Tab becomes hidden if not active
-                <div style={{ display: child.props.label == activeTab ? 'block': 'none'}}>
+                <div style={{ display: child.props.label === activeTab ? 'block': 'none'}} key={child.props.label}>
                     {child.props.children}
                 </div>
             );

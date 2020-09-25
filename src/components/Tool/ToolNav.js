@@ -10,7 +10,7 @@ const ToolNav = ({homePath}) => (
             {/* Logo */}
             <li>
                 <a href={homePath}>
-                    <img src="/logo-nav.jpg" height="50px"/>
+                    <img src="/logo-nav.jpg" height="50px" alt="Home"/>
                 </a>
             </li>
 
@@ -23,9 +23,9 @@ const ToolNav = ({homePath}) => (
                         Create Test Case
                     </button>
                     <div className="dropdown-menu">
-                        <a className="dropdown-item" href="#">Link 1</a>
-                        <a className="dropdown-item" href="#">Link 2</a>
-                        <a className="dropdown-item" href="#">Link 3</a>
+                        <button className="dropdown-item">Link 1</button>
+                        <button className="dropdown-item">Link 2</button>
+                        <button className="dropdown-item">Link 3</button>
                     </div>
                 </div>
             </li>
@@ -37,9 +37,9 @@ const ToolNav = ({homePath}) => (
                         Create Test Suite
                     </button>
                     <div className="dropdown-menu">
-                        <a className="dropdown-item" href="#">Link 1</a>
-                        <a className="dropdown-item" href="#">Link 2</a>
-                        <a className="dropdown-item" href="#">Link 3</a>
+                        <button className="dropdown-item">Link 1</button>
+                        <button className="dropdown-item">Link 2</button>
+                        <button className="dropdown-item">Link 3</button>
                     </div>
                 </div>
             </li>

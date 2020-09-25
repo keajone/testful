@@ -28,7 +28,6 @@ class TextEditor extends Component {
         this.setState({
 			code: newText,
         });
-        console.log(newText);
         this.props.onValueChange(newText, "value", this.name);
     }
     render() {
