@@ -1,5 +1,6 @@
 // Module imports
 import React from "react";
+import HTTP from "../../http/http";
 
 // Component imports
 import Tabs from "./Tabs";
@@ -17,6 +18,25 @@ class ProfileTabContent extends React.Component {
 
     componentWillReceiveProps(props) {
         this.setState({currentTab: props.currentTab});
+    }
+
+    handleSendClick = async (e) => {
+
+        //Get the method
+
+        //Get the URL
+
+        //Get the request header
+
+        //Get the request body
+
+        //TODO: Add other options for an HTTP request. Get them here!!
+
+        //Make request
+        var http = new HTTP({}, {}, "GET", "https://api.github.com");
+        await http.request();
+
+        console.log(http.responseBody);
     }
 
     render() {
@@ -38,7 +58,7 @@ class ProfileTabContent extends React.Component {
                         <input onChange={this.handleUrlChange} value={this.state.currentTab.url} type="text" className="form-control" placeholder="URL" name="url-input" />
                     </div>
                     <div className="form-group send-btn">
-                        <button type="button" className="btn btn-primary">SEND</button>
+                        <button type="button" onClick={this.handleSendClick} className="btn btn-primary">SEND</button>
                     </div>
                     <br/>
                     <h4 id="request-header">Request</h4>

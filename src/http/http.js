@@ -8,16 +8,14 @@ class HTTP {
     }
 
     request = async () => {
-        console.log("before fetch");
         const response = await fetch(this.url, {
             method: this.method,
             headers: this.headers,
             body: JSON.stringify(this.body),
         });
         const json = await response.json();
-        console.log("after fetch");
 
-        console.log(json);
+        this.responseBody = json;
     }
 
 }

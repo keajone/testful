@@ -4,8 +4,6 @@ import uuid from "uuid";
 
 // Component imports
 import Content from './ProfileTabContent';
-import Tabs from "./Tabs";
-import TextEditor from "../Previews/TextEditor";
 
 class ProfileTabs extends React.Component {
 
