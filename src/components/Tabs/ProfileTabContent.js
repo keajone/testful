@@ -147,13 +147,6 @@ class ProfileTabContent extends React.Component {
                     <h4 id="response-header">Response</h4>
                     <br/>
                     <Tabs tabType="tabs-request">
-                        <div label="Header">
-                            <TextEditor name="requestHeader" readOnly={false} 
-                                value={this.state.currentTab.requestHeader} 
-                                mode={this.state.currentTab.requestHeaderMode} 
-                                onValueChange={this.handleEditorChange} 
-                                onModeChange={this.handleEditorChange}/>
-                        </div>
                         <div label="Body">
                             <TextEditor name="requestBody" readOnly={false} 
                                 value={this.state.currentTab.requestBody} 
@@ -161,19 +154,26 @@ class ProfileTabContent extends React.Component {
                                 onValueChange={this.handleEditorChange} 
                                 onModeChange={this.handleEditorChange}/>
                         </div>
-                    </Tabs>
-                    <Tabs tabType="tabs-response">
                         <div label="Header">
-                            <TextEditor name="responseHeader" readOnly="nocursor" 
-                                value={this.state.currentTab.responseHeader} 
-                                mode={this.state.currentTab.responseHeaderMode} 
+                            <TextEditor name="requestHeader" readOnly={false} 
+                                value={this.state.currentTab.requestHeader} 
+                                mode={this.state.currentTab.requestHeaderMode} 
                                 onValueChange={this.handleEditorChange} 
                                 onModeChange={this.handleEditorChange}/>
                         </div>
+                    </Tabs>
+                    <Tabs tabType="tabs-response">
                         <div label="Body">
                             <TextEditor name="responseBody" readOnly="nocursor" 
                                 value={this.state.currentTab.responseBody} 
                                 mode={this.state.currentTab.responseBodyMode} 
+                                onValueChange={this.handleEditorChange} 
+                                onModeChange={this.handleEditorChange}/>
+                        </div>
+                        <div label="Header">
+                            <TextEditor name="responseHeader" readOnly="nocursor" 
+                                value={this.state.currentTab.responseHeader} 
+                                mode={this.state.currentTab.responseHeaderMode} 
                                 onValueChange={this.handleEditorChange} 
                                 onModeChange={this.handleEditorChange}/>
                         </div>
