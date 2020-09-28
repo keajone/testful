@@ -6,6 +6,7 @@ import HTTP from "../../http/http";
 import Tabs from "./Tabs";
 import TextEditor from "../Previews/TextEditor";
 import RenameModal from "./RenameModal";
+import LoadingAnimation from "../Animations/LoadingAnimation";
 
 class ProfileTabContent extends React.Component {
 
@@ -24,8 +25,10 @@ class ProfileTabContent extends React.Component {
 
     // Handler function for when the send button is clicked.
     handleSendClick = async (e) => {
-
         var method, url, header, body;
+
+        // Start loading animation
+        this.toggleLoadingAnimation();
 
         // Hide error box (if it wasn't already)
         document.getElementById("error-box").style.display = "none";
@@ -82,7 +85,15 @@ class ProfileTabContent extends React.Component {
             console.log(err);
             document.getElementById("error-box").innerHTML = err.message;
             document.getElementById("error-box").style.display = "block";
-        }        
+        }
+        
+        // End loading animation
+        this.toggleLoadingAnimation();
+    }
+
+    // Toggles loading animation to signal that a request has been made.
+    toggleLoadingAnimation = () => {
+        LoadingAnimation.toggle(this.state.currentTab.id);
     }
 
     // Updates the response header preview window.
@@ -95,7 +106,7 @@ class ProfileTabContent extends React.Component {
     setResponseBody = (value) => {
         // TODO: This re-formatting works for JSON, but what if the body is HTML/Text?
         var object = JSON.parse(value);
-        var newValue = JSON.stringify(object, null, '\t');
+        var newValue = JSON.stringify(object, null, 2);
         this.handleEditorChange(newValue, "value", "responseBody");
     }
 
@@ -166,7 +177,8 @@ class ProfileTabContent extends React.Component {
                                 onValueChange={this.handleEditorChange} 
                                 onModeChange={this.handleEditorChange}/>
                         </div>
-                    </Tabs>                        
+                    </Tabs>
+                    <LoadingAnimation id={this.state.currentTab.id}/>                
             </div>
             </div>
         </div>
