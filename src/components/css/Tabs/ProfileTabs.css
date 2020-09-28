@@ -98,6 +98,10 @@
 .send-btn > button {
     color: white;
 }
+#error-box {
+    display: none;
+    /* margin-bottom: 0px; */
+}
 #request-header {
     display: inline-block;
     width: 49%;

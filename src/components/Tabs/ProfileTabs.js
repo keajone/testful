@@ -1,43 +1,19 @@
 // Module imports
 import React from "react";
-import uuid from "uuid";
 
 // Component imports
 import Content from './ProfileTabContent';
+import Profile from './Profile';
 
 class ProfileTabs extends React.Component {
 
   state = {
     tabs: [
       // default profile
-      { id: 1, 
-        name: "Profile 1", 
-        httpMethod: "GET",
-        url: "",
-        requestHeader: "// JSON",
-        requestBody: "// JSON",
-        responseHeader: "// JSON",
-        responseBody: "// JSON",
-        requestHeaderMode: "javascript",
-        requestBodyMode: "javascript",
-        responseHeaderMode: "javascript",
-        responseBodyMode: "javascript",
-      },
+      Profile.getDefaultTab(),
     ],
-    currentTab: {   
-        id: 1, 
-        name: "Profile 1", 
-        httpMethod: "GET",
-        url: "",
-        requestHeader: "// JSON",
-        requestBody: "// JSON",
-        responseHeader: "// JSON",
-        responseBody: "// JSON",
-        requestHeaderMode: "javascript",
-        requestBodyMode: "javascript",
-        responseHeaderMode: "javascript",
-        responseBodyMode: "javascript",
-    },
+    // default profile
+    currentTab: Profile.getDefaultTab(),
     counter: 1,
   };
 
@@ -68,11 +44,37 @@ class ProfileTabs extends React.Component {
     );
   };
 
+  // Handler for changing the profile name.
+  handleNameChange = (newName) => {
+    const { tabs, currentTab, counter } = this.state;
+    const updatedTabs = tabs.map(tab => {
+      if (tab.id === currentTab.id) {
+        return {
+          ...tab,
+          name: newName
+        };
+      } else {
+        return tab;
+      }
+    });
+    const newState = {
+      tabs: updatedTabs,
+      currentTab: {
+        ...currentTab,
+        name: newName
+      },
+      counter: counter,
+    }
+    console.log(newState);
+    this.setState(newState);
+    localStorage.setItem('profiles',JSON.stringify(newState));
+  }
+
   // Handler for changing the select HTTP method.
   handleHttpChange = e => {
     const { tabs, currentTab } = this.state;
     const updatedTabs = tabs.map(tab => {
-      if (tab.name === currentTab.name) {
+      if (tab.id === currentTab.id) {
         return {
           ...tab,
           httpMethod: e.target.value
@@ -97,7 +99,7 @@ class ProfileTabs extends React.Component {
   handleUrlChange = e => {
     const { tabs, currentTab } = this.state;
     const updatedTabs = tabs.map(tab => {
-      if (tab.name === currentTab.name) {
+      if (tab.id === currentTab.id) {
         return {
           ...tab,
           url: e.target.value
@@ -123,7 +125,7 @@ class ProfileTabs extends React.Component {
   handleEditorChange = (value, type, element) => {
     const { tabs, currentTab } = this.state;
     const updatedTabs = tabs.map(tab => {
-      if (tab.name === currentTab.name) {
+      if (tab.id === currentTab.id) {
         if (type === "value")
         {
             if (element === "requestHeader") { return { ...tab, requestHeader: value }; }
@@ -163,6 +165,7 @@ class ProfileTabs extends React.Component {
     localStorage.setItem('profiles',JSON.stringify(newState));
   };
 
+  // Handler for selecting tabs.
   handleSelectTab = tab => {
     const newState = {
       tabs: this.state.tabs,
@@ -173,10 +176,11 @@ class ProfileTabs extends React.Component {
     localStorage.setItem('profiles',JSON.stringify(newState));
   };
 
+  // Handler for adding new tab profiles.
   handleAddTab = () => {
     const { tabs } = this.state;
-    console.log(tabs);
 
+    // No tabs currently present
     if (tabs.length === 0) {
       this.setState({
         tabs: this.state.tabs,
@@ -185,21 +189,7 @@ class ProfileTabs extends React.Component {
       });
     }
 
-    const newTabObject =
-      { id: uuid(), 
-        name: `Profile ${this.state.counter}`, 
-        httpMethod: "GET",
-        url: "",
-        requestHeader: "// JSON",
-        requestBody: "// JSON",
-        responseHeader: "// JSON",
-        responseBody: "// JSON",
-        requestHeaderMode: "javascript",
-        requestBodyMode: "javascript",
-        responseHeaderMode: "javascript",
-        responseBodyMode: "javascript",
-    };
-
+    const newTabObject = Profile.getNewTab(this.state.counter);
     const newState = {
       tabs: [...tabs, newTabObject],
       currentTab: newTabObject,
@@ -209,6 +199,7 @@ class ProfileTabs extends React.Component {
     localStorage.setItem('profiles',JSON.stringify(newState));
   };
 
+  // Handler for deleting a selected tab.
   handleDeleteTab = tabToDelete => {
     const { tabs } = this.state;
     const tabToDeleteIndex = tabs.findIndex(tab => tab.id === tabToDelete.id);
@@ -236,37 +227,13 @@ class ProfileTabs extends React.Component {
           this.setState(this.profilesData);
       } else {
           this.setState({
-              tabs: [
-                  // default profile
-                  { id: 1, 
-                    name: "Profile 1", 
-                    httpMethod: "GET",
-                    url: "",
-                    requestHeader: "// JSON",
-                    requestBody: "// JSON",
-                    responseHeader: "// JSON",
-                    responseBody: "// JSON",
-                    requestHeaderMode: "javascript",
-                    requestBodyMode: "javascript",
-                    responseHeaderMode: "javascript",
-                    responseBodyMode: "javascript",
-                  },
-                ],
-                currentTab: {   
-                    id: 1, 
-                    name: "Profile 1", 
-                    httpMethod: "GET",
-                    url: "",
-                    requestHeader: "// JSON",
-                    requestBody: "// JSON",
-                    responseHeader: "// JSON",
-                    responseBody: "// JSON",
-                    requestHeaderMode: "javascript",
-                    requestBodyMode: "javascript",
-                    responseHeaderMode: "javascript",
-                    responseBodyMode: "javascript",
-                },
-          })
+            tabs: [
+              // default profile
+              Profile.getDefaultTab(),
+            ],
+            // default profile
+            currentTab: Profile.getDefaultTab(),
+          });
       }
   }
 
@@ -284,7 +251,7 @@ class ProfileTabs extends React.Component {
       <div className="container">
         <div className="well">
           {this.createTabs()}
-          <Content currentTab={currentTab} 
+          <Content tabs={this.state.tabs} currentTab={currentTab} handleNameChange={this.handleNameChange} 
             handleHttpChange={this.handleHttpChange} handleAddTab={this.handleAddTab} 
             handleDeleteTab={this.handleDeleteTab} handleEditorChange={this.handleEditorChange}
             handleSelectTab={this.handleSelectTab} handleUrlChange={this.handleUrlChange} 

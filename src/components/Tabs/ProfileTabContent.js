@@ -5,38 +5,98 @@ import HTTP from "../../http/http";
 // Component imports
 import Tabs from "./Tabs";
 import TextEditor from "../Previews/TextEditor";
+import RenameModal from "./RenameModal";
 
 class ProfileTabContent extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {currentTab: props.currentTab};
+        this.state = {tabs: props.tabs, currentTab: props.currentTab};
         this.handleEditorChange = props.handleEditorChange;
         this.handleHttpChange = props.handleHttpChange;
         this.handleUrlChange = props.handleUrlChange;
+        this.handleNameChange = props.handleNameChange;
     }
 
     static getDerivedStateFromProps(props) {
-        return {currentTab: props.currentTab};
+        return {tabs: props.tabs, currentTab: props.currentTab};
     }
 
+    // Handler function for when the send button is clicked.
     handleSendClick = async (e) => {
 
-        //Get the method
+        var method, url, header, body;
 
-        //Get the URL
+        // Hide error box (if it wasn't already)
+        document.getElementById("error-box").style.display = "none";
 
-        //Get the request header
+        try {
+            //Get the method
+            method = this.state.currentTab.httpMethod.toUpperCase();
+            if (method !== "GET" &&
+                method !== "POST" &&
+                method !== "PUT" &&
+                method !== "PATCH" &&
+                method !== "DELETE")
+                throw new Error("Must give valid HTTP method.");
 
-        //Get the request body
+            //Get the URL
+            url = this.state.currentTab.url;
+            if (url.length === 0)
+                throw new Error("Must give valid URL.");
 
-        //TODO: Add other options for an HTTP request. Get them here!!
+            //Get the request header
+            try {
+                if (this.state.currentTab.requestHeader.length > 0)
+                    header = JSON.parse(this.state.currentTab.requestHeader);
+            }
+            catch (err) {
+                throw new Error("Error parsing request header.");
+            }
 
-        //Make request
-        var http = new HTTP({}, {}, "GET", "https://api.github.com");
-        await http.request();
+            //Get the request body
+            try {
+                if (this.state.currentTab.requestBody.length > 0)
+                    body = JSON.parse(this.state.currentTab.requestBody);
+            }
+            catch (err) {
+                throw new Error("Error parsing request body.");
+            }
 
-        console.log(http.responseBody);
+            //TODO: Add other options for an HTTP request. Put them here.
+            //credentials
+            //what else?
+
+            //Make request
+            // var http = new HTTP({}, {}, "GET", "https://api.github.com");
+            var http = new HTTP(header, body, method, url);
+            await http.request();
+
+            //Set response header
+            this.setResponseHeader(http.responseHeader);
+
+            //Set response body
+            this.setResponseBody(http.responseBody);
+        }
+        catch (err) {
+            console.log(err);
+            document.getElementById("error-box").innerHTML = err.message;
+            document.getElementById("error-box").style.display = "block";
+        }        
+    }
+
+    // Updates the response header preview window.
+    setResponseHeader = (value) => {
+        // Currently I just set the response header 'as-is'
+        this.handleEditorChange(value, "value", "responseHeader");
+    }
+
+    // Updates the response body preview window.
+    setResponseBody = (value) => {
+        // TODO: This re-formatting works for JSON, but what if the body is HTML/Text?
+        var object = JSON.parse(value);
+        var newValue = JSON.stringify(object, null, '\t');
+        this.handleEditorChange(newValue, "value", "responseBody");
     }
 
     render() {
@@ -44,6 +104,14 @@ class ProfileTabContent extends React.Component {
         <div className="tab-content">
             <div>
             <div className="tabs-content">
+                    <div className="form-group rename-btn">
+                        {/**  This will trigger the "renameModal"  */}
+                        <button type="button" className="btn btn-primary btn-sm" 
+                                data-toggle="modal" data-target="#renameModal">
+                                    Rename Profile
+                        </button>
+                        <RenameModal handleNameChange={this.handleNameChange} tabs={this.state.tabs} currentTab={this.state.currentTab}/>
+                    </div>
                     <div className="form-group request-method-select">
                         <label>HTTP Method:</label>
                         <select onChange={this.handleHttpChange} value={this.state.currentTab.httpMethod} className="form-control">
@@ -60,20 +128,23 @@ class ProfileTabContent extends React.Component {
                     <div className="form-group send-btn">
                         <button type="button" onClick={this.handleSendClick} className="btn btn-primary">SEND</button>
                     </div>
-                    <br/>
+                    <div className="alert alert-danger" id="error-box" role="alert">
+                        This is a danger alert—check it out!
+                    </div>
+                    
                     <h4 id="request-header">Request</h4>
                     <h4 id="response-header">Response</h4>
                     <br/>
                     <Tabs tabType="tabs-request">
                         <div label="Header">
-                            <TextEditor name="requestHeader" 
+                            <TextEditor name="requestHeader" readOnly={false} 
                                 value={this.state.currentTab.requestHeader} 
                                 mode={this.state.currentTab.requestHeaderMode} 
                                 onValueChange={this.handleEditorChange} 
                                 onModeChange={this.handleEditorChange}/>
                         </div>
                         <div label="Body">
-                            <TextEditor name="requestBody" 
+                            <TextEditor name="requestBody" readOnly={false} 
                                 value={this.state.currentTab.requestBody} 
                                 mode={this.state.currentTab.requestBodyMode} 
                                 onValueChange={this.handleEditorChange} 
@@ -82,14 +153,14 @@ class ProfileTabContent extends React.Component {
                     </Tabs>
                     <Tabs tabType="tabs-response">
                         <div label="Header">
-                            <TextEditor name="responseHeader" 
+                            <TextEditor name="responseHeader" readOnly="nocursor" 
                                 value={this.state.currentTab.responseHeader} 
                                 mode={this.state.currentTab.responseHeaderMode} 
                                 onValueChange={this.handleEditorChange} 
                                 onModeChange={this.handleEditorChange}/>
                         </div>
                         <div label="Body">
-                            <TextEditor name="responseBody"
+                            <TextEditor name="responseBody" readOnly="nocursor" 
                                 value={this.state.currentTab.responseBody} 
                                 mode={this.state.currentTab.responseBodyMode} 
                                 onValueChange={this.handleEditorChange} 

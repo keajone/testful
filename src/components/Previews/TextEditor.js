@@ -15,6 +15,7 @@ class TextEditor extends Component {
             code: props.value,
         };
         this.name = props.name;
+        this.readOnly = props.readOnly;
     }
     changeMode = (event) => {
 		var mode = event.target.value;
@@ -37,6 +38,7 @@ class TextEditor extends Component {
             mode: this.props.mode,
             smartIndent: false,
             autoRefresh: true,
+            readOnly: this.readOnly,
         };
 
         return (

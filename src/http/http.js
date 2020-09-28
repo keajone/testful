@@ -5,17 +5,33 @@ class HTTP {
         this.requestBody = body;
         this.method = method;
         this.url = url;
+        this.responseBody = "";
+        this.responseHeader = "";
     }
 
     request = async () => {
-        const response = await fetch(this.url, {
-            method: this.method,
-            headers: this.headers,
-            body: JSON.stringify(this.body),
-        });
-        const json = await response.json();
+        try {
+            const response = await fetch(this.url, {
+                method: this.method,
+                headers: this.headers,
+                body: JSON.stringify(this.body),
+            });
 
-        this.responseBody = json;
+            // Collect response header information
+            var tmp = "";
+            response.headers.forEach(
+                function(val, key) { 
+                    tmp = tmp.concat(key +': '+ val +'\n');
+                }
+            );
+
+            this.responseHeader = tmp;
+            const json = await response.json();
+            this.responseBody = JSON.stringify(json);
+        }
+        catch (err) {
+            throw new Error("Failed to send "+ this.method +" request to '"+ this.url +"'.");
+        }
     }
 
 }
