@@ -7,6 +7,7 @@ import Tabs from "./Tabs";
 import TextEditor from "../Previews/TextEditor";
 import RenameModal from "./RenameModal";
 import LoadingAnimation from "../Animations/LoadingAnimation";
+import Error from "../ErrorHandling/Error";
 
 class ProfileTabContent extends React.Component {
 
@@ -31,7 +32,7 @@ class ProfileTabContent extends React.Component {
         this.toggleLoadingAnimation();
 
         // Hide error box (if it wasn't already)
-        document.getElementById("error-box").style.display = "none";
+        Error.clear();
 
         try {
             //Get the method
@@ -83,8 +84,7 @@ class ProfileTabContent extends React.Component {
         }
         catch (err) {
             console.log(err);
-            document.getElementById("error-box").innerHTML = err.message;
-            document.getElementById("error-box").style.display = "block";
+            Error.set(err.message);
         }
         
         // End loading animation
@@ -138,9 +138,6 @@ class ProfileTabContent extends React.Component {
                     </div>
                     <div className="form-group send-btn">
                         <button type="button" onClick={this.handleSendClick} className="btn btn-primary">SEND</button>
-                    </div>
-                    <div className="alert alert-danger" id="error-box" role="alert">
-                        This is a danger alert—check it out!
                     </div>
                     
                     <h4 id="request-header">Request</h4>

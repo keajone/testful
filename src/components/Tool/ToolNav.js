@@ -1,15 +1,25 @@
 import React from 'react';
 
+import Error from "../ErrorHandling/Error";
+
 import '../css/Tool/ToolNav.css';
 
-const ToolNav = ({homePath}) => (
+import { 
+    HomePath,
+    CreateNewTaskPath, 
+    ViewAllTasksPath, 
+    CreateNewSuitePath, 
+    ViewAllSuitesPath
+} from '../../App';
+
+const ToolNav = () => (
 
     <div className="ToolNav">
 
         <ul>
             {/* Logo */}
             <li>
-                <a href={homePath}>
+                <a href={HomePath}>
                     <img src="/logo-nav.jpg" height="50px" alt="Home"/>
                 </a>
             </li>
@@ -20,12 +30,12 @@ const ToolNav = ({homePath}) => (
             <li className="dropdown-container">
                 <div className="dropdown">
                     <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        Create Test Case
+                        Test Cases
                     </button>
                     <div className="dropdown-menu">
-                        <button className="dropdown-item">Link 1</button>
-                        <button className="dropdown-item">Link 2</button>
-                        <button className="dropdown-item">Link 3</button>
+                        <a href={CreateNewTaskPath} className="dropdown-item">Create New</a>
+                        <a href={ViewAllTasksPath} className="dropdown-item">View All</a>
+                        {/* <button className="dropdown-item">Link 3</button> */}
                     </div>
                 </div>
             </li>
@@ -34,22 +44,24 @@ const ToolNav = ({homePath}) => (
             <li className="dropdown-container">
                 <div className="dropdown">
                     <button type="button" className="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                        Create Test Suite
+                        Test Suites
                     </button>
                     <div className="dropdown-menu">
-                        <button className="dropdown-item">Link 1</button>
-                        <button className="dropdown-item">Link 2</button>
-                        <button className="dropdown-item">Link 3</button>
+                        <a href={CreateNewSuitePath} className="dropdown-item">Create New</a>
+                        <a href={ViewAllSuitesPath} className="dropdown-item">View All</a>
+                        {/* <button className="dropdown-item">Link 3</button> */}
                     </div>
                 </div>
             </li>
 
             {/* Home link */}
             <li>
-                <a type="button" className="btn btn-primary" href={homePath}>Home</a>
+                <a type="button" className="btn btn-primary" href={HomePath}>Home</a>
             </li>
 
         </ul>
+
+        <Error />
 
     </div>
 

@@ -100,8 +100,25 @@
 }
 #error-box {
     display: none;
-    /* margin-bottom: 0px; */
+    opacity: 1;
+    transition: opacity 0.6s;
+    position: fixed;
+    bottom: 0px;
+    z-index: 100;
+    width: 70%;
+    margin-left: 15%;
+    margin-bottom: 10px;
 }
+.closebtn {
+    margin-left: 15px;
+    color: #721c24;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
 #request-header {
     display: inline-block;
     width: 49%;
@@ -114,4 +131,13 @@
     display: inline-block;
     border-bottom: 1px solid #ccc;
     padding-bottom: 12px;
+}
+.rename-btn {
+    top: 70px;
+    position: absolute;
+    left: 1156px;
+}
+.rename-btn > button {
+    height: 25px;
+    line-height: 10px;
 }

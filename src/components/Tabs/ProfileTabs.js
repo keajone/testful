@@ -179,21 +179,25 @@ class ProfileTabs extends React.Component {
   // Handler for adding new tab profiles.
   handleAddTab = () => {
     const { tabs } = this.state;
+    var tmpCount = 1;
 
     // No tabs currently present
     if (tabs.length === 0) {
       this.setState({
         tabs: this.state.tabs,
         currentTab: this.state.currentTab,
-        counter: 1,
+        counter: tmpCount,
       });
     }
-
-    const newTabObject = Profile.getNewTab(this.state.counter);
+    else
+      tmpCount = this.state.counter;
+      
+    const newTabObject = Profile.getNewTab(tmpCount);
+    
     const newState = {
       tabs: [...tabs, newTabObject],
       currentTab: newTabObject,
-      counter: this.state.counter + 1,
+      counter: tmpCount + 1,
     };
     this.setState(newState);
     localStorage.setItem('profiles',JSON.stringify(newState));
@@ -233,6 +237,7 @@ class ProfileTabs extends React.Component {
             ],
             // default profile
             currentTab: Profile.getDefaultTab(),
+            counter: 1,
           });
       }
   }
