@@ -9,7 +9,8 @@ import {
     CreateNewCasePath, 
     ViewAllCasesPath, 
     CreateNewSuitePath, 
-    ViewAllSuitesPath
+    ViewAllSuitesPath,
+    TestToolPath,
 } from '../../App';
 
 const ToolNav = () => (
@@ -25,6 +26,11 @@ const ToolNav = () => (
             </li>
 
             {/* Start collapsable content */}
+
+            {/* Create test cases */}
+            <li className="dropdown-container">
+                <a type="button" className="btn btn-primary" href={TestToolPath}>Profiles</a>                  
+            </li>
 
             {/* Create test cases */}
             <li className="dropdown-container">

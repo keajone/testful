@@ -2,18 +2,18 @@
 *   ToolMain CSS file 
 */
 
-.ToolMain {
+/* .ToolMain {
     height: 100vh;
-}
+} */
 
 .ToolMainWindow {
-    margin-top: 25px;
+    /* margin-top: 25px;
     border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px; */
 
     /* height: 800px; */
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
-    /* background-color: white; */
+    width: 90%;
+    background-color: white;
 }

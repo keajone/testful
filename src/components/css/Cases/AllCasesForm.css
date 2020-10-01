@@ -1,3 +1,6 @@
+.new-case-container {
+    min-width: 1000px;
+}
 .case-item {
     width: 100%;
     border-top: 1px solid lightgray;
@@ -46,33 +49,48 @@
 }
 
 .li-edit {
+    padding-right: 18px;
     padding-top: 10px !important;
     /* margin-left: 500px; */
-    width: 40%;
+    width: 41%;
 }
 .li-edit button {
     float: right;
 }
 .li-run {
+    text-align: center;
+    min-width: 40px;
     padding-top: 10px !important;
-    float: right;
+    width: 4%;
 }
+
+/* Run button */
+.li-run button {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* loading spinner container */
+.li-run div {
+    padding-top: 5px;
+}
+
 .li-pass {
+    text-align: center;
+    min-width: 40px;
     display: none;
+    width: 4%;
     padding-top: 8px !important;
 }
 .li-pass button {
-    padding: 0px;
-    padding-left: 5px;
     padding-top: 5px;
 }
 .li-fail {
+    text-align: center;
+    width: 4%;
+    min-width: 40px;
     display: none;
     padding-top: 10px !important;
-}
-.li-loading {
-    margin-left: 6px;
-    /* border: 1px solid red; */
 }
 
 .case-list {
@@ -82,17 +100,51 @@
 }
 
 .case-search {
-    margin-top: 10px;
+    /* border: 1px solid purple; */
+    padding-top: 3px;
+    max-width: 95%;
+    padding-right: 10px;
+    /* margin-top: 10px;
     margin-bottom: 10px;
-    width: 20%;
-    margin-left: 75%;
+    width: 350px;
+    margin-left: 75%; */
 }
 .run-all-container {
-    position: absolute;
-    right: 330px;
+    /* position: absolute;
+    right: 330px; */
+    /* border: 1px solid green; */
+    padding-left: 5px;
+    /* padding-top: 3px; */
+    width: 5%;
+    min-width: 110px;
+}
+#SLA_run-all-cases-spnr {
+    position: relative;
+    /* float: left; */
+    
+    top: 20px;
+}
+#run-all-cases-spnr {
+    text-align: center;
+}
+.td-spacer {
+    width: 75%;
+}
+.view-cases-table-header {
+    /* border: 1px solid red; */
+    width: 90%;
+    margin-left: 5%;
+    height: 70px;
+
 }
 .has-search .form-control {
     padding-left: 2.375rem;
+}
+
+.has-search {
+    margin-bottom: 0px;
+    width: 330px;
+    float: right;
 }
 
 .has-search .form-control-feedback {
@@ -100,7 +152,7 @@
     z-index: 50;
     display: block;
     width: 2.375rem;
-    top: 128px;
+    top: 135px;
     line-height: 2.375rem;
     text-align: center;
     color: #aaa;

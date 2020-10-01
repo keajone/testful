@@ -16,11 +16,11 @@ import './App.css';
 // Route paths
 // TODO: Is this the "React" way?
 const HomePath = "/";
-const TestToolPath = "/Tool";
-const CreateNewCasePath = "/New/Case";
-const ViewAllCasesPath = "/Cases";
-const CreateNewSuitePath = "/New/Suite";
-const ViewAllSuitesPath = "/Suites";
+const TestToolPath = "/profiles";
+const CreateNewCasePath = "/new-case";
+const ViewAllCasesPath = "/cases";
+const CreateNewSuitePath = "/new-suite";
+const ViewAllSuitesPath = "/suites";
 
 function App() {
   return (

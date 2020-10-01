@@ -119,12 +119,12 @@ class ProfileTabContent extends React.Component {
                         {/**  This will trigger the "renameModal"  */}
                         <button type="button" className="btn btn-primary btn-sm" 
                                 data-toggle="modal" data-target="#renameModal">
-                                    Rename Profile
+                                    Rename
                         </button>
                         <RenameModal handleNameChange={this.handleNameChange} tabs={this.state.tabs} currentTab={this.state.currentTab}/>
                     </div>
                     <div className="form-group request-method-select">
-                        <label>HTTP Method:</label>
+                        <label>HTTP Method</label>
                         <select onChange={this.handleHttpChange} value={this.state.currentTab.httpMethod} className="form-control">
                             <option>GET</option>
                             <option>POST</option>
@@ -134,7 +134,8 @@ class ProfileTabContent extends React.Component {
                         </select>
                     </div>
                     <div className="form-group request-url">
-                        <input onChange={this.handleUrlChange} value={this.state.currentTab.url} type="text" className="form-control" placeholder="URL" name="url-input" />
+                        <label>URL</label>
+                        <input onChange={this.handleUrlChange} value={this.state.currentTab.url} type="text" className="form-control" placeholder='Example: "https://api.github.com"' name="url-input" />
                     </div>
                     <div className="form-group send-btn">
                         <button type="button" onClick={this.handleSendClick} className="btn btn-primary">SEND</button>

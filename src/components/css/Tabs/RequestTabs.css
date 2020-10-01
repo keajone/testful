@@ -73,3 +73,7 @@
 .tabs-request > .tab-list > .tab-list-active {
     border-bottom: 4px solid #ad7307;
 }
+
+.tab-content .CodeMirror {
+    height: 480px !important;
+}

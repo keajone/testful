@@ -39,6 +39,7 @@ class TextEditor extends Component {
             smartIndent: false,
             autoRefresh: true,
             readOnly: this.readOnly,
+            viewportMargin: Infinity,
         };
 
         return (

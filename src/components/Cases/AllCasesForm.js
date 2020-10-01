@@ -86,9 +86,10 @@ class AllCasesForm extends React.Component {
                     <li className="li-method">{this.renderRequestMethod(testCase.method)}</li>
                     <li className="li-edit">
                         <button type="button" className="btn" data-toggle="tooltip" data-placement="top" title="Edit Test"><FiEdit/></button></li>
-                    <li className="li-run" id={"run_"+testCase.id}>
-                        <button type="button" onClick={() => {this.runCase(testCase)}} className="btn" data-toggle="tooltip" data-placement="top" title="Run Test"><FaPlay/></button></li>
-                    <li className="li-loading"><CaseLoadingAnimation id={testCase.id}/></li>
+                    <li className="li-run" >
+                        <CaseLoadingAnimation id={testCase.id}/>
+                        <button id={"run_"+testCase.id} type="button" onClick={() => {this.runCase(testCase)}} className="btn" data-toggle="tooltip" data-placement="top" title="Run Test"><FaPlay/></button></li>
+                    {/* <li className="li-loading"><CaseLoadingAnimation id={testCase.id}/></li> */}
                     <li className="li-pass" id={"pass_"+testCase.id}>
                         <button type="button" className="btn" data-toggle="tooltip" data-placement="top" title="Success"><FcCheckmark size="30"/></button>
                     </li>
@@ -117,18 +118,30 @@ class AllCasesForm extends React.Component {
 
         return (
             <div>
-                <div className="run-all-container">
-                    <button id="run-all-cases-btn" type="button" onClick={() => {this.runAllCases(filteredCases)}} className="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Run All Tests">
-                        <FaPlay/>&nbsp;&nbsp;Run All
-                    </button>
-                    <div style={{width: "100%", paddingRight: "40px", paddingTop: "8px"}}><CaseLoadingAnimation id="run-all-cases-spnr"/></div>
-                </div>
-                <div className="form-group has-search case-search">
-                    <span className="form-control-feedback"><BsSearch/></span>
-                    <input className="form-control" type="text" 
-                        placeholder="Search" aria-label="Search"
-                        onChange={this.handleSearchChange}/>
-                </div>
+                <table className="view-cases-table-header">
+                    <tbody>
+                        <tr>
+                            <td className="case-search">
+                                <div className="form-group has-search">
+                                    <span className="form-control-feedback"><BsSearch/></span>
+                                    <input className="form-control" type="text" 
+                                        placeholder="Search" aria-label="Search"
+                                        onChange={this.handleSearchChange}/>
+                                </div>
+                            </td>
+                            <td className="run-all-container">
+                                <div>
+                                    <button id="run-all-cases-btn" type="button" onClick={() => {this.runAllCases(filteredCases)}} className="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Run All Tests">
+                                        <FaPlay/>&nbsp;&nbsp;Run All
+                                    </button>
+                                    <span id="run-all-cases-spnr"><CaseLoadingAnimation id="run-all-cases-spnr"/></span>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                
                 <div className="case-list">
                     {(filteredCases.length > 0) ? 
                     (

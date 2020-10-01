@@ -37,10 +37,10 @@ class ProfileTabs extends React.Component {
     });
 
     return (
-        <ul className="nav nav-tabs">{allTabs}
-        <li className="add-tab-li" onClick={this.handleAddTab}>
-        +
-        </li></ul>
+        <div>
+        <span><ul className="nav nav-tabs">{allTabs}</ul></span>
+        <button className="add-profile btn btn-success" onClick={this.handleAddTab}>Add Profile</button>
+        </div>
     );
   };
 
@@ -253,15 +253,13 @@ class ProfileTabs extends React.Component {
     }
     const { currentTab } = this.state;
     return currentTab !== {} ? (
-      <div className="container">
-        <div className="well">
+      <div className="profile-tabs-container">
           {this.createTabs()}
           <Content tabs={this.state.tabs} currentTab={currentTab} handleNameChange={this.handleNameChange} 
             handleHttpChange={this.handleHttpChange} handleAddTab={this.handleAddTab} 
             handleDeleteTab={this.handleDeleteTab} handleEditorChange={this.handleEditorChange}
             handleSelectTab={this.handleSelectTab} handleUrlChange={this.handleUrlChange} 
           />
-        </div>
       </div>
     ) : (
         <p>empty</p>
