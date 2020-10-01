@@ -33,8 +33,9 @@ class NewCaseForm extends React.Component {
         catch (err) {
             console.log(err);
             Error.set(err.message);
+            return false
         }
-        return;
+        return true;
     }
 
     getSaveButton = (isSubmitting) => {
@@ -65,13 +66,16 @@ class NewCaseForm extends React.Component {
                     <Formik 
                         initialValues={Case.getEmptyCase()} 
                         onSubmit={(data,actions) => { 
-                            this.newCase(data); 
+                            var bool = this.newCase(data); 
                             actions.setSubmitting(false);
-                            window.location.href = ViewAllCasesPath;
+                            if (bool)
+                                window.location.href = ViewAllCasesPath;
                         }}
                     >
                         {({ values, isSubmitting, handleChange, handleBlur, handleSubmit }) => (
                             <form onSubmit={handleSubmit}>
+
+                                {this.getSaveButton(isSubmitting)}
 
                                 {/** Case Name input */}
                                 <Field>
@@ -139,8 +143,6 @@ class NewCaseForm extends React.Component {
                                 </td>
                                 </tr>
                                 </tbody></table>
-
-                                {this.getSaveButton(isSubmitting)}
 
                                 <pre>{JSON.stringify(values, null, 2)}</pre>
                             </form>

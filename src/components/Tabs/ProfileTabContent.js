@@ -7,7 +7,7 @@ import Tabs from "./Tabs";
 import TextEditor from "../Previews/TextEditor";
 import RenameModal from "./RenameModal";
 import LoadingAnimation from "../Animations/LoadingAnimation";
-import Error from "../ErrorHandling/Error";
+import ErrorHandler from "../ErrorHandling/Error";
 
 class ProfileTabContent extends React.Component {
 
@@ -32,7 +32,7 @@ class ProfileTabContent extends React.Component {
         this.toggleLoadingAnimation();
 
         // Hide error box (if it wasn't already)
-        Error.clear();
+        ErrorHandler.clear();
 
         try {
             //Get the method
@@ -84,7 +84,7 @@ class ProfileTabContent extends React.Component {
         }
         catch (err) {
             console.log(err);
-            Error.set(err.message);
+            ErrorHandler.set(err.message);
         }
         
         // End loading animation

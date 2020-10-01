@@ -30,6 +30,7 @@ class HTTP {
             this.responseBody = JSON.stringify(json);
         }
         catch (err) {
+            console.log("here");
             throw new Error("Failed to send "+ this.method +" request to '"+ this.url +"'.");
         }
     }

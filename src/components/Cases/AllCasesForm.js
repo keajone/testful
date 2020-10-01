@@ -26,7 +26,6 @@ class AllCasesForm extends React.Component {
             caseList: JSON.parse(localStorage.getItem('cases')),
             search: "",
         };
-        console.log(JSON.parse(localStorage.getItem('cases')));
     }
 
     runCase = async (testCase) => {
@@ -38,11 +37,9 @@ class AllCasesForm extends React.Component {
             document.getElementById("run_"+testCase.id).style.display = 'none';
             CaseLoadingAnimation.toggle(testCase.id);
             await Case.execute(testCase);
-            console.log("passed");
             document.getElementById("pass_"+testCase.id).style.display = 'block';
         }
         catch (err) {
-            console.log("failed");
             document.getElementById("fail_"+testCase.id).style.display = 'block';
         }
         document.getElementById("run_"+testCase.id).style.display = 'block';
@@ -114,7 +111,6 @@ class AllCasesForm extends React.Component {
                 testCase.method.toLowerCase().indexOf(search.toLowerCase()) !== -1
             )
         });
-        console.log(filteredCases);
 
         return (
             <div>

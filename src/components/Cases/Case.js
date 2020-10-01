@@ -50,9 +50,9 @@ class Case {
         //     throw new Error("Must give valid Request Header.");
         // }
         this.givenRequestBody = jsonObject.givenRequestBody;
-        // if (this.givenRequestBody === "") {
-        //     throw new Error("Must give valid Request Body.");
-        // }
+        if (this.givenRequestBody === "" && this.method !== "GET") {
+            throw new Error("Must give valid Request-Body when using HTTP method '"+this.method+"'.");
+        }
         this.expectedResponseHeader = jsonObject.expectedResponseHeader;
         // if (this.expectedResponseHeader === "") {
         //     throw new Error("Must give valid Expected Response Header.");

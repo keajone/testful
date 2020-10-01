@@ -1,6 +1,9 @@
 // Module imports
 import React from "react";
 
+// Component imports
+import ErrorHandler from "../ErrorHandling/Error";
+
 /**
  * Component for managing the modal used for changing profile names.
  */
@@ -22,20 +25,22 @@ class RenameModal extends React.Component {
         var newName = document.getElementById('modal-input').value;
         document.getElementById('modal-input').value = '';
 
-        document.getElementById("error-box").style.display = "none";
-        if (newName === '') {
-            // Empty name
-            document.getElementById("error-box").innerHTML = "Invalid profile name.";
-            document.getElementById("error-box").style.display = "block";
-        } 
-        else if (this.checkDuplicateName(newName)) {
-            // Name already exists
-            document.getElementById("error-box").innerHTML = 
-                "Cannot change profile name to '"+ newName +"'. Another profile already has this name.";
-            document.getElementById("error-box").style.display = "block";
+        try {
+            ErrorHandler.clear();
+            if (newName === '') {
+                // Empty name
+                throw new Error("Invalid profile name.")
+            } 
+            else if (this.checkDuplicateName(newName)) {
+                // Name already exists
+                throw new Error("Cannot change profile name to '"+ newName +"'. Another profile already has this name.");
+            }
+            else {
+                this.handleNameChange(newName);
+            }
         }
-        else {
-            this.handleNameChange(newName);
+        catch (err) {
+            ErrorHandler.set(err.message);
         }
     }
 
