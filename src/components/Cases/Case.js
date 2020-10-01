@@ -1,5 +1,7 @@
 import uuid from "uuid";
 
+import HTTP from "../../http/http";
+
 /**
  * This class is used for representation of Case objects. 
  * It contains methods that return case configurations 
@@ -62,12 +64,29 @@ class Case {
     }
 
     addToLocalStorage = () => {
-        Case.cases.push(this.jsonObject);
-        localStorage.setItem('cases',JSON.stringify(Case.cases));
+        if (localStorage.getItem('cases')) {
+            Case.cases = JSON.parse(localStorage.getItem('cases'));
+            Case.cases.push(this.jsonObject);
+            localStorage.setItem('cases',JSON.stringify(Case.cases));
+        } else {
+            localStorage.setItem('cases',JSON.stringify([this.jsonObject]));   
+        }
     }
 
     removeFromLocalStorage = () => {
 
+    }
+
+    static execute = async (testCase) => {
+        
+        // make request
+        var http = new HTTP(
+            testCase.givenRequestHeader,
+            testCase.givenRequestBody,
+            testCase.method, testCase.url);
+        await http.request();
+
+        return;
     }
 
     // Returns an empty case configuration

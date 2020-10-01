@@ -6,8 +6,8 @@ import '../css/Tool/ToolNav.css';
 
 import { 
     HomePath,
-    CreateNewTaskPath, 
-    ViewAllTasksPath, 
+    CreateNewCasePath, 
+    ViewAllCasesPath, 
     CreateNewSuitePath, 
     ViewAllSuitesPath
 } from '../../App';
@@ -33,8 +33,8 @@ const ToolNav = () => (
                         Test Cases
                     </button>
                     <div className="dropdown-menu">
-                        <a href={CreateNewTaskPath} className="dropdown-item">Create New</a>
-                        <a href={ViewAllTasksPath} className="dropdown-item">View All</a>
+                        <a href={CreateNewCasePath} className="dropdown-item">Create New</a>
+                        <a href={ViewAllCasesPath} className="dropdown-item">View All</a>
                         {/* <button className="dropdown-item">Link 3</button> */}
                     </div>
                 </div>

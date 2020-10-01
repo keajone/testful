@@ -1,0 +1,150 @@
+// Module imports
+import React from "react";
+import {BsSearch} from "react-icons/bs";
+import {FiEdit} from "react-icons/fi";
+import {FaPlay} from "react-icons/fa";
+import {FcCheckmark} from "react-icons/fc";
+import {ImCross} from "react-icons/im";
+
+// Component imports
+import Case from "../Cases/Case";
+import CaseLoadingAnimation from "../Animations/CaseLoadingAnimation";
+
+// CSS imports
+import "../css/Cases/AllCasesForm.css";
+
+/**
+ * Component for displaying the form to add a new case.
+ * 
+ * https://www.youtube.com/watch?v=FD50LPJ6bjE&ab_channel=BenAwad
+ */
+class AllCasesForm extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            caseList: JSON.parse(localStorage.getItem('cases')),
+            search: "",
+        };
+        console.log(JSON.parse(localStorage.getItem('cases')));
+    }
+
+    runCase = async (testCase) => {
+
+        document.getElementById("pass_"+testCase.id).style.display = 'none';
+        document.getElementById("fail_"+testCase.id).style.display = 'none';
+
+        try {
+            document.getElementById("run_"+testCase.id).style.display = 'none';
+            CaseLoadingAnimation.toggle(testCase.id);
+            await Case.execute(testCase);
+            console.log("passed");
+            document.getElementById("pass_"+testCase.id).style.display = 'block';
+        }
+        catch (err) {
+            console.log("failed");
+            document.getElementById("fail_"+testCase.id).style.display = 'block';
+        }
+        document.getElementById("run_"+testCase.id).style.display = 'block';
+        CaseLoadingAnimation.toggle(testCase.id);
+    }
+
+    runAllCases = async (testCaseList) => {
+
+        document.getElementById("run-all-cases-btn").style.display = 'none';
+        // document.getElementById("fail_"+testCase.id).style.display = 'none';
+        CaseLoadingAnimation.toggle("run-all-cases-spnr");
+
+        for (let i = 0; i < testCaseList.length; i++) {
+            await this.runCase(testCaseList[i]);
+        }
+        document.getElementById("run-all-cases-btn").style.display = 'block';
+        CaseLoadingAnimation.toggle("run-all-cases-spnr");
+    }
+
+    renderRequestMethod = (method) => {
+        if (method === "GET")
+            return (<label className="badge badge-primary">GET</label>);
+        else if (method === "POST")
+            return (<label className="badge badge-success">POST</label>);
+        else if (method === "PUT")
+            return (<label className="badge badge-danger">PUT</label>);
+        else if (method === "PATCH")
+            return (<label className="badge badge-info">PATCH</label>);
+        else if (method === "DELETE")
+            return (<label className="badge badge-dark">DELETE</label>);
+        else
+            return (<label className="badge badge-warning">{method}</label>);
+    }
+
+    renderCases = (testCase) => {
+        return (
+            <div key={testCase.id} className="case-item">
+                <ul>
+                    <li className="li-name"><label>{testCase.caseName}</label></li>
+                    <li className="li-url"><label>{testCase.url}</label></li>
+                    <li className="li-method">{this.renderRequestMethod(testCase.method)}</li>
+                    <li className="li-edit">
+                        <button type="button" className="btn" data-toggle="tooltip" data-placement="top" title="Edit Test"><FiEdit/></button></li>
+                    <li className="li-run" id={"run_"+testCase.id}>
+                        <button type="button" onClick={() => {this.runCase(testCase)}} className="btn" data-toggle="tooltip" data-placement="top" title="Run Test"><FaPlay/></button></li>
+                    <li className="li-loading"><CaseLoadingAnimation id={testCase.id}/></li>
+                    <li className="li-pass" id={"pass_"+testCase.id}>
+                        <button type="button" className="btn" data-toggle="tooltip" data-placement="top" title="Success"><FcCheckmark size="30"/></button>
+                    </li>
+                    <li className="li-fail" id={"fail_"+testCase.id}>
+                        <button type="button" className="btn" data-toggle="tooltip" data-placement="top" title="Failure"><ImCross color="red"/></button>
+                    </li>
+                </ul>
+            </div>
+        );
+    }
+
+    handleSearchChange = e => {
+        this.setState({search: e.target.value});
+    }
+
+    render() {
+        const {search} = this.state;
+        const filteredCases = this.state.caseList.filter(testCase => {
+            return (
+                testCase.caseName.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+                testCase.url.toLowerCase().indexOf(search.toLowerCase()) !== -1 ||
+                testCase.method.toLowerCase().indexOf(search.toLowerCase()) !== -1
+            )
+        });
+        console.log(filteredCases);
+
+        return (
+            <div>
+                <div className="run-all-container">
+                    <button id="run-all-cases-btn" type="button" onClick={() => {this.runAllCases(filteredCases)}} className="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Run All Tests">
+                        <FaPlay/>&nbsp;&nbsp;Run All
+                    </button>
+                    <div style={{width: "100%", paddingRight: "40px", paddingTop: "8px"}}><CaseLoadingAnimation id="run-all-cases-spnr"/></div>
+                </div>
+                <div className="form-group has-search case-search">
+                    <span className="form-control-feedback"><BsSearch/></span>
+                    <input className="form-control" type="text" 
+                        placeholder="Search" aria-label="Search"
+                        onChange={this.handleSearchChange}/>
+                </div>
+                <div className="case-list">
+                    {(filteredCases.length > 0) ? 
+                    (
+                        filteredCases.map( c => {
+                            return this.renderCases(c);
+                        })
+                    ) : 
+                    (
+                        <div className="case-item">
+                            <ul><li><label>No Results</label></li></ul>
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    }
+}
+
+export default AllCasesForm;

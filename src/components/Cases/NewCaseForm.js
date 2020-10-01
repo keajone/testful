@@ -6,6 +6,7 @@ import { Formik, Field } from "formik";
 import NumberedTextArea from "../Previews/NumberedTextArea";
 import Case from "./Case";
 import Error from "../ErrorHandling/Error";
+import {ViewAllCasesPath} from "../../App";
 
 // CSS imports
 import "../css/Cases/NewCaseForm.css";
@@ -63,7 +64,11 @@ class NewCaseForm extends React.Component {
                 <div className="new-case-window">
                     <Formik 
                         initialValues={Case.getEmptyCase()} 
-                        onSubmit={(data,actions) => { this.newCase(data); actions.setSubmitting(false);}}
+                        onSubmit={(data,actions) => { 
+                            this.newCase(data); 
+                            actions.setSubmitting(false);
+                            window.location.href = ViewAllCasesPath;
+                        }}
                     >
                         {({ values, isSubmitting, handleChange, handleBlur, handleSubmit }) => (
                             <form onSubmit={handleSubmit}>

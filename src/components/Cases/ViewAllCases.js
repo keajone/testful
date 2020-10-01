@@ -3,6 +3,8 @@ import React from "react";
 
 // Component imports
 import ToolNav from "../Tool/ToolNav";
+import AllCasesForm from "./AllCasesForm";
+import PageHeader from "../Previews/PageHeader";
 
 /**
  * Component for managing the page that views all test cases.
@@ -20,7 +22,15 @@ class ViewAllCases extends React.Component {
     // }
 
     render() {
-        return (<div></div>);
+        return (
+            <div className="new-case-container">
+
+                <ToolNav />
+                <PageHeader value="Test Cases"/>
+                <AllCasesForm />
+
+            </div>
+        );
     }
 }
 

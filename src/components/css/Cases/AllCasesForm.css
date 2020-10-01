@@ -1,0 +1,107 @@
+.case-item {
+    width: 100%;
+    border-top: 1px solid lightgray;
+    height: 60px;
+}
+.case-item li {
+    float: left;
+    /* border: 1px solid green; */
+    height: 100%;
+    padding-top: 18px;
+}
+.case-item:hover {
+    background-color: #eaf3fc;
+    cursor: pointer;
+}
+.case-item li label {
+    display: block;
+    font-size: 15px;
+}
+.case-item li label:hover {
+    cursor: pointer;
+}
+.case-item ul {
+    list-style-type: none;
+    /* border: 1px solid red; */
+    width: 100%;
+    padding-left: 0px;
+    height: 100%;
+}
+.li-name {
+    padding-left: 15px;
+    width: 20%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;    
+}
+.li-url {
+    width: 20%;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.li-method {
+    width: 10%;
+}
+.li-method label {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    width: 70px;
+}
+
+.li-edit {
+    padding-top: 10px !important;
+    /* margin-left: 500px; */
+    width: 40%;
+}
+.li-edit button {
+    float: right;
+}
+.li-run {
+    padding-top: 10px !important;
+    float: right;
+}
+.li-pass {
+    display: none;
+    padding-top: 8px !important;
+}
+.li-pass button {
+    padding: 0px;
+    padding-left: 5px;
+    padding-top: 5px;
+}
+.li-fail {
+    display: none;
+    padding-top: 10px !important;
+}
+.li-loading {
+    margin-left: 6px;
+    /* border: 1px solid red; */
+}
+
+.case-list {
+    width: 90%;
+    margin-left: 5%;
+    /* border: 1px solid blue; */
+}
+
+.case-search {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 20%;
+    margin-left: 75%;
+}
+.run-all-container {
+    position: absolute;
+    right: 330px;
+}
+.has-search .form-control {
+    padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+    position: absolute;
+    z-index: 50;
+    display: block;
+    width: 2.375rem;
+    top: 128px;
+    line-height: 2.375rem;
+    text-align: center;
+    color: #aaa;
+}

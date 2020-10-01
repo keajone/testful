@@ -17,8 +17,8 @@ import './App.css';
 // TODO: Is this the "React" way?
 const HomePath = "/";
 const TestToolPath = "/Tool";
-const CreateNewTaskPath = "/New/Task";
-const ViewAllTasksPath = "/Tasks";
+const CreateNewCasePath = "/New/Case";
+const ViewAllCasesPath = "/Cases";
 const CreateNewSuitePath = "/New/Suite";
 const ViewAllSuitesPath = "/Suites";
 
@@ -29,8 +29,8 @@ function App() {
         <Switch>
           <Route exact path={HomePath} component={Home} />
           <Route exact path={TestToolPath} component={TestTool} />
-          <Route exact path={CreateNewTaskPath} component={CreateNewTask} />
-          <Route exact path={ViewAllTasksPath} component={ViewAllTasks} />
+          <Route exact path={CreateNewCasePath} component={CreateNewTask} />
+          <Route exact path={ViewAllCasesPath} component={ViewAllTasks} />
           <Route exact path={CreateNewSuitePath} component={CreateNewSuite} />
           <Route exact path={ViewAllSuitesPath} component={ViewAllSuites} />
         </Switch>
@@ -43,8 +43,8 @@ export default App;
 export {
   HomePath, 
   TestToolPath, 
-  CreateNewTaskPath, 
-  ViewAllTasksPath, 
+  CreateNewCasePath, 
+  ViewAllCasesPath, 
   CreateNewSuitePath, 
   ViewAllSuitesPath
 };
