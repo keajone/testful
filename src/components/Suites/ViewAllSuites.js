@@ -3,6 +3,7 @@ import React from "react";
 
 // Component imports
 import ToolNav from "../Tool/ToolNav";
+import PageHeader from "../Previews/PageHeader";
 
 /**
  * Component for managing the page that views all test suites.
@@ -20,7 +21,12 @@ class ViewAllSuites extends React.Component {
     // }
 
     render() {
-        return (<div></div>);
+        return (
+            <div className="view-all-suites-container">
+                <ToolNav />
+                <PageHeader value="Test Suites"/>
+            </div>
+        );
     }
 }
 

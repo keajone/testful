@@ -3,6 +3,7 @@ import React from "react";
 
 // Component imports
 import ToolNav from "../Tool/ToolNav";
+import PageHeader from "../Previews/PageHeader";
 
 /**
  * Component for managing the page that creates new test suites.
@@ -19,7 +20,12 @@ class CreateNewSuite extends React.Component {
     // }
 
     render() {
-        return (<div></div>);
+        return (
+            <div className="new-test-suite-container">
+                <ToolNav />
+                <PageHeader value="New Test Suite"/>
+            </div>
+        );
     }
 }
 

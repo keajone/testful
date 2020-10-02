@@ -107,6 +107,8 @@ class AllCasesForm extends React.Component {
     }
 
     render() {
+
+        // Searching
         const {search} = this.state;
         const filteredCases = this.state.caseList.filter(testCase => {
             return (
@@ -121,6 +123,7 @@ class AllCasesForm extends React.Component {
                 <table className="view-cases-table-header">
                     <tbody>
                         <tr>
+                            {/** Search Bar */}
                             <td className="case-search">
                                 <div className="form-group has-search">
                                     <span className="form-control-feedback"><BsSearch/></span>
@@ -129,6 +132,8 @@ class AllCasesForm extends React.Component {
                                         onChange={this.handleSearchChange}/>
                                 </div>
                             </td>
+
+                            {/** Run all cases */}
                             <td className="run-all-container">
                                 <div>
                                     <button id="run-all-cases-btn" type="button" onClick={() => {this.runAllCases(filteredCases)}} className="btn btn-dark" data-toggle="tooltip" data-placement="top" title="Run All Tests">
@@ -140,7 +145,17 @@ class AllCasesForm extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                
+
+                <div>
+                    <ul className="label-header-list">
+                        <li id="name"><label>Name</label></li>
+                        <li id="url"><label>URL</label></li>
+                        <li id="method"><label>Method</label></li>
+                        <li id="edit"><label>Edit</label></li>
+                        <li id="run"><label>Run</label></li>
+                        <li id="status"><label>Status</label></li>
+                    </ul>
+                </div>
                 
                 <div className="case-list">
                     {(filteredCases.length > 0) ? 
@@ -150,6 +165,7 @@ class AllCasesForm extends React.Component {
                         })
                     ) : 
                     (
+                        // No results from search
                         <div className="case-item">
                             <ul><li><label>No Results</label></li></ul>
                         </div>

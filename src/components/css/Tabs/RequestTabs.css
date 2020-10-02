@@ -79,7 +79,7 @@
 .tab-content .CodeMirror {
     box-sizing: content-box;
     height: 480px !important;
-    border: 1px solid lightgray;
+    /* border: 1px solid lightgray; */
 }
 
 .CodeMirror-scroll {
