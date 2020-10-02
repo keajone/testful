@@ -15,8 +15,10 @@ class NumberedTextArea extends Component {
             mode: "javascript",
             value: "",
         };
+        this.edit = (props.edit === "false" ? "nocursor" : false);
         this.name = props.name;
         this.title = props.title;
+        this.value = (props.value !== undefined ? props.value : "");
     }
 
     // handle the change of mode for the text editor
@@ -34,6 +36,7 @@ class NumberedTextArea extends Component {
             mode: this.state.mode,
             smartIndent: false,
             autoRefresh: true,
+            readOnly: this.edit,
         };
 
         return (
@@ -43,7 +46,7 @@ class NumberedTextArea extends Component {
                 <div className={"numbered-text-area-"+this.name}>
                     <div className="editor-title">{this.title}</div>
                     <CodeMirror 
-                        value={this.state.value} 
+                        value={this.value} 
                         onChange={(e,d,newValue) => setFieldValue(this.name, newValue)} 
                         options={options} 
                     />

@@ -1,0 +1,229 @@
+// Module imports
+import React from "react";
+import {Formik, Field} from "formik";
+import {FiEdit} from "react-icons/fi";
+import { withRouter } from "react-router-dom";
+
+// Component imports
+import NumberedTextArea from "../Previews/NumberedTextArea";
+import Case from "./Case";
+import {ViewAllCasesPath, EditCasePath} from "../../App";
+
+// CSS imports
+import "../css/Cases/ViewCaseForm.css";
+
+/**
+ * Component for displaying the form to view/modify an existing case.
+ */
+class ViewCaseForm extends React.Component {
+
+    constructor(props) {
+        super(props);
+        let obj = props.case;
+        this.state = {
+            caseObject: obj,
+            id: obj.id,
+            caseName: obj.caseName,
+            expectedResponseBody: obj.expectedResponseBody,
+            expectedResponseHeader: obj.expectedResponseHeader,
+            givenRequestBody: obj.givenRequestBody,
+            givenRequestHeader: obj.givenRequestHeader,
+            method: obj.method,
+            url: obj.url,
+        };
+        this.edit = props.edit;
+    }
+
+    // Renders the request method badge based on the method type.
+    renderRequestMethod = (method) => {
+        if (method === "GET")
+            return (<label className="badge badge-primary">GET</label>);
+        else if (method === "POST")
+            return (<label className="badge badge-success">POST</label>);
+        else if (method === "PUT")
+            return (<label className="badge badge-danger">PUT</label>);
+        else if (method === "PATCH")
+            return (<label className="badge badge-info">PATCH</label>);
+        else if (method === "DELETE")
+            return (<label className="badge badge-dark">DELETE</label>);
+        else
+            return (<label className="badge badge-warning">{method}</label>);
+    }
+
+    getSaveButton = (isSubmitting) => {
+        let SaveButton;
+        if (isSubmitting) {
+            SaveButton = 
+                <div className="new-case-submit">
+                    <button type="Submit" disabled className="btn btn-primary">Save</button>
+                </div>
+        } else {
+            SaveButton = 
+                <div className="new-case-submit">
+                    <button type="Submit" className="btn btn-primary">Save</button>
+                </div>
+        }
+        return SaveButton;
+    }
+
+    render() {
+        return ( 
+            this.edit === false ? 
+            this.renderViewCase_NotEditable() : 
+            this.renderViewCase_Editable()
+        );
+    }
+
+    // Renders the test case in edit mode
+    renderViewCase_Editable() {
+        return (
+
+            <div className="new-case-form">
+                <div className="new-case-window">
+                    <Formik 
+                        initialValues={this.state.caseObject} 
+                        onSubmit={(data,actions) => { 
+                            var bool = Case.edit(data);
+                            actions.setSubmitting(false);
+                            if (bool)
+                                this.props.history.push(ViewAllCasesPath+"/"+this.state.id);
+                        }}
+                    >
+                        {({ values, isSubmitting, handleChange, handleBlur, handleSubmit }) => (
+                            <form onSubmit={handleSubmit}>
+
+                                {this.getSaveButton(isSubmitting)}
+
+                                {/** Case Name input */}
+                                <Field>
+                                {({ form: { setFieldValue } }) => (
+                                    <div className="form-group">
+                                        <label htmlFor="CaseNameInput">Case Name</label>
+                                        <input defaultValue={this.state.caseName} type="input" className="form-control" 
+                                               aria-describedby="CaseName" placeholder='Example: "Test Case 1"' 
+                                               onChange={e => setFieldValue("caseName", e.target.value)}
+                                        />
+                                    </div>
+                                )}
+                                </Field>
+
+                                {/** URL input */}
+                                <Field>
+                                {({ form: { setFieldValue } }) => (
+                                    <div className="form-group">
+                                        <label htmlFor="URL-Input">URL</label>
+                                        <input defaultValue={this.state.url} type="input" className="form-control" 
+                                               aria-describedby="URL" placeholder='Example: "https://api.github.com"' 
+                                               onChange={e => setFieldValue("url", e.target.value)}
+                                        />
+                                    </div>
+                                )}
+                                </Field>
+
+                                {/** HTTP Method input */}
+                                <Field>
+                                {({ form: { setFieldValue } }) => (
+                                    <div className="form-group new-case-method-select">
+                                        <label htmlFor="HTTP-method">HTTP Method</label>
+                                        <select defaultValue={this.state.method} onChange={e => setFieldValue("method", e.target.value)} 
+                                                className="form-control">
+                                            <option value="GET">GET</option>
+                                            <option value="POST">POST</option>
+                                            <option value="PUT">PUT</option>
+                                            <option value="PATCH">PATCH</option>
+                                            <option value="DELETE">DELETE</option>
+                                        </select>
+                                    </div>
+                                )}
+                                </Field>
+
+                                <table className="new-case-form-table"><tbody>
+                                <tr>
+                                <td>
+                                    {/** Request header input */}
+                                    <NumberedTextArea value={this.state.givenRequestHeader} title="Request Header" name="givenRequestHeader"/>
+                                </td>
+                                <td>
+                                    {/** Request body input */}
+                                    <NumberedTextArea value={this.state.givenRequestBody} title="Request Body" name="givenRequestBody"/>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td>
+                                    {/** Response header input */}
+                                    <NumberedTextArea value={this.state.expectedResponseHeader} title="Expected Response Header" name="expectedResponseHeader"/>
+                                </td>
+
+                                <td>
+                                    {/** Response body input */}
+                                    <NumberedTextArea value={this.state.expectedResponseBody} title="Expected Response Body"name="expectedResponseBody"/>
+                                </td>
+                                </tr>
+                                </tbody></table>
+
+                            </form>
+                        )}
+                    </Formik>
+                </div>
+            </div>
+        );
+    }
+
+    // Renders the test case in View Mode (not-editable)
+    renderViewCase_NotEditable() {
+        return (
+
+            <div className="case-form">
+                <div className="case-window">
+                    <table className="case-info-table">
+                        <tbody>
+                            <tr>
+                                <td className="info-table-method">{this.renderRequestMethod(this.state.method)}</td>
+                                <td className="info-table-url">{this.state.url}</td>
+                                <td className="info-table-edit-btn">
+                                    <button type="button" className="btn" 
+                                            data-toggle="tooltip" data-placement="top" 
+                                            title="Edit Test" onClick={() => {
+                                                this.props.history.push(EditCasePath+"/"+this.state.id);
+                                            }}><FiEdit/>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br/>
+                    <br/>
+                    <Formik>
+                    <table>
+                        <tbody>
+                            <tr className="tr-view-header-body">
+                                <td className="view-header-body">
+                                    {/** Request header input */}
+                                    <NumberedTextArea value={this.state.givenRequestHeader} title="Request Header" name="view-header-body" edit="false"/>
+                                </td>
+                                <td className="view-header-body">
+                                    {/** Request body input */}
+                                    <NumberedTextArea value={this.state.givenRequestBody} title="Request Body" name="view-header-body" edit="false"/>
+                                </td>
+                                </tr>
+                                <tr>
+                                <td className="view-header-body">
+                                    {/** Response header input */}
+                                    <NumberedTextArea value={this.state.expectedResponseHeader} title="Expected Response Header" name="view-header-body" edit="false"/>
+                                </td>
+
+                                <td className="view-header-body">
+                                    {/** Response body input */}
+                                    <NumberedTextArea value={this.state.expectedResponseBody} title="Expected Response Body"name="view-header-body" edit="false"/>
+                                </td>
+                                </tr>
+                        </tbody>
+                    </table>
+                    </Formik>
+                </div>
+            </div>
+        );
+    }
+}
+
+export default withRouter(ViewCaseForm);

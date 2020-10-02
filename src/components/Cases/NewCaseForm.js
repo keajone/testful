@@ -1,6 +1,7 @@
 // Module imports
 import React from "react";
 import { Formik, Field } from "formik";
+import { withRouter } from "react-router-dom";
 
 // Component imports
 import NumberedTextArea from "../Previews/NumberedTextArea";
@@ -69,7 +70,7 @@ class NewCaseForm extends React.Component {
                             var bool = this.newCase(data); 
                             actions.setSubmitting(false);
                             if (bool)
-                                window.location.href = ViewAllCasesPath;
+                                this.props.history.push(ViewAllCasesPath);
                         }}
                     >
                         {({ values, isSubmitting, handleChange, handleBlur, handleSubmit }) => (
@@ -155,4 +156,4 @@ class NewCaseForm extends React.Component {
     }
 }
 
-export default NewCaseForm;
+export default withRouter(NewCaseForm);

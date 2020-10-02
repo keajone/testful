@@ -5,10 +5,12 @@ import {FiEdit} from "react-icons/fi";
 import {FaPlay} from "react-icons/fa";
 import {FcCheckmark} from "react-icons/fc";
 import {ImCross} from "react-icons/im";
+import { withRouter } from "react-router-dom";
 
 // Component imports
 import Case from "../Cases/Case";
 import CaseLoadingAnimation from "../Animations/CaseLoadingAnimation";
+import {ViewAllCasesPath} from "../../App";
 
 // CSS imports
 import "../css/Cases/AllCasesForm.css";
@@ -20,7 +22,7 @@ import "../css/Cases/AllCasesForm.css";
  */
 class AllCasesForm extends React.Component {
 
-    constructor(props) {
+    constructor(props, context) {
         super(props);
         this.state = {
             caseList: JSON.parse(localStorage.getItem('cases')),
@@ -49,7 +51,6 @@ class AllCasesForm extends React.Component {
     runAllCases = async (testCaseList) => {
 
         document.getElementById("run-all-cases-btn").style.display = 'none';
-        // document.getElementById("fail_"+testCase.id).style.display = 'none';
         CaseLoadingAnimation.toggle("run-all-cases-spnr");
 
         for (let i = 0; i < testCaseList.length; i++) {
@@ -76,7 +77,11 @@ class AllCasesForm extends React.Component {
 
     renderCases = (testCase) => {
         return (
-            <div key={testCase.id} className="case-item">
+            <div key={testCase.id} className="case-item" onClick={() => 
+                {
+                    this.props.history.push(ViewAllCasesPath+"/"+testCase.id);
+                }
+            }>
                 <ul>
                     <li className="li-name"><label>{testCase.caseName}</label></li>
                     <li className="li-url"><label>{testCase.url}</label></li>
@@ -86,7 +91,6 @@ class AllCasesForm extends React.Component {
                     <li className="li-run" >
                         <CaseLoadingAnimation id={testCase.id}/>
                         <button id={"run_"+testCase.id} type="button" onClick={() => {this.runCase(testCase)}} className="btn" data-toggle="tooltip" data-placement="top" title="Run Test"><FaPlay/></button></li>
-                    {/* <li className="li-loading"><CaseLoadingAnimation id={testCase.id}/></li> */}
                     <li className="li-pass" id={"pass_"+testCase.id}>
                         <button type="button" className="btn" data-toggle="tooltip" data-placement="top" title="Success"><FcCheckmark size="30"/></button>
                     </li>
@@ -156,4 +160,4 @@ class AllCasesForm extends React.Component {
     }
 }
 
-export default AllCasesForm;
+export default withRouter(AllCasesForm);

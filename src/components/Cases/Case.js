@@ -77,6 +77,27 @@ class Case {
 
     }
 
+    static edit = (caseObj) => {
+        try {
+            let array = JSON.parse(localStorage.getItem('cases'));
+            if (array.length > 0) {
+                for (var i in array) {
+                    if (array[i].id === caseObj.id) {
+                        array[i] = caseObj;
+                    break;
+                    }
+                }
+                localStorage.setItem('cases', JSON.stringify(array));
+                return true;
+            }
+        }
+        catch (err) {
+            return false;
+        }
+        return false;
+        
+    }
+
     static execute = async (testCase) => {
         
         // make request
