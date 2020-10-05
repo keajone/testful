@@ -7,14 +7,15 @@ class PageHeader extends Component {
         super(props);
         this.value = props.value;
     }
-    /**<div className="page-header">
-                <h4>{this.value}</h4>
-            </div>*/
+
+    // <div className="page-header"> 
+    //     <img className="page-header-pic" src="./header-2.jpg" alt="Testful"/>
+    //     <h4>{this.value}</h4>
+    // </div>
     
     render() {
         return (
-            <div className="page-header"> 
-                <img className="page-header-pic" src="./header-2.jpg" alt="Testful"/>
+            <div className="page-header">
                 <h4>{this.value}</h4>
             </div>
         );
