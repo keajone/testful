@@ -10,7 +10,7 @@ import { withRouter } from "react-router-dom";
 // Component imports
 import Case from "../Cases/Case";
 import CaseLoadingAnimation from "../Animations/CaseLoadingAnimation";
-import {ViewAllCasesPath} from "../../App";
+import {ViewAllCasesPath, EditCasePath} from "../../App";
 
 // CSS imports
 import "../css/Cases/AllCasesForm.css";
@@ -75,19 +75,39 @@ class AllCasesForm extends React.Component {
             return (<label className="badge badge-warning">{method}</label>);
     }
 
+    
+
     renderCases = (testCase) => {
         return (
-            <div key={testCase.id} className="case-item" onClick={() => 
-                {
-                    this.props.history.push(ViewAllCasesPath+"/"+testCase.id);
-                }
-            }>
+            <div key={testCase.id} className="case-item">
                 <ul>
-                    <li className="li-name"><label>{testCase.caseName}</label></li>
-                    <li className="li-url"><label>{testCase.url}</label></li>
-                    <li className="li-method">{this.renderRequestMethod(testCase.method)}</li>
+                    <li className="li-name" onClick={() => 
+                        {   // will change page to load the case details
+                            this.props.history.push(ViewAllCasesPath+"/"+testCase.id);
+                        }}>
+                        <label>{testCase.caseName}</label>
+                    </li>
+                    <li className="li-url"onClick={() => 
+                        {
+                            this.props.history.push(ViewAllCasesPath+"/"+testCase.id);
+                        }}>
+                        <label>{testCase.url}</label>
+                    </li>
+                    <li className="li-method"onClick={() => 
+                        {
+                            this.props.history.push(ViewAllCasesPath+"/"+testCase.id);
+                        }}>
+                        {this.renderRequestMethod(testCase.method)}
+                    </li>
                     <li className="li-edit">
-                        <button type="button" className="btn" data-toggle="tooltip" data-placement="top" title="Edit Test"><FiEdit/></button></li>
+                        <button type="button" className="btn" data-toggle="tooltip" 
+                                data-placement="top" title="Edit Test" onClick={() => 
+                                {   // edit the case 
+                                    this.props.history.push(EditCasePath+"/"+testCase.id);
+                                }}>
+                                <FiEdit/>
+                        </button>
+                    </li>
                     <li className="li-run" >
                         <CaseLoadingAnimation id={testCase.id}/>
                         <button id={"run_"+testCase.id} type="button" onClick={() => {this.runCase(testCase)}} className="btn" data-toggle="tooltip" data-placement="top" title="Run Test"><FaPlay/></button></li>

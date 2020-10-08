@@ -8,6 +8,57 @@
     /* top: 60px; */
     width: 100%;
 }
+.case-info-table td {
+    /* border: 1px solid red; */
+}
+.case-info-table .td-pass button {
+    padding: 5px;
+}
+.info-table-edit-btn {
+    text-align: center;
+    /* width: 5%; */
+}
+.case-info-table .td-run {
+    text-align: center;
+    width: 45px;
+    /* width: 5%; */
+}
+.case-info-table .td-run button {
+    margin-right: 0px !important;
+    /* display: none; */
+}
+.status-container {
+    /* padding-left: 90%; */
+    position: absolute;
+    top: 130px;
+    /* border: 1px solid green; */
+    width: 90%;
+    text-align: right;
+}
+.status-container label {
+    font-size: 30px;
+    /* float: right; */
+    /* display: none; */
+    /* margin-left: 90%;
+    margin-bottom: 0px; */
+}
+.case-info-table .SLA-container {
+    /* display: block; */
+    height: 20px !important;
+}
+.status-container button {
+    /* float: right; */
+    display: none;
+    height: 30px;
+}
+.td-fail {
+    display: none;
+    z-index: 60;
+}
+.td-pass {
+    display: none;
+    z-index: 60;
+}
 .case-info-table tbody tr {
     /* width: 50%; */
     border-bottom: 1px solid lightgrey;
@@ -20,7 +71,7 @@
     font-size: 20px;
 }
 .info-table-url {
-    width: 80% !important;
+    width: 70% !important;
     font-size: 20px;
 }
 .info-table-url label {

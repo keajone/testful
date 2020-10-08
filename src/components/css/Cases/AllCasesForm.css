@@ -40,7 +40,7 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .li-method {
-    width: 10%;
+    width: 40%;
 }
 .li-method label {
     margin-top: 0px;
@@ -52,7 +52,7 @@
     padding-right: 18px;
     padding-top: 10px !important;
     /* margin-left: 500px; */
-    width: 40%;
+    width: 10%;
 }
 .li-edit button {
     float: right;
@@ -144,9 +144,9 @@ button#run-all-cases-btn {
 .view-cases-table-header tr {
     width: 100%;
 }
-.view-cases-table-header td {
-    /* border: 1px solid red; */
-}
+/* .view-cases-table-header td {
+     border: 1px solid red;
+} */
 .has-search .form-control {
     padding-left: 2.375rem;
 }

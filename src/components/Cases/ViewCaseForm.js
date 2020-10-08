@@ -3,14 +3,18 @@ import React from "react";
 import {Formik, Field} from "formik";
 import {FiEdit} from "react-icons/fi";
 import { withRouter } from "react-router-dom";
+import {FaPlay} from "react-icons/fa";
+import { CgDetailsMore } from "react-icons/cg";
 
 // Component imports
 import NumberedTextArea from "../Previews/NumberedTextArea";
 import Case from "./Case";
 import {ViewAllCasesPath, EditCasePath} from "../../App";
+import CaseLoadingAnimation from "../Animations/CaseLoadingAnimation"
 
 // CSS imports
 import "../css/Cases/ViewCaseForm.css";
+
 
 /**
  * Component for displaying the form to view/modify an existing case.
@@ -169,6 +173,26 @@ class ViewCaseForm extends React.Component {
         );
     }
 
+    runCase = async (testCase) => {
+
+        document.getElementById("pass_"+testCase.id).style.display = 'none';
+        document.getElementById("fail_"+testCase.id).style.display = 'none';
+
+        try {
+            document.getElementById("run_"+testCase.id).style.display = 'none';
+            CaseLoadingAnimation.toggle(testCase.id);
+            await Case.execute(testCase);
+            document.getElementById("pass_"+testCase.id).style.display = 'block';
+        }
+        catch (err) {
+            document.getElementById("fail_"+testCase.id).style.display = 'block';
+        }
+        document.getElementById("run_"+testCase.id).style.display = 'block';
+        document.getElementById("details-btn").style.display = 'inline-block';
+
+        CaseLoadingAnimation.toggle(testCase.id);
+    }
+
     // Renders the test case in View Mode (not-editable)
     renderViewCase_NotEditable() {
         return (
@@ -188,9 +212,22 @@ class ViewCaseForm extends React.Component {
                                             }}><FiEdit/>
                                     </button>
                                 </td>
+                                <td className="td-run" >
+                                    <CaseLoadingAnimation id={this.state.id}/>
+                                    <button id={"run_"+this.state.id} type="button" onClick={() => {this.runCase(this.state)}} className="btn" data-toggle="tooltip" data-placement="top" title="Run Test"><FaPlay/></button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
+                    <div className="status-container">
+                        <div className="td-pass" id={"pass_"+this.state.id}>
+                            <label className="badge badge-success">PASSED</label>
+                        </div>
+                        <div className="td-fail" id={"fail_"+this.state.id}>
+                            <label className="badge badge-danger">FAILED</label>
+                        </div>
+                        <button id="details-btn" className="btn btn-primary btn-sm">Details&nbsp;<CgDetailsMore size="20"/></button>
+                    </div>
                     <br/>
                     <br/>
                     <Formik>
