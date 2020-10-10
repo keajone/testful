@@ -3,13 +3,13 @@ import uuid from "uuid";
 import HTTP from "../../http/http";
 
 /**
- * This class is used for representation of Case objects. 
- * It contains methods that return case configurations 
- * from default or adding a new case.
+ * This class is used for representation of Suite objects. 
+ * It contains methods that return Suite configurations 
+ * from default or adding a new Suite.
  */
-class Case {
+class Suite {
 
-    static default_caseName = "";
+    static default_SuiteName = "";
     static default_method = "GET";
     static default_url = "";
     
@@ -19,7 +19,7 @@ class Case {
     static default_expectedResponseHeader = "";
     static default_expectedResponseBody = "";
 
-    static cases = [];
+    static Suites = [];
 
     constructor(jsonObject) {
 
@@ -27,11 +27,11 @@ class Case {
 
         this.id = jsonObject.id;
         if (this.id === "") {
-            throw new Error("Case ID is invalid.");
+            throw new Error("Suite ID is invalid.");
         }
-        this.caseName = jsonObject.caseName;
-        if (this.caseName === "") {
-            throw new Error("Must give valid Case Name.");
+        this.SuiteName = jsonObject.SuiteName;
+        if (this.SuiteName === "") {
+            throw new Error("Must give valid Suite Name.");
         }
         this.method = jsonObject.method;
         if (this.method !== "GET" &&
@@ -39,7 +39,7 @@ class Case {
             this.method !== "PUT" &&
             this.method !== "PATCH" &&
             this.method !== "DELETE") {
-            throw new Error("Case method is invalid.");
+            throw new Error("Suite method is invalid.");
         }
         this.url = jsonObject.url;
         if (this.url === "") {
@@ -63,17 +63,13 @@ class Case {
         // }
     }
 
-    static getAll = () => {
-        return JSON.parse(localStorage.getItem('cases'));
-    }
-
     addToLocalStorage = () => {
-        if (localStorage.getItem('cases')) {
-            Case.cases = JSON.parse(localStorage.getItem('cases'));
-            Case.cases.push(this.jsonObject);
-            localStorage.setItem('cases',JSON.stringify(Case.cases));
+        if (localStorage.getItem('Suites')) {
+            Suite.Suites = JSON.parse(localStorage.getItem('Suites'));
+            Suite.Suites.push(this.jsonObject);
+            localStorage.setItem('Suites',JSON.stringify(Suite.Suites));
         } else {
-            localStorage.setItem('cases',JSON.stringify([this.jsonObject]));   
+            localStorage.setItem('Suites',JSON.stringify([this.jsonObject]));   
         }
     }
 
@@ -81,17 +77,17 @@ class Case {
 
     }
 
-    static edit = (caseObj) => {
+    static edit = (SuiteObj) => {
         try {
-            let array = JSON.parse(localStorage.getItem('cases'));
+            let array = JSON.parse(localStorage.getItem('Suites'));
             if (array.length > 0) {
                 for (var i in array) {
-                    if (array[i].id === caseObj.id) {
-                        array[i] = caseObj;
+                    if (array[i].id === SuiteObj.id) {
+                        array[i] = SuiteObj;
                     break;
                     }
                 }
-                localStorage.setItem('cases', JSON.stringify(array));
+                localStorage.setItem('Suites', JSON.stringify(array));
                 return true;
             }
         }
@@ -102,32 +98,28 @@ class Case {
         
     }
 
-    static execute = async (testCase) => {
+    static execute = async (testSuite) => {
         
         // make request
         var http = new HTTP(
-            testCase.givenRequestHeader,
-            testCase.givenRequestBody,
-            testCase.method, testCase.url);
+            testSuite.givenRequestHeader,
+            testSuite.givenRequestBody,
+            testSuite.method, testSuite.url);
         await http.request();
 
         return;
     }
 
-    // Returns an empty case configuration
-    static getEmptyCase = () => {
+    // Returns an empty Suite configuration
+    static getEmptySuite = () => {
         return {
             id: uuid(), 
-            caseName: this.default_caseName,
-            url: this.default_url,
-            method: this.default_method,
-            givenRequestBody: this.default_givenRequestBody,
-            givenRequestHeader: this.default_givenRequestHeader,
-            expectedResponseHeader: this.default_expectedResponseHeader,
-            expectedResponseBody: this.default_expectedResponseBody
+            SuiteName: this.default_SuiteName,
+            Description: "",
+            caseList: [],
         };
     };
     
 }
 
-export default Case;
+export default Suite;

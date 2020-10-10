@@ -19,10 +19,10 @@ import './App.css';
 // TODO: Is this the "React" way?
 const HomePath = "/";
 const TestToolPath = "/profiles";
-const CreateNewCasePath = "/new-case";
+const CreateNewCasePath = "/cases/new";
 const ViewAllCasesPath = "/cases";
 const EditCasePath = "/cases/edit";
-const CreateNewSuitePath = "/new-suite";
+const CreateNewSuitePath = "/suites/new";
 const ViewAllSuitesPath = "/suites";
 
 function App() {

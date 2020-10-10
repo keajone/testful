@@ -25,7 +25,7 @@ class AllCasesForm extends React.Component {
     constructor(props, context) {
         super(props);
         this.state = {
-            caseList: JSON.parse(localStorage.getItem('cases')),
+            caseList: Case.getAll(),
             search: "",
         };
     }
