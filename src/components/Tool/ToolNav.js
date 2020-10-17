@@ -1,4 +1,5 @@
 import React from 'react';
+// import {AiFillHome} from "react-icons/ai";
 
 import Error from "../ErrorHandling/Error";
 
@@ -62,6 +63,7 @@ const ToolNav = () => (
 
             {/* Home link */}
             <li>
+                {/* <a type="button" className="btn btn-primary" href={HomePath}><AiFillHome/></a> */}
                 <a type="button" className="btn btn-primary" href={HomePath}>Home</a>
             </li>
 

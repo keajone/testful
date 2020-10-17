@@ -1,63 +1,73 @@
-.new-case-container {
+.new-suite-container {
     min-width: 1000px;
 }
-.case-item {
+.suite-case-item {
     width: 100%;
-    border-top: 1px solid lightgray;
     height: 60px;
 }
-.case-item li {
+.suite-case-item li {
     float: left;
     /* border: 1px solid green; */
     height: 100%;
     padding-top: 18px;
 }
-.case-item:hover {
-    background-color: #eaf3fc;
-    cursor: pointer;
+.suite-item {
+    width: 100%;
+    /* border-top: 1px solid lightgray; */
+    height: 60px;
 }
-.case-item li label {
-    display: block;
-    font-size: 15px;
-}
-.case-item li label:hover {
-    cursor: pointer;
-}
-.case-item ul {
+.suite-case-item ul {
     list-style-type: none;
     /* border: 1px solid red; */
     width: 100%;
     padding-left: 0px;
     height: 100%;
 }
-.li-name {
+.MuiTreeItem-label {
+    border-top: 1px solid lightgray;
+    /* border: 2px solid red; */
+}
+.suite-item li {
+    float: left;
+    /* border: 1px solid green; */
+    height: 100%;
+    padding-top: 18px;
+}
+.suite-item:hover {
+    /* background-color: #eaf3fc; */
+    cursor: pointer;
+}
+.suite-item li label {
+    display: block;
+    font-size: 15px;
+}
+.suite-item li label:hover {
+    cursor: pointer;
+}
+.suite-item ul {
+    list-style-type: none;
+    /* border: 1px solid red; */
+    width: 100%;
+    padding-left: 0px;
+    height: 100%;
+}
+.suite-item .li-name {
+    /* border: 1px solid red; */
     padding-left: 15px;
-    width: 20%;
+    width: 80%;
     font-family: Verdana, Geneva, Tahoma, sans-serif;    
 }
-.li-url {
-    width: 20%;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
-.li-method {
-    width: 40%;
-}
-.li-method label {
-    margin-top: 0px;
-    margin-bottom: 0px;
-    width: 70px;
-}
 
-.li-edit {
+.suite-item .li-edit {
     padding-right: 18px;
     padding-top: 10px !important;
     /* margin-left: 500px; */
     width: 10%;
 }
-.li-edit button {
+.suite-item .li-edit button {
     float: right;
 }
-.li-run {
+.suite-item .li-run {
     text-align: center;
     min-width: 40px;
     padding-top: 10px !important;
@@ -65,41 +75,41 @@
 }
 
 /* Run button */
-.li-run button {
+.suite-item .li-run button {
     margin-left: auto;
     margin-right: auto;
 }
 
 /* loading spinner container */
-.li-run div {
+.suite-item .li-run div {
     padding-top: 5px;
 }
 
-.case-item .li-pass {
+.suite-item .li-pass {
     text-align: center;
     min-width: 40px;
-    display: none;
+    /* display: none; */
     width: 5%;
     padding-top: 8px !important;
 }
-.li-pass button {
+.suite-item .li-pass button {
     padding-top: 5px;
 }
-.case-item .li-fail {
+.suite-item .li-fail {
     text-align: center;
     width: 5%;
     min-width: 40px;
-    display: none;
+    /* display: none; */
     padding-top: 10px !important;
 }
 
-.case-list {
+.suite-list {
     width: 90%;
     margin-left: 5%;
     /* border: 1px solid blue; */
 }
 
-.case-search {
+.suite-search {
     /* border: 1px solid purple; */
     padding-top: 3px;
     width: 95%;
@@ -109,7 +119,7 @@
     width: 350px;
     margin-left: 75%; */
 }
-button#run-all-cases-btn {
+button#run-all-suites-btn {
     margin-left: 3px;
 }
 .run-all-container {
@@ -121,19 +131,19 @@ button#run-all-cases-btn {
     width: 5%;
     min-width: 110px;
 }
-#SLA_run-all-cases-spnr {
+#SLA_run-all-suites-spnr {
     position: relative;
     /* float: left; */
     
     top: 20px;
 }
-#run-all-cases-spnr {
+#run-all-suites-spnr {
     text-align: center;
 }
 .td-spacer {
     width: 75%;
 }
-.view-cases-table-header {
+.view-suites-table-header {
     /* border: 1px solid red; */
     width: 90%;
     margin-left: 5%;
@@ -141,10 +151,10 @@ button#run-all-cases-btn {
     
 
 }
-.view-cases-table-header tr {
+.view-suites-table-header tr {
     width: 100%;
 }
-/* .view-cases-table-header td {
+/* .view-suites-table-header td {
      border: 1px solid red;
 } */
 .has-search .form-control {
@@ -174,31 +184,25 @@ button#run-all-cases-btn {
     margin-bottom: 0px;
 
 }
-#name {
-    width: 20%;
+.view-all-suites-container #name {
+    width: 50%;
     padding-left: 13px;
 }
-#url {
-    width: 20%;
-}
-#method {
-    width: 10%;
-    padding-left: 7px;
-}
-#edit {
+.view-all-suites-container #edit {
     width: 40%;
     text-align: right;
     padding-right: 25px;
 }
-#run {
+.view-all-suites-container #run {
     width: 5%;
     text-align: center;
 }
-#status {
+.view-all-suites-container #status {
     width: 5%;
     min-width: 40px;
     text-align: center;
 }
+
 .label-header-list li {
     display: inline-block;
     /* border: 1px solid red; */

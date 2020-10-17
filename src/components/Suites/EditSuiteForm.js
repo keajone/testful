@@ -6,7 +6,6 @@ import { withRouter } from "react-router-dom";
 // Component imports
 import Suite from "../Suites/Suite";
 import Error from "../ErrorHandling/Error";
-import {ViewAllSuitesPath} from "../../App";
 import CaseList from "./CaseList";
 import {
     getSaveButton,
@@ -14,26 +13,30 @@ import {
     SingleLineInput,
 } from "../Tool/FormUtils"
 
-// CSS imports
-import "../css/Suites/NewSuiteForm.css";
 
 /**
  * Component for displaying the form to add a new Suite.
  */
-class NewSuiteForm extends React.Component {
+class EditSuiteForm extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        let obj = props.suite;
+        this.state = {
+            suiteObject: obj,
+            id: obj.id,
+            SuiteName: obj.SuiteName,
+            Description: obj.Description,
+            caseList: obj.caseList,
+        };
     }
 
-    // Attempts to add a new suite to the User's LocalStorage.
-    newSuite = (data) => {
+    // Attempts to edit the suite
+    editSuite = (data) => {
 
         Error.clear();
         try {
-            var object = new Suite(data);
-            object.addToLocalStorage();
+            Suite.edit(data); 
         }
         catch (err) {
             console.log(err);
@@ -49,14 +52,15 @@ class NewSuiteForm extends React.Component {
             <div className="new-suite-form">
                 <div className="new-suite-window">
                     <Formik 
-                        initialValues={Suite.getEmptySuite()} 
+                        initialValues={this.state.suiteObject} 
                         onSubmit={(data,actions) => { 
-                            var isSuccess = this.newSuite(data); 
+                            var isSuccess = this.editSuite(data);
                             actions.setSubmitting(false);
                             
                             // If successfully added, view all suites.
                             if (isSuccess)
-                                this.props.history.push(ViewAllSuitesPath);
+                                console.log("success");
+                                // this.props.history.push(ViewAllSuitesPath);
                         }}
                     >
                         {({ values, isSubmitting, handleChange, handleBlur, handleSubmit }) => (
@@ -70,6 +74,7 @@ class NewSuiteForm extends React.Component {
                                         placeholder='Example: "Test Suite 1"' 
                                         onChange={setFieldValue} 
                                         valueToChange="SuiteName"
+                                        value={values.SuiteName}
                                     />
                                 )}
                                 </Field>
@@ -82,23 +87,25 @@ class NewSuiteForm extends React.Component {
                                         placeholder='Example: "This suite focuses on testing the &apos;users&apos; endpoint."'
                                         onChange={setFieldValue} 
                                         valueToChange="Description"
+                                        value={values.Description}
                                     />
                                 )}
                                 </Field>
 
-                                {/** Save button */}
                                 {getSaveButton(isSubmitting)}
 
-                                {/** Add/Remove cases input */}
+                                {/** Add cases to suite input */}
                                 <Field>
                                 {({ form: { setFieldValue } }) => (
-                                    <CaseList onChange={setFieldValue} valueToChange="caseList" caseList={values.caseList}/>
+                                    <CaseList 
+                                        onChange={setFieldValue} 
+                                        valueToChange="caseList" 
+                                        caseList={values.caseList}
+                                    />
                                 )}   
                                 </Field>
-
-                                
-
                                 <pre>{JSON.stringify(values, null, 2)}</pre>
+
                             </form>
                         )}
                     </Formik>
@@ -109,4 +116,4 @@ class NewSuiteForm extends React.Component {
     }
 }
 
-export default withRouter(NewSuiteForm);
+export default withRouter(EditSuiteForm);

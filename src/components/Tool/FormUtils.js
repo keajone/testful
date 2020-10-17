@@ -29,6 +29,7 @@ export class SingleLineInput extends React.Component {
         this.name = props.name;
         this.placeholder = props.placeholder;
         this.valueToChange = props.valueToChange;
+        this.value = (props.value !== undefined ? props.value : "");
     }
     render() {
         return (
@@ -37,6 +38,7 @@ export class SingleLineInput extends React.Component {
                 <input type="input" className="form-control" 
                         aria-describedby={this.name} placeholder={this.placeholder} 
                         onChange={e => this.onChange(this.valueToChange, e.target.value)}
+                        value={this.value}
                 />
             </div>
         );
@@ -51,6 +53,7 @@ export class MultiLineInput extends React.Component {
         this.name = props.name;
         this.placeholder = props.placeholder;
         this.valueToChange = props.valueToChange;
+        this.value = (props.value !== undefined ? props.value : "");
     }
     render() {
         return (
@@ -59,6 +62,7 @@ export class MultiLineInput extends React.Component {
                 <textarea className="form-control" rows="3" aria-describedby={this.name} 
                             placeholder={this.placeholder} 
                             onChange={e => this.onChange(this.valueToChange, e.target.value)} 
+                            value={this.value}
                 />
             </div>
         );
