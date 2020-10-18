@@ -103,6 +103,16 @@ export default function SuitesTreeView(props) {
         return (<label className="badge badge-warning">{method}</label>);
 }
 
+  const renderCaseHeader = () => {
+      return (
+            <ul className="label-case-header-list">
+                <li id="case-name"><label>Case</label></li>
+                <li id="url"><label>URL</label></li>
+                <li id="method"><label>Method</label></li>
+            </ul>
+      )
+  }
+
   const renderCase = (testCase, testSuite) => {
       return (
         <TreeItem key={testSuite.id + "_" + testCase.id} nodeId={testSuite.id + "_" + testCase.id} label={
@@ -209,9 +219,9 @@ export default function SuitesTreeView(props) {
             </ul>
             </div>
         }>
-        
+        {renderCaseHeader()}
         {testSuite.caseList.map( (c) => renderCase(c, testSuite) )}
-            
+        <div className="suite-case-spacer"></div>
         </TreeItem>
     );
 }

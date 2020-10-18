@@ -185,6 +185,7 @@ class ViewCaseForm extends React.Component {
             document.getElementById("pass_"+testCase.id).style.display = 'block';
         }
         catch (err) {
+            console.log("hererer");
             document.getElementById("fail_"+testCase.id).style.display = 'block';
         }
         document.getElementById("run_"+testCase.id).style.display = 'block';

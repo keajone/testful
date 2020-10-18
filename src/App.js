@@ -12,12 +12,14 @@ import EditCase from "./components/Cases/EditCase";
 import CreateNewSuite from './components/Suites/CreateNewSuite';
 import ViewAllSuites from './components/Suites/ViewAllSuites';
 import EditSuite from "./components/Suites/EditSuite";
+import Details from "./components/Details/Details";
 
 // Styling
 import './App.css';
 
 // Route paths
 // TODO: Is this the "React" way?
+/** TODO: make profiles endpoint rather than 'TestToolPath' */
 const HomePath = "/";
 const TestToolPath = "/profiles";
 const CreateNewCasePath = "/cases/new";
@@ -26,6 +28,7 @@ const EditCasePath = "/cases/edit";
 const CreateNewSuitePath = "/suites/new";
 const ViewAllSuitesPath = "/suites";
 const EditSuitePath = "/suites/edit";
+const DetailsPath = "/details";
 
 function App() {
   return (
@@ -37,7 +40,6 @@ function App() {
           <Route exact path={HomePath} component={Home} />
 
           {/** Profiles */}
-          {/** TODO: make profiles endpoint rather than 'TestToolPath' */}
           <Route exact path={TestToolPath} component={TestTool} />
 
           {/** Cases */}
@@ -50,6 +52,9 @@ function App() {
           <Route exact path={CreateNewSuitePath} component={CreateNewSuite} />
           <Route exact path={ViewAllSuitesPath} component={ViewAllSuites} />
           <Route exact path={EditSuitePath+"/:id"} component={EditSuite} />
+
+          {/** Details */}
+          <Route exact path={DetailsPath+"/:id"} component={Details} />
 
         </Switch>
       </div>

@@ -104,10 +104,18 @@ class ProfileTabContent extends React.Component {
 
     // Updates the response body preview window.
     setResponseBody = (value) => {
-        // TODO: This re-formatting works for JSON, but what if the body is HTML/Text?
-        var object = JSON.parse(value);
-        var newValue = JSON.stringify(object, null, 2);
-        this.handleEditorChange(newValue, "value", "responseBody");
+        try {
+            // This works for JSON
+            var object = JSON.parse(value);
+            var newValue = JSON.stringify(object, null, 2);
+            this.handleEditorChange(newValue, "value", "responseBody");
+            this.handleEditorChange("javascript", "mode", "responseBody");
+        }
+        catch (err) {
+            // Everything else...TODO: setting it to HTML preview for now.
+            this.handleEditorChange(value, "value", "responseBody");
+            this.handleEditorChange("htmlmixed", "mode", "responseBody");
+        }
     }
 
     render() {
