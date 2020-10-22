@@ -2,12 +2,11 @@
 import React from "react";
 
 // Component imports
-import CaseLoadingAnimation from "../Animations/CaseLoadingAnimation";
-import Case from "../Cases/Case";
 import Suite from "../Suites/Suite";
 
 // CSS imports
-
+import "../css/Details/SuiteDetails.css";
+import CaseDetailsForm from "./CaseDetailsForm";
 
 /**
  * Component for displaying details of either a case run or suite run
@@ -22,83 +21,50 @@ class SuiteDetailsForm extends React.Component {
         this.state = {
             id: id,
             suite: suite,
+            failure: false,
         };
     }
-    componentDidMount() {
-        this.runSuite();
-    }
+    // componentDidMount() {
+    //     // document.getElementById("pass_"+this.state.id).style.display = 'none';
+    //     // document.getElementById("fail_"+this.state.id).style.display = 'none';
 
-    runCase = async (testCase) => {
+    //     // if (document.getElementById("fail_suite-details") !== null) {
+    //         // document.getElementById("pass_"+this.state.id).style.display = 'none';
+    //         // document.getElementById("fail_"+this.state.id).style.display = 'inline-block';
+    //         this.state.suite.status = "fail";
+    //         ReactDOM.render(<>&nbsp;&nbsp;&nbsp;Not all test cases passed.</>, document.getElementById("details-status-message"));
 
-        document.getElementById("pass_"+this.state.id + "_" + testCase.id).style.display = 'none';
-        document.getElementById("fail_"+this.state.id + "_" + testCase.id).style.display = 'none';
-    
-        try {
-            // document.getElementById("run_"+this.state.id + "_" + testCase.id).style.display = 'none';
-            // CaseLoadingAnimation.toggle(this.state.id + "_" + testCase.id);
-            await Case.execute(testCase);
-            document.getElementById("pass_"+this.state.id + "_" + testCase.id).style.display = 'block';
-        }
-        catch (err) {
-            document.getElementById("fail_"+this.state.id + "_" + testCase.id).style.display = 'block';
-            throw err;
-        }
-        // document.getElementById("run_"+this.state.id + "_" + testCase.id).style.display = 'block';
-        // CaseLoadingAnimation.toggle(this.state.id + "_" + testCase.id);
-        
-      }
-    
-      runSuite = async () => {
+    //         // document.getElementById("details-status-message").innerHTML = <>&nbsp; - Not all test cases passed.</>
+    //     } else {
+    //         document.getElementById("pass_"+this.state.id).style.display = 'inline-block';
+    //         this.state.suite.status = "pass";
+    //         ReactDOM.render(<>&nbsp;&nbsp;&nbsp;All test cases passed successfully.</>, document.getElementById("details-status-message"));
 
-        var failed = false;
-    
-        document.getElementById("pass_"+this.state.id).style.display = 'none';
-        document.getElementById("fail_"+this.state.id).style.display = 'none';
-        
-        // document.getElementById("run_"+this.state.id).style.display = 'none';
-        // CaseLoadingAnimation.toggle(this.state.id);
+    //         // document.getElementById("details-status-message").innerHTML = <>&nbsp; - All test cases passed successfully.</>
 
-        for (let i=0; i < this.state.suite.caseList.length; i++) {
-            try {
-                await this.runCase(this.state.suite.caseList[i]);
+    //     }
+    //     Suite.edit(this.state.suite);
+    // }
+
+    setFailStatus = () => {
+
+        this.setState({
+            failure: true,
+            suite: {
+                ...this.state.suite,
+                status: "fail"
             }
-            catch (err) {
-                console.log(err);
-                document.getElementById("error_"+this.state.suite.caseList[i].id).innerHTML = err;
-                failed = true;
-            }
-        }
-
-        if (failed) {
-            document.getElementById("pass_"+this.state.id).style.display = 'none';
-            document.getElementById("fail_"+this.state.id).style.display = 'block';
-            this.state.suite.status = "fail";
-        } else {
-            document.getElementById("pass_"+this.state.id).style.display = 'block';
-            this.state.suite.status = "pass";
-        }
+        });
         Suite.edit(this.state.suite);
-        // document.getElementById("run_"+this.state.id).style.display = 'block';
-        // CaseLoadingAnimation.toggle(this.state.id);
     }
 
     getCases = () => {
         return (
             <div>{this.state.suite.caseList.map((c) => { 
 
-                return (
-                    <div key={c.id} className="details-case-box">
-                        {c.caseName} <br/> 
-                        <div className="details-pass-small" id={"pass_"+this.state.id+"_"+c.id}>
-                            <label className="badge badge-success">PASSED</label>
-                        </div>
-                        <div className="details-fail-small" id={"fail_"+this.state.id+"_"+c.id}>
-                            <label className="badge badge-danger">FAILED</label>
-                        </div>
-                        <pre id={"error_"+c.id}>
-
-                        </pre>
-                    </div>
+                return (<><br/>
+                    <CaseDetailsForm case={c} id="suite-details" onFail={this.setFailStatus}/>
+                    <br/></>
                 ); 
             })}</div>
         )
@@ -107,18 +73,28 @@ class SuiteDetailsForm extends React.Component {
     getName = () => {
         return (
             <div className="details-suite-name">
-                <label>{this.state.suite.SuiteName}</label>
+                <br/>
+                <h3 style={{marginLeft: "5%"}}>{this.state.suite.SuiteName}</h3>
             </div>
         );
     }
 
     getStatus = () => {
-        return (
-            <div className="details-status">
-                <label className="badge badge-success" id={"pass_"+this.state.id}>PASSED</label>
-                <label className="badge badge-danger" id={"fail_"+this.state.id}>FAILED</label>
-            </div>
-        );
+        if (this.state.failure === true) {
+            return (
+                <div className="details-status">
+                    <label className="badge badge-danger" id={"fail_"+this.state.id}>FAILED</label>
+                    <label id="details-status-message">&nbsp;&nbsp;&nbsp;Not all test cases passed.</label>
+                </div>
+            );
+        } else {
+            return (
+                <div className="details-status">
+                    <label className="badge badge-success" id={"pass_"+this.state.id}>PASSED</label>
+                    <label id="details-status-message">&nbsp;&nbsp;&nbsp;All test cases passed successfully.</label>
+                </div>
+            );
+        }
     }
 
     render() {
@@ -130,7 +106,6 @@ class SuiteDetailsForm extends React.Component {
 
                 <br/>
 
-                <h2>Status:</h2>
                 {this.getStatus()}
 
                 <br/>

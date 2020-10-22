@@ -12,6 +12,9 @@ import {EditSuitePath} from "../../App";
 import CaseLoadingAnimation from "../Animations/CaseLoadingAnimation";
 import Case from "../Cases/Case";
 import Suite from './Suite';
+import {DetailsPath} from "../../App";
+import { withRouter } from "react-router-dom";
+import { CgDetailsMore } from "react-icons/cg";
 
 
 const useStyles = makeStyles({
@@ -22,23 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SuitesTreeView(props) {
-
-  const suites = props.suites;
-
-  const classes = useStyles();
-  const [expanded, setExpanded] = React.useState([]);
-  const [selected, setSelected] = React.useState([]);
-
-  const handleToggle = (event, nodeIds) => {
-    setExpanded(nodeIds);
-  };
-
-  const handleSelect = (event, nodeIds) => {
-    setSelected(nodeIds);
-  };
-
-  const runCase = async (testCase, testSuite) => {
+const runCase = async (testCase, testSuite) => {
 
     // document.getElementById("pass_"+testSuite.id + "_" + testCase.id).style.display = 'none';
     // document.getElementById("fail_"+testSuite.id + "_" + testCase.id).style.display = 'none';
@@ -56,9 +43,9 @@ export default function SuitesTreeView(props) {
     // document.getElementById("run_"+testSuite.id + "_" + testCase.id).style.display = 'block';
     // CaseLoadingAnimation.toggle(testSuite.id + "_" + testCase.id);
     
-  }
+}
 
-  const runSuite = async (testSuite) => {
+export const runSuite = async (testSuite) => {
 
     document.getElementById("pass_"+testSuite.id).style.display = 'none';
     document.getElementById("fail_"+testSuite.id).style.display = 'none';
@@ -70,11 +57,9 @@ export default function SuitesTreeView(props) {
         for (let i=0; i < testSuite.caseList.length; i++) {
             await runCase(testSuite.caseList[i], testSuite);
         }
+        document.getElementById("fail_"+testSuite.id).style.display = 'none';
         document.getElementById("pass_"+testSuite.id).style.display = 'block';
         testSuite.status = "pass";
-        // console.log("passed");
-        // console.log(testSuite);
-        
     }
     catch (err) {
         console.log(err);
@@ -87,6 +72,72 @@ export default function SuitesTreeView(props) {
     document.getElementById("run_"+testSuite.id).style.display = 'block';
     CaseLoadingAnimation.toggle(testSuite.id);
 }
+
+function SuitesTreeView(props) {
+
+  const suites = props.suites;
+
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState([]);
+  const [selected, setSelected] = React.useState([]);
+
+  const handleToggle = (event, nodeIds) => {
+    setExpanded(nodeIds);
+  };
+
+  const handleSelect = (event, nodeIds) => {
+    setSelected(nodeIds);
+  };
+
+//   const runCase = async (testCase, testSuite) => {
+
+//     // document.getElementById("pass_"+testSuite.id + "_" + testCase.id).style.display = 'none';
+//     // document.getElementById("fail_"+testSuite.id + "_" + testCase.id).style.display = 'none';
+
+//     try {
+//         // document.getElementById("run_"+testSuite.id + "_" + testCase.id).style.display = 'none';
+//         // CaseLoadingAnimation.toggle(testSuite.id + "_" + testCase.id);
+//         await Case.execute(testCase);
+//         // document.getElementById("pass_"+testSuite.id + "_" + testCase.id).style.display = 'block';
+//     }
+//     catch (err) {
+//         throw err;
+//         // document.getElementById("fail_"+testSuite.id + "_" + testCase.id).style.display = 'block';
+//     }
+//     // document.getElementById("run_"+testSuite.id + "_" + testCase.id).style.display = 'block';
+//     // CaseLoadingAnimation.toggle(testSuite.id + "_" + testCase.id);
+    
+//   }
+
+//   const runSuite = async (testSuite) => {
+
+//     document.getElementById("pass_"+testSuite.id).style.display = 'none';
+//     document.getElementById("fail_"+testSuite.id).style.display = 'none';
+
+//     try {
+//         document.getElementById("run_"+testSuite.id).style.display = 'none';
+//         CaseLoadingAnimation.toggle(testSuite.id);
+
+//         for (let i=0; i < testSuite.caseList.length; i++) {
+//             await runCase(testSuite.caseList[i], testSuite);
+//         }
+//         document.getElementById("pass_"+testSuite.id).style.display = 'block';
+//         testSuite.status = "pass";
+//         // console.log("passed");
+//         // console.log(testSuite);
+        
+//     }
+//     catch (err) {
+//         console.log(err);
+//         document.getElementById("pass_"+testSuite.id).style.display = 'none';
+//         document.getElementById("fail_"+testSuite.id).style.display = 'block';
+//         testSuite.status = "fail";
+//     }
+
+//     Suite.edit(testSuite);
+//     document.getElementById("run_"+testSuite.id).style.display = 'block';
+//     CaseLoadingAnimation.toggle(testSuite.id);
+// }
 
   const renderRequestMethod = (method) => {
     if (method === "GET")
@@ -195,6 +246,12 @@ export default function SuitesTreeView(props) {
                     }}>
                     <label>{testSuite.SuiteName}</label>
                 </li>
+                <li className="li-details">
+                    <button id="details-btn" className="btn btn-primary btn-sm" onClick={() => 
+                            {   // deatails of the suite 
+                                props.history.push(DetailsPath+"/"+testSuite.id);
+                            }}>Details&nbsp;<CgDetailsMore size="20"/></button>
+                </li>
                 <li className="li-edit">
                     <button type="button" className="btn" data-toggle="tooltip" 
                             data-placement="top" title="Edit Suite" onClick={() => 
@@ -241,3 +298,5 @@ export default function SuitesTreeView(props) {
     </TreeView>
   );
 }
+
+export default withRouter(SuitesTreeView);

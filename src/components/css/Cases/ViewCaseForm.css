@@ -15,16 +15,17 @@
     padding: 5px;
 }
 .info-table-edit-btn {
-    text-align: center;
-    /* width: 5%; */
+    text-align: right;
+    width: 10%;
 }
 .case-info-table .td-run {
-    text-align: center;
-    width: 45px;
-    /* width: 5%; */
+    text-align: right;
+    /* width: 45px; */
+    width: 5%;
 }
 .case-info-table .td-run button {
-    margin-right: 0px !important;
+    float: right;
+    /* margin-right: 0px !important; */
     /* display: none; */
 }
 .status-container {
@@ -45,6 +46,7 @@
 .case-info-table .SLA-container {
     /* display: block; */
     height: 20px !important;
+    margin-right: 9px;
 }
 .status-container button {
     /* float: right; */
@@ -64,15 +66,31 @@
     border-bottom: 1px solid lightgrey;
 }
 .info-table-method {
-    width: 20% !important;
+    width: 120px !important;
     padding-top: 10px;
+    /* border: 1px solid red; */
 }
 .info-table-method label {
     font-size: 20px;
 }
+.case-info-table {
+    /* border: 1px solid blue; */
+    width: 90%;
+    table-layout: fixed;
+}
 .info-table-url {
-    width: 70% !important;
+    /* display: inline; */
+    /* width: 10% !important; */
+    width: 60%;
+    /* width: 10px !important; */
     font-size: 20px;
+    /* border: 1px solid green; */
+}
+.info-table-url > div {
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: auto;
 }
 .info-table-url label {
     font-size: 40px;

@@ -17,6 +17,7 @@
     "react": "^16.13.1",
     "react-codemirror": "1.0.0",
     "react-codemirror2": "^7.2.1",
+    "react-diff-viewer": "^3.1.1",
     "react-dom": "^16.13.1",
     "react-history": "^0.18.2",
     "react-icons": "^3.11.0",

@@ -7,9 +7,6 @@ import CaseDetailsForm from "./CaseDetailsForm";
 import SuiteDetailsForm from "./SuiteDetailsForm";
 import PageHeader from "../Previews/PageHeader";
 
-// CSS imports
-import "../css/Details/SuiteDetails.css";
-
 /**
  * Component for managing the page that shows details of a running case or suite
  */

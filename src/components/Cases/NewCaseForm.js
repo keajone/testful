@@ -76,7 +76,9 @@ class NewCaseForm extends React.Component {
                         {({ values, isSubmitting, handleChange, handleBlur, handleSubmit }) => (
                             <form onSubmit={handleSubmit}>
 
-                                {this.getSaveButton(isSubmitting)}
+                                <div className="edit-buttons">
+                                    {this.getSaveButton(isSubmitting)}
+                                </div>
 
                                 {/** Case Name input */}
                                 <Field>

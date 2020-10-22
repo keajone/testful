@@ -37,7 +37,10 @@ export class SingleLineInput extends React.Component {
                 <label htmlFor={this.name+"Input"}>{this.name}</label>
                 <input type="input" className="form-control" 
                         aria-describedby={this.name} placeholder={this.placeholder} 
-                        onChange={e => this.onChange(this.valueToChange, e.target.value)}
+                        onChange={e => {
+                            this.onChange(this.valueToChange, e.target.value);
+                            this.value = e.target.value
+                        }}
                         value={this.value}
                 />
             </div>
@@ -61,7 +64,10 @@ export class MultiLineInput extends React.Component {
                 <label htmlFor={this.name+"Input"}>{this.name}</label>
                 <textarea className="form-control" rows="3" aria-describedby={this.name} 
                             placeholder={this.placeholder} 
-                            onChange={e => this.onChange(this.valueToChange, e.target.value)} 
+                            onChange={e => {
+                                this.onChange(this.valueToChange, e.target.value);
+                                this.value = e.target.value
+                            }}
                             value={this.value}
                 />
             </div>

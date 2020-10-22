@@ -87,17 +87,17 @@ class AllCasesForm extends React.Component {
                         }}>
                         <label>{testCase.caseName}</label>
                     </li>
-                    <li className="li-url"onClick={() => 
-                        {
-                            this.props.history.push(ViewAllCasesPath+"/"+testCase.id);
-                        }}>
-                        <label>{testCase.url}</label>
-                    </li>
                     <li className="li-method"onClick={() => 
                         {
                             this.props.history.push(ViewAllCasesPath+"/"+testCase.id);
                         }}>
                         {this.renderRequestMethod(testCase.method)}
+                    </li>
+                    <li className="li-url"onClick={() => 
+                        {
+                            this.props.history.push(ViewAllCasesPath+"/"+testCase.id);
+                        }}>
+                        <label>{testCase.url}</label>
                     </li>
                     <li className="li-edit">
                         <button type="button" className="btn" data-toggle="tooltip" 
@@ -169,8 +169,8 @@ class AllCasesForm extends React.Component {
                 <div>
                     <ul className="label-header-list">
                         <li id="name"><label>Name</label></li>
-                        <li id="url"><label>URL</label></li>
                         <li id="method"><label>Method</label></li>
+                        <li id="url"><label>URL</label></li>
                         <li id="edit"><label>Edit</label></li>
                         <li id="run"><label>Run</label></li>
                         <li id="status"><label>Status</label></li>

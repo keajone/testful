@@ -9,6 +9,7 @@ import Suite from "./Suite";
 import CaseLoadingAnimation from "../Animations/CaseLoadingAnimation";
 // import {ViewAllSuitesPath, EditSuitePath} from "../../App";
 import SuiteTreeView from "./SuitesTreeView";
+import {runSuite} from "./SuitesTreeView";
 
 // CSS imports
 import "../css/Suites/ViewAllSuitesForm.css";
@@ -26,31 +27,13 @@ class AllSuitesForm extends React.Component {
         };
     }
 
-    runSuite = async (testSuite) => {
-
-        document.getElementById("pass_"+testSuite.id).style.display = 'none';
-        document.getElementById("fail_"+testSuite.id).style.display = 'none';
-
-        try {
-            document.getElementById("run_"+testSuite.id).style.display = 'none';
-            CaseLoadingAnimation.toggle(testSuite.id);
-            await Suite.execute(testSuite);
-            document.getElementById("pass_"+testSuite.id).style.display = 'block';
-        }
-        catch (err) {
-            document.getElementById("fail_"+testSuite.id).style.display = 'block';
-        }
-        document.getElementById("run_"+testSuite.id).style.display = 'block';
-        CaseLoadingAnimation.toggle(testSuite.id);
-    }
-
     runAllSuites = async (testSuiteList) => {
 
         document.getElementById("run-all-suites-btn").style.display = 'none';
         CaseLoadingAnimation.toggle("run-all-suites-spnr");
 
         for (let i = 0; i < testSuiteList.length; i++) {
-            await this.runSuite(testSuiteList[i]);
+            await runSuite(testSuiteList[i]);
         }
         document.getElementById("run-all-suites-btn").style.display = 'block';
         CaseLoadingAnimation.toggle("run-all-suites-spnr");
@@ -79,11 +62,17 @@ class AllSuitesForm extends React.Component {
 
         // Searching
         const {search} = this.state;
-        const filteredSuites = this.state.suiteList.filter(testSuite => {
-            return (
-                testSuite.SuiteName.toLowerCase().indexOf(search.toLowerCase()) !== -1
-            )
-        });
+        var filteredSuites
+        if (this.state.suiteList !== null) {
+            filteredSuites = this.state.suiteList.filter(testSuite => {
+                return (
+                    testSuite.SuiteName.toLowerCase().indexOf(search.toLowerCase()) !== -1
+                )
+            });
+        } else {
+            filteredSuites = [];
+        }
+        
 
         return (
             <div>

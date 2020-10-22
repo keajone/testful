@@ -71,5 +71,6 @@ export {
   EditCasePath, 
   CreateNewSuitePath, 
   ViewAllSuitesPath,
-  EditSuitePath
+  EditSuitePath,
+  DetailsPath
 };

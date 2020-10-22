@@ -21,9 +21,14 @@
 }
 
 .details-status {
-    font-size: 25px;
-    width: 100px;
+    margin-left: 5%;
+    font-size: 27px;
+    /* width: 110px; */
 }
 .details-suite-name {
     font-size: 25px;
+}
+
+#details-status-message {
+    margin-bottom: 0px;
 }

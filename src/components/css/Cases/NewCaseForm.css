@@ -25,13 +25,30 @@
 }
 
 .new-case-submit {
-    margin-top: 40px;
+    /* margin-top: 40px;
     width: 20%;
     position: absolute;
     top: 387px;
-    margin-left: 70%;
+    margin-left: 70%; */
+    float: right;
 }
 .new-case-submit button {
     color: white;
+    /* float: right; */
+}
+
+.delete-case-submit {
+    /* margin-top: 40px;
+    width: 20%;
+    position: absolute;
+    top: 387px;
+    margin-left: 70%; */
     float: right;
+    margin-right: 5px;
+}
+.edit-buttons {
+    position: absolute;
+    top: 428px;
+    right: 5%;
+    width: 150px;
 }

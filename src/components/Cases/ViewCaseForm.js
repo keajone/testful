@@ -9,8 +9,9 @@ import { CgDetailsMore } from "react-icons/cg";
 // Component imports
 import NumberedTextArea from "../Previews/NumberedTextArea";
 import Case from "./Case";
-import {ViewAllCasesPath, EditCasePath} from "../../App";
+import {ViewAllCasesPath, EditCasePath, DetailsPath} from "../../App";
 import CaseLoadingAnimation from "../Animations/CaseLoadingAnimation"
+import Error from "../ErrorHandling/Error";
 
 // CSS imports
 import "../css/Cases/ViewCaseForm.css";
@@ -36,6 +37,10 @@ class ViewCaseForm extends React.Component {
             url: obj.url,
         };
         this.edit = props.edit;
+    }
+
+    goToDetails = (e) => {
+        this.props.history.push(DetailsPath+"/"+this.state.id);
     }
 
     // Renders the request method badge based on the method type.
@@ -70,12 +75,49 @@ class ViewCaseForm extends React.Component {
         return SaveButton;
     }
 
+    getDeleteButton = (isSubmitting) => {
+        let DeleteButton;
+        if (isSubmitting) {
+            DeleteButton = 
+                <div className="delete-case-submit">
+                    <button type="button" disabled className="btn btn-danger">Delete</button>
+                </div>
+        } else {
+            DeleteButton = 
+                <div className="delete-case-submit">
+                    <button type="button" className="btn btn-danger" onClick={ () => {
+                        Error.clear();
+                        let isSuccess = Case.remove(this.state.caseObject);
+                        if (isSuccess)
+                            this.props.history.push(ViewAllCasesPath);
+                        else
+                            Error.set("Failed to remove test case '"+this.state.caseObject.caseName+"'");
+                                
+                    }}
+                    >Delete</button>
+                </div>
+        }
+        return DeleteButton;
+    }
+
     render() {
         return ( 
             this.edit === false ? 
             this.renderViewCase_NotEditable() : 
             this.renderViewCase_Editable()
         );
+    }
+
+    editCase = (caseObj) => {
+        Error.clear();
+        try {
+            Case.edit(caseObj);
+        }
+        catch (err) {
+            Error.set(err.message);
+            return false;
+        }
+        return true;
     }
 
     // Renders the test case in edit mode
@@ -87,7 +129,7 @@ class ViewCaseForm extends React.Component {
                     <Formik 
                         initialValues={this.state.caseObject} 
                         onSubmit={(data,actions) => { 
-                            var bool = Case.edit(data);
+                            var bool = this.editCase(data);
                             actions.setSubmitting(false);
                             if (bool)
                                 this.props.history.push(ViewAllCasesPath+"/"+this.state.id);
@@ -96,7 +138,10 @@ class ViewCaseForm extends React.Component {
                         {({ values, isSubmitting, handleChange, handleBlur, handleSubmit }) => (
                             <form onSubmit={handleSubmit}>
 
-                                {this.getSaveButton(isSubmitting)}
+                                <div className="edit-buttons">
+                                    {this.getSaveButton(isSubmitting)}
+                                    {this.getDeleteButton(isSubmitting)}
+                                </div>
 
                                 {/** Case Name input */}
                                 <Field>
@@ -188,10 +233,11 @@ class ViewCaseForm extends React.Component {
             console.log("hererer");
             document.getElementById("fail_"+testCase.id).style.display = 'block';
         }
+        CaseLoadingAnimation.toggle(testCase.id);
         document.getElementById("run_"+testCase.id).style.display = 'block';
         document.getElementById("details-btn").style.display = 'inline-block';
 
-        CaseLoadingAnimation.toggle(testCase.id);
+        
     }
 
     // Renders the test case in View Mode (not-editable)
@@ -204,7 +250,7 @@ class ViewCaseForm extends React.Component {
                         <tbody>
                             <tr>
                                 <td className="info-table-method">{this.renderRequestMethod(this.state.method)}</td>
-                                <td className="info-table-url">{this.state.url}</td>
+                                <td className="info-table-url"><div>{this.state.url}</div></td>
                                 <td className="info-table-edit-btn">
                                     <button type="button" className="btn" 
                                             data-toggle="tooltip" data-placement="top" 
@@ -227,7 +273,7 @@ class ViewCaseForm extends React.Component {
                         <div className="td-fail" id={"fail_"+this.state.id}>
                             <label className="badge badge-danger">FAILED</label>
                         </div>
-                        <button id="details-btn" className="btn btn-primary btn-sm">Details&nbsp;<CgDetailsMore size="20"/></button>
+                        <button id="details-btn" className="btn btn-primary btn-sm" onClick={this.goToDetails}>Details&nbsp;<CgDetailsMore size="20"/></button>
                     </div>
                     <br/>
                     <br/>
