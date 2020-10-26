@@ -2,6 +2,13 @@ import uuid from "uuid";
 
 import HTTP from "../../http/http";
 
+export const CaseCheckOptions = {
+    ONE: 'returns-any-response-body',
+    TWO: 'returns-expected-response-body',
+    THREE: 'returns-any-response-header',
+    FOUR: 'returns-expected-response-header',
+};
+
 /**
  * This class is used for representation of Case objects. 
  * It contains methods that return case configurations 
@@ -175,7 +182,7 @@ class Case {
 
     // Returns an empty case configuration
     static getEmptyCase = () => {
-        return {
+        var emptyCase = {
             id: uuid(), 
             caseName: this.default_caseName,
             url: this.default_url,
@@ -183,8 +190,14 @@ class Case {
             givenRequestBody: this.default_givenRequestBody,
             givenRequestHeader: this.default_givenRequestHeader,
             expectedResponseHeader: this.default_expectedResponseHeader,
-            expectedResponseBody: this.default_expectedResponseBody
+            expectedResponseBody: this.default_expectedResponseBody,
         };
+        emptyCase[CaseCheckOptions.ONE] = false;
+        emptyCase[CaseCheckOptions.TWO] = false;
+        emptyCase[CaseCheckOptions.THREE] = false;
+        emptyCase[CaseCheckOptions.FOUR] = false;
+        
+        return emptyCase;
     };
     
 }

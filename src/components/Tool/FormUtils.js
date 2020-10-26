@@ -1,3 +1,5 @@
+import {CaseCheckOptions} from "../Cases/Case";
+
 /**
  * This file is for utility components/functions for Form building.
  */
@@ -9,12 +11,12 @@ export function getSaveButton(isSubmitting) {
     let SaveButton;
     if (isSubmitting) {
         SaveButton = 
-            <div className="new-Suite-submit">
+            <div className="new-case-submit">
                 <button type="Submit" disabled className="btn btn-primary">Save</button>
             </div>
     } else {
         SaveButton = 
-            <div className="new-Suite-submit">
+            <div className="new-case-submit">
                 <button type="Submit" className="btn btn-primary">Save</button>
             </div>
     }
@@ -103,5 +105,71 @@ export class SelectDropdown extends React.Component {
                 </select>
             </div>
         );
+    }
+}
+
+export class CheckOptions extends React.Component {
+    constructor(props) {
+        super(props);
+        this.onChange = props.onChange;
+        this.name = props.name;
+
+        // Set the suite values to the given initial option boolean values.
+        var options = Object.keys(CaseCheckOptions);
+        var optionValues = this.props.optionValues;
+        const onChange = this.onChange;
+        options.forEach(function (o, i) {
+            onChange(CaseCheckOptions[o], optionValues[i]);
+        });
+    }
+
+    componentDidMount() {
+        // Update the checkboxes based on initial option boolean values.
+        // Needs to be done after rendering.
+        var options = Object.keys(CaseCheckOptions);
+        var optionValues = this.props.optionValues;
+        options.forEach(function (o, i) {
+            document.getElementById(CaseCheckOptions[o]+"-input").checked = optionValues[i];
+        });
+    }
+
+    render() {
+        return (
+            <div className="check-options-container">
+                <label htmlFor={this.name+"Options"}>{this.name}</label>
+                <div className="form-check">
+                    <label className="form-check-label">
+                        <input type="checkbox" className="form-check-input" value="" 
+                                onChange={e => this.onChange(CaseCheckOptions.ONE, e.target.checked)}
+                                id={CaseCheckOptions.ONE+"-input"}/>
+                        Returns any response body
+                    </label>
+                </div>
+                <div className="form-check">
+                    <label className="form-check-label">
+                        <input type="checkbox" className="form-check-input" value="" 
+                               onChange={e => this.onChange(CaseCheckOptions.TWO, e.target.checked)}
+                               id={CaseCheckOptions.TWO+"-input"}/>
+                        Returns an <b>expected</b> response body
+                    </label>
+                </div>
+                <div className="form-check">
+                    <label className="form-check-label">
+                        <input type="checkbox" className="form-check-input" value="" 
+                               onChange={e => this.onChange(CaseCheckOptions.THREE, e.target.checked)}
+                               id={CaseCheckOptions.THREE+"-input"}/>
+                        Returns any header(s)
+                    </label>
+                </div>
+                <div className="form-check">
+                    <label className="form-check-label">
+                        <input type="checkbox" className="form-check-input" value="" 
+                               onChange={e => this.onChange(CaseCheckOptions.FOUR, e.target.checked)}
+                               id={CaseCheckOptions.FOUR+"-input"}/>
+                        Returns an <b>expected</b> response header(s)
+                    </label>
+                </div>
+            </div>
+        )
     }
 }

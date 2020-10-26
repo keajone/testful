@@ -79,11 +79,11 @@ class CaseList extends React.Component {
                         <ul>
                             <li className="case-item-new-suite-name"><label>{testCase.caseName}</label></li>
                             <li className="case-item-new-suite-url"><label>{testCase.url}</label></li>
+                            
+                            <li className="case-item-new-suite-method">{this.renderRequestMethod(testCase.method)}</li>
                             <li className="case-item-new-suite-add">
                                 <button type="button" onClick={() => {this.addToAddedList(testCase.id)}} className="btn btn-success"><label>Add</label></button>
                             </li>
-                            <li className="case-item-new-suite-method">{this.renderRequestMethod(testCase.method)}</li>
-                            
                         </ul>
                     </div>
                 );
@@ -106,11 +106,11 @@ class CaseList extends React.Component {
                         <ul>
                             <li className="case-item-new-suite-name"><label>{testCase.caseName}</label></li>
                             <li className="case-item-new-suite-url"><label>{testCase.url}</label></li>
+                            
+                            <li className="case-item-new-suite-method">{this.renderRequestMethod(testCase.method)}</li>
                             <li className="case-item-new-suite-add">
                                 <button type="button" onClick={() => {this.removeFromAddedList(testCase.id)}} className="btn btn-danger"><label>Remove</label></button>
                             </li>
-                            <li className="case-item-new-suite-method">{this.renderRequestMethod(testCase.method)}</li>
-                            
                         </ul>
                     </div>
                 );

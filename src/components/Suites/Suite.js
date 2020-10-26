@@ -14,37 +14,25 @@ class Suite {
 
     constructor(jsonObject) {
 
-        this.jsonObject = jsonObject;
-
-        this.id = jsonObject.id;
-        if (this.id === "") {
-            throw new Error("Suite ID is invalid.");
-        }
-        this.SuiteName = jsonObject.SuiteName;
-        if (this.SuiteName === "") {
-            throw new Error("Must give valid Suite Name.");
-        }
-    }
-
-    static edit = (suiteObj) => {
         try {
-            let array = JSON.parse(localStorage.getItem('Suites'));
-            if (array.length > 0) {
-                for (var i in array) {
-                    if (array[i].id === suiteObj.id) {
-                        array[i] = suiteObj;
-                    break;
-                    }
-                }
-                localStorage.setItem('Suites', JSON.stringify(array));
-                return true;
-            }
+            Suite.verify(jsonObject);
         }
         catch (err) {
-            return false;
+            throw new Error(err);
         }
-        return false;
-        
+
+        this.jsonObject = jsonObject;
+        this.id = jsonObject.id;
+        this.SuiteName = jsonObject.SuiteName;
+    }
+
+    static verify = (suiteObj) => {
+        if (suiteObj.id === "") {
+            throw new Error("Suite ID is invalid.");
+        }
+        if (suiteObj.SuiteName === "") {
+            throw new Error("Must give valid Suite Name.");
+        }
     }
 
     static getAll = () => {
@@ -61,12 +49,25 @@ class Suite {
         }
     }
 
-    removeFromLocalStorage = () => {
+    static remove = (suiteToRemove) => {
+        try {
 
+            let array = JSON.parse(localStorage.getItem('Suites'));
+            array = array.filter(function( obj ) {
+                return obj.id !== suiteToRemove.id;
+            });
+            localStorage.setItem('Suites', JSON.stringify(array));
+            return true;
+        }
+        catch (err) {
+            return false;
+        }
     }
 
     static edit = (SuiteObj) => {
         try {
+            this.verify(SuiteObj);
+
             let array = JSON.parse(localStorage.getItem('Suites'));
             if (array.length > 0) {
                 for (var i in array) {
@@ -80,10 +81,8 @@ class Suite {
             }
         }
         catch (err) {
-            return false;
-        }
-        return false;
-        
+            throw err;
+        }        
     }
 
     static execute = async (testSuite) => {

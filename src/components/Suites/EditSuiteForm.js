@@ -12,6 +12,7 @@ import {
     MultiLineInput,
     SingleLineInput,
 } from "../Tool/FormUtils"
+import {ViewAllSuitesPath} from "../../App";
 
 
 /**
@@ -36,7 +37,10 @@ class EditSuiteForm extends React.Component {
 
         Error.clear();
         try {
-            Suite.edit(data); 
+            console.log("before suite save");
+            var t = Suite.edit(data);
+            console.log(t);
+
         }
         catch (err) {
             console.log(err);
@@ -44,6 +48,31 @@ class EditSuiteForm extends React.Component {
             return false
         }
         return true;
+    }
+
+    getDeleteButton = (isSubmitting) => {
+        let DeleteButton;
+        if (isSubmitting) {
+            DeleteButton = 
+                <div className="delete-case-submit">
+                    <button type="button" disabled className="btn btn-danger">Delete</button>
+                </div>
+        } else {
+            DeleteButton = 
+                <div className="delete-case-submit">
+                    <button type="button" className="btn btn-danger" onClick={ () => {
+                        Error.clear();
+                        let isSuccess = Suite.remove(this.state.suiteObject);
+                        if (isSuccess)
+                            this.props.history.push(ViewAllSuitesPath);
+                        else
+                            Error.set("Failed to remove test suite '"+this.state.suiteObject.SuiteName+"'");
+                                
+                    }}
+                    >Delete</button>
+                </div>
+        }
+        return DeleteButton;
     }
 
     render() {
@@ -59,12 +88,17 @@ class EditSuiteForm extends React.Component {
                             
                             // If successfully added, view all suites.
                             if (isSuccess)
-                                console.log("success");
-                                // this.props.history.push(ViewAllSuitesPath);
+                                this.props.history.push(ViewAllSuitesPath);
                         }}
                     >
                         {({ values, isSubmitting, handleChange, handleBlur, handleSubmit }) => (
                             <form onSubmit={handleSubmit}>
+
+                                <div className="edit-buttons">
+                                    <br/>
+                                    {getSaveButton(isSubmitting)}
+                                    {this.getDeleteButton(isSubmitting)}
+                                </div>
 
                                 {/** Suite Name input */}
                                 <Field>
@@ -91,8 +125,6 @@ class EditSuiteForm extends React.Component {
                                     />
                                 )}
                                 </Field>
-
-                                {getSaveButton(isSubmitting)}
 
                                 {/** Add cases to suite input */}
                                 <Field>

@@ -15,8 +15,13 @@
 }
 
 .new-case-method-select {
-    padding-bottom: 40px;
-    margin-bottom: 40px;
+    /* padding-bottom: 40px; */
+    /* margin-bottom: 40px; */
+    /* border-bottom: 1px solid lightgray; */
+}
+.check-options-container {
+    padding-bottom: 20px;
+    margin-bottom: 20px;
     border-bottom: 1px solid lightgray;
 }
 

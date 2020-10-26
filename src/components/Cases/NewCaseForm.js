@@ -11,6 +11,7 @@ import {ViewAllCasesPath} from "../../App";
 
 // CSS imports
 import "../css/Cases/NewCaseForm.css";
+import { CheckOptions } from "../Tool/FormUtils";
 
 /**
  * Component for displaying the form to add a new case.
@@ -121,6 +122,17 @@ class NewCaseForm extends React.Component {
                                         </select>
                                     </div>
                                 )}
+                                </Field>
+                                    
+                                <Field>
+                                    {({ form: { setFieldValue } }) => (
+                                        <CheckOptions 
+                                            name="Checks"
+                                            onChange={setFieldValue} 
+                                            valueToChange="checks"
+                                            optionValues={[false, false, false, false]}
+                                        />
+                                    )}
                                 </Field>
 
                                 <table className="new-case-form-table"><tbody>

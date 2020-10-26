@@ -12,10 +12,10 @@
 }
 .new-suite-case-list table{
     width: 100%;
+    table-layout: fixed;
 }
 .new-suite-case-list td{
     width: 50%;
-    
 }
 .to-add-list {
     overflow: scroll;
@@ -80,20 +80,30 @@
     float: left;
     font-family: Verdana, Geneva, Tahoma, sans-serif;    
 }
+.case-item-new-suite label {
+    overflow: hidden !important;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+}
 .case-item-new-suite-url {
-    width: auto;
+    padding-right: 10px;
+    padding-left: 10px;
+    width: 55%;
     float: left;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 .case-item-new-suite-method {
-    width: 70px;
-    float: right;
-    margin-right: 100px;
+    width: 10%;
+    float: left;
+    text-align: right;
+    padding-right: 5px;
+    /* margin-right: 30px; */
 }
 .case-item-new-suite-method label {
     margin-top: 0px;
     margin-bottom: 0px;
-    width: 70px;
+    /* width: 70px; */
 }
 .case-item-new-suite li label {
     display: block;
@@ -103,7 +113,9 @@
     background-color: #eaf3fc;
 }
 .case-item-new-suite-add {
-    float: right;
+    width: 15%;
+    float: left;
+    text-align: right;
     padding-right: 10px;
     padding-top: 10px !important;
 }

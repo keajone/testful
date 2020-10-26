@@ -120,7 +120,7 @@ class AllSuitesForm extends React.Component {
                     (
                         // No results from search
                         <div>
-                            <ul><li><label>No Results</label></li></ul>
+                            <ul className="no-results-ul"><li><label>No Results</label></li></ul>
                         </div>
                     )}
                 </div>

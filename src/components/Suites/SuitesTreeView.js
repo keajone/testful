@@ -256,7 +256,7 @@ function SuitesTreeView(props) {
                     <button type="button" className="btn" data-toggle="tooltip" 
                             data-placement="top" title="Edit Suite" onClick={() => 
                             {   // edit the suite 
-                                this.props.history.push(EditSuitePath+"/"+testSuite.id);
+                                props.history.push(EditSuitePath+"/"+testSuite.id);
                             }}>
                             <FiEdit/>
                     </button>
