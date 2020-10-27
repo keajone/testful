@@ -9,9 +9,11 @@ import { CgDetailsMore } from "react-icons/cg";
 // Component imports
 import NumberedTextArea from "../Previews/NumberedTextArea";
 import Case from "./Case";
+import {CaseCheckOptions} from "./Case";
 import {ViewAllCasesPath, EditCasePath, DetailsPath} from "../../App";
 import CaseLoadingAnimation from "../Animations/CaseLoadingAnimation"
 import Error from "../ErrorHandling/Error";
+import {CheckOptions} from "../Tool/FormUtils";
 
 // CSS imports
 import "../css/Cases/ViewCaseForm.css";
@@ -192,6 +194,22 @@ class ViewCaseForm extends React.Component {
                                 )}
                                 </Field>
 
+                                <Field>
+                                    {({ form: { setFieldValue } }) => (
+                                        <CheckOptions 
+                                            name="Checks"
+                                            onChange={setFieldValue} 
+                                            valueToChange="checks"
+                                            optionValues={[
+                                                values[CaseCheckOptions.ONE],
+                                                values[CaseCheckOptions.TWO],
+                                                values[CaseCheckOptions.THREE],
+                                                values[CaseCheckOptions.FOUR]
+                                            ]}
+                                        />
+                                    )}
+                                </Field>
+
                                 <table className="new-case-form-table"><tbody>
                                 <tr>
                                 <td>
@@ -228,22 +246,22 @@ class ViewCaseForm extends React.Component {
 
         document.getElementById("pass_"+testCase.id).style.display = 'none';
         document.getElementById("fail_"+testCase.id).style.display = 'none';
-
-        try {
-            document.getElementById("run_"+testCase.id).style.display = 'none';
-            CaseLoadingAnimation.toggle(testCase.id);
-            await Case.execute(testCase);
+        document.getElementById("run_"+testCase.id).style.display = 'none';
+        CaseLoadingAnimation.toggle(testCase.id);
+        
+        var errors = await Case.execute(testCase);
+        if (errors.length === 0)
             document.getElementById("pass_"+testCase.id).style.display = 'block';
-        }
-        catch (err) {
-            console.log("hererer");
+        else {
             document.getElementById("fail_"+testCase.id).style.display = 'block';
         }
+        console.log(errors);
+        // testCase.errors = errors;
+        // Case.edit(testCase);
+
         CaseLoadingAnimation.toggle(testCase.id);
         document.getElementById("run_"+testCase.id).style.display = 'block';
         document.getElementById("details-btn").style.display = 'inline-block';
-
-        
     }
 
     // Renders the test case in View Mode (not-editable)
@@ -267,7 +285,7 @@ class ViewCaseForm extends React.Component {
                                 </td>
                                 <td className="td-run" >
                                     <CaseLoadingAnimation id={this.state.id}/>
-                                    <button id={"run_"+this.state.id} type="button" onClick={() => {this.runCase(this.state)}} className="btn" data-toggle="tooltip" data-placement="top" title="Run Test"><FaPlay/></button>
+                                    <button id={"run_"+this.state.id} type="button" onClick={() => {this.runCase(this.state.caseObject)}} className="btn" data-toggle="tooltip" data-placement="top" title="Run Test"><FaPlay/></button>
                                 </td>
                             </tr>
                         </tbody>

@@ -6,8 +6,8 @@ class Diff extends PureComponent {
       super(props);
       var tmpObject;
 
-      console.log(props.expected);
-      console.log(props.given);
+      this.leftTitle = props.leftTitle;
+      this.rightTitle = props.rightTitle;
 
       try {
         tmpObject = JSON.parse(props.expected);
@@ -36,8 +36,8 @@ class Diff extends PureComponent {
   render = () => {
     return (
       <ReactDiffViewer 
-        oldValue={this.expected} leftTitle="Expected Response Body"
-        newValue={this.given} rightTitle="Given Response Body"
+        oldValue={this.expected} leftTitle={this.leftTitle}
+        newValue={this.given} rightTitle={this.rightTitle}
         splitView={true} showDiffOnly={false}
       />
     );

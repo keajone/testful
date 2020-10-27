@@ -38,7 +38,9 @@ class AllCasesForm extends React.Component {
         try {
             document.getElementById("run_"+testCase.id).style.display = 'none';
             CaseLoadingAnimation.toggle(testCase.id);
-            await Case.execute(testCase);
+            var errors = await Case.execute(testCase);
+            if (errors.length > 0)
+                throw new Error();
             document.getElementById("pass_"+testCase.id).style.display = 'block';
         }
         catch (err) {

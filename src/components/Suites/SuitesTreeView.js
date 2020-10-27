@@ -25,26 +25,6 @@ const useStyles = makeStyles({
   },
 });
 
-const runCase = async (testCase, testSuite) => {
-
-    // document.getElementById("pass_"+testSuite.id + "_" + testCase.id).style.display = 'none';
-    // document.getElementById("fail_"+testSuite.id + "_" + testCase.id).style.display = 'none';
-
-    try {
-        // document.getElementById("run_"+testSuite.id + "_" + testCase.id).style.display = 'none';
-        // CaseLoadingAnimation.toggle(testSuite.id + "_" + testCase.id);
-        await Case.execute(testCase);
-        // document.getElementById("pass_"+testSuite.id + "_" + testCase.id).style.display = 'block';
-    }
-    catch (err) {
-        throw err;
-        // document.getElementById("fail_"+testSuite.id + "_" + testCase.id).style.display = 'block';
-    }
-    // document.getElementById("run_"+testSuite.id + "_" + testCase.id).style.display = 'block';
-    // CaseLoadingAnimation.toggle(testSuite.id + "_" + testCase.id);
-    
-}
-
 export const runSuite = async (testSuite) => {
 
     document.getElementById("pass_"+testSuite.id).style.display = 'none';
@@ -55,14 +35,16 @@ export const runSuite = async (testSuite) => {
         CaseLoadingAnimation.toggle(testSuite.id);
 
         for (let i=0; i < testSuite.caseList.length; i++) {
-            await runCase(testSuite.caseList[i], testSuite);
+            var errors = await Case.execute(testSuite.caseList[i]);
+            if (errors.length > 0) {
+                throw new Error();
+            }
         }
         document.getElementById("fail_"+testSuite.id).style.display = 'none';
         document.getElementById("pass_"+testSuite.id).style.display = 'block';
         testSuite.status = "pass";
     }
     catch (err) {
-        console.log(err);
         document.getElementById("pass_"+testSuite.id).style.display = 'none';
         document.getElementById("fail_"+testSuite.id).style.display = 'block';
         testSuite.status = "fail";

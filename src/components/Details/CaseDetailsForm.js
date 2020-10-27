@@ -4,10 +4,10 @@ import ReactDOM from 'react-dom';
 import Case from "../Cases/Case";
 
 // Component imports
-import Diff from "./DiffViewer";
 
 // CSS imports
 import "../css/Details/CaseDetails.css";
+import "../css/Details/ErrorDetails.css"
 
 /**
  * Component for displaying details of a case run
@@ -30,17 +30,20 @@ class CaseDetailsForm extends React.Component {
     }
 
     componentDidMount = async () => {
-        try {
-            await Case.execute(this.state.case);
+
+        var errors = await Case.execute(this.state.case);
+        if (errors.length > 0) {
+            console.log(errors);
+            this.status = "fail";
+            if (errors[0].type.name === "ErrorHTTP")
+                this.errMessage = "HTTP error occured.";
+            else
+                this.errMessage = "1 or more checks did not pass."
+        } else {
             this.status = "pass";
         }
-        catch (err) {
-            console.log(err);
-            this.status = "fail";
-            this.errMessage = err.message;
-        }
+        this.setErrors(errors);
         this.setStatus();
-        this.setDiff();
     }
 
     setStatus = () => {
@@ -50,6 +53,7 @@ class CaseDetailsForm extends React.Component {
             status = (
                 <div id={"pass_"+this.state.id}>
                     <label className="badge badge-success">PASSED</label>
+                    <label>&nbsp;&nbsp;&nbsp;All checks have passed.</label>
                 </div>
             )
         } else if (this.status === "fail") {
@@ -67,26 +71,19 @@ class CaseDetailsForm extends React.Component {
         ReactDOM.render(status, document.getElementById("case-details-status"+this.state.case.id));
     }
 
-    setDiff = () => {
-        console.log(this.state.case.expectedResponseBody);
-        console.log(this.state.case.responseBody);
+    setErrors = (errors) => {
         ReactDOM.render(
-            <Diff 
-                  expected={this.state.case.expectedResponseBody}
-                  given={this.state.case.responseBody}
-            />, 
-            document.getElementById("case-details-diff"+this.state.case.id)
-        );
+            errors, 
+            document.getElementById("case-details-errors"+this.state.case.id));
     }
 
     render() {
+
         return ( 
             <div className="case-details-container">
                 <h3>{this.state.case.caseName}</h3>
-
                 <div id="case-details-status"><div id={"case-details-status"+this.state.case.id}></div></div>
-
-                <div id="case-details-diff"><div id={"case-details-diff"+this.state.case.id}></div></div>
+                <div id="case-details-errors"><div id={"case-details-errors"+this.state.case.id}></div></div>
             </div>
         );
     }

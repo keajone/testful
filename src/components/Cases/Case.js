@@ -1,6 +1,12 @@
 import uuid from "uuid";
+import React from "react";
 
 import HTTP from "../../http/http";
+import ErrorHTTP from "../ErrorHandling/ErrorHTTP";
+import ErrorAnyResponseBody from "../ErrorHandling/ErrorAnyResponseBody";
+import ErrorExpectedResponseBody from "../ErrorHandling/ErrorExpectedResponseBody";
+import ErrorAnyResponseHeader from "../ErrorHandling/ErrorAnyResponseHeader";
+import ErrorExpectedResponseHeader from "../ErrorHandling/ErrorExpectedResponseHeader";
 
 export const CaseCheckOptions = {
     ONE: 'returns-any-response-body',
@@ -25,6 +31,8 @@ class Case {
 
     static default_expectedResponseHeader = "";
     static default_expectedResponseBody = "";
+
+    static default_errors = [];
 
     static cases = [];
 
@@ -158,6 +166,8 @@ class Case {
     }
 
     static execute = async (testCase) => {
+
+        var errors = [];
         
         try {
             // make request
@@ -169,15 +179,43 @@ class Case {
         }
         catch (err) {
             testCase.responseBody = http.responseBody;
-            throw err;
+            errors.push(<ErrorHTTP case={testCase} message={err.message}/>);
+            return errors;
+        }
+        testCase.responseBody = http.responseBody;
+        testCase.responseHeader = http.responseHeader;
+        console.log(testCase);
+
+        /**
+         * Perform checks based on configuration of test case
+         */
+
+        // Any response body was returned
+        if (testCase[CaseCheckOptions.ONE] === true) {
+            if (testCase.responseBody.length === 0)
+                // throw new Error("No response body returned.");
+                errors.push(<ErrorAnyResponseBody case={testCase} message="No response body returned."/>);
+        }
+        // Expected response body
+        if (testCase[CaseCheckOptions.TWO] === true) {
+            if (testCase.responseBody !== testCase.expectedResponseBody)
+                // throw new Error("Response body doesn't match the expected value.");
+                errors.push(<ErrorExpectedResponseBody case={testCase} message="Response body doesn't match the expected value."/>);
+        }
+        // Any response header was returned
+        if (testCase[CaseCheckOptions.THREE] === true) {
+            if (testCase.responseHeader.length === 0)
+                // throw new Error("No response header(s) returned.");
+                errors.push(<ErrorAnyResponseHeader case={testCase} message="No response header(s) returned."/>);
+        }
+        // Expected response header
+        if (testCase[CaseCheckOptions.FOUR] === true) {
+            if (testCase.responseHeader !== testCase.expectedResponseHeader)
+                // throw new Error();
+                errors.push(<ErrorExpectedResponseHeader case={testCase} message="Response header(s) doesn't match the expected value."/>);
         }
 
-        // check expected vs given response body
-        testCase.responseBody = http.responseBody;
-        if (testCase.responseBody !== testCase.expectedResponseBody)
-            throw new Error("Response body doesn't match the expected value.");
-
-        return;
+        return errors;
     }
 
     // Returns an empty case configuration
@@ -191,12 +229,13 @@ class Case {
             givenRequestHeader: this.default_givenRequestHeader,
             expectedResponseHeader: this.default_expectedResponseHeader,
             expectedResponseBody: this.default_expectedResponseBody,
+            errors: this.default_errors,
         };
         emptyCase[CaseCheckOptions.ONE] = false;
         emptyCase[CaseCheckOptions.TWO] = false;
         emptyCase[CaseCheckOptions.THREE] = false;
         emptyCase[CaseCheckOptions.FOUR] = false;
-        
+
         return emptyCase;
     };
     
