@@ -13,7 +13,7 @@ class Error extends React.Component {
     }
 
     static set = (value) => {
-        document.getElementById("error-box").childNodes[1].innerHTML = '<span><strong>Error: </strong>'+ value +'</span>';
+        document.getElementById("error-box").childNodes[1].innerHTML = '<span><strong></strong>'+ value +'</span>';
         document.getElementById("error-box").style.display = "block";
     }
 

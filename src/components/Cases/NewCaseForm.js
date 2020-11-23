@@ -73,9 +73,8 @@ class NewCaseForm extends React.Component {
                 <div className="new-case-window">
                     <Formik 
                         initialValues={Case.getEmptyCase()} 
-                        onSubmit={(data,actions) => { 
+                        onSubmit={(data,actions) => {
                             data.schemaBody = this.schema;
-                            console.log(data);
                             var bool = this.newCase(data); 
                             actions.setSubmitting(false);
                             if (bool)
@@ -151,12 +150,13 @@ class NewCaseForm extends React.Component {
                                         <JsonSchemaEditor 
                                             data={{}}
                                             key={this.state.readOnlySchema} 
-                                            schemaRoot="http://mycompany.com/root/" 
+                                            schemaRoot="http://json-schema.org/draft-07/schema" 
                                             onSchemaChange={e => {
                                                 this.schema = e
+                                                console.log(e);
                                             }} 
                                             readOnly={this.state.readOnlySchema}
-                                            />
+                                        />
                                     )}
                                 </Field>
 

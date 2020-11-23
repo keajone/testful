@@ -1,5 +1,7 @@
 import uuid from "uuid";
 import React from "react";
+import {Validator} from "jsonschema";
+import Ajv from 'ajv'
 
 import HTTP from "../../http/http";
 import ErrorHTTP from "../ErrorHandling/ErrorHTTP";
@@ -7,6 +9,7 @@ import ErrorAnyResponseBody from "../ErrorHandling/ErrorAnyResponseBody";
 import ErrorExpectedResponseBody from "../ErrorHandling/ErrorExpectedResponseBody";
 import ErrorAnyResponseHeader from "../ErrorHandling/ErrorAnyResponseHeader";
 import ErrorExpectedResponseHeader from "../ErrorHandling/ErrorExpectedResponseHeader";
+import ErrorSchema from "../ErrorHandling/ErrorSchema";
 
 export const CaseCheckOptions = {
     ONE: 'returns-any-response-body',
@@ -91,6 +94,32 @@ class Case {
         // if (this.givenRequestBody === "") {
         //     throw new Error("Must give valid Expected Response Body.");
         // }
+
+        /** validate the passed in schema */
+        if (caseObj[CaseCheckOptions.FIVE] === true) {
+            
+            try {
+                const ajv = new Ajv()
+                var k = JSON.parse(caseObj.schemaBody)
+
+                // Get rid of some meta that could cause dumb failures (for now)
+                function removeMeta(obj) {
+                    for(let prop in obj) {
+                      if (prop === '$schema' || prop === '$id')
+                        delete obj[prop];
+                      else if (typeof obj[prop] === 'object')
+                        removeMeta(obj[prop]);
+                    }
+                }
+                removeMeta(k)
+                const validate = ajv.compile(k)
+            } catch (err) {
+                console.log(err)
+                throw new Error("Must construct a valid schema.");
+            }
+            
+                
+        }
     }
 
     static getAll = () => {
@@ -187,7 +216,6 @@ class Case {
         }
         testCase.responseBody = http.responseBody;
         testCase.responseHeader = http.responseHeader;
-        console.log(testCase);
 
         /**
          * Perform checks based on configuration of test case
@@ -216,6 +244,35 @@ class Case {
             if (testCase.responseHeader !== testCase.expectedResponseHeader)
                 // throw new Error();
                 errors.push(<ErrorExpectedResponseHeader case={testCase} message="Response header(s) doesn't match the expected value."/>);
+        }
+        // Response Body Schema
+        if (testCase[CaseCheckOptions.FIVE] === true) {
+            let v = new Validator();
+            try {
+                // var instance = JSON.parse(testCase.responseBody);
+                var instance = {one: 1, two: 2};
+                var schema = JSON.parse(testCase.schemaBody);
+
+                // Get rid of some meta that could cause dumb failures (for now)
+                function removeMeta(obj) {
+                    for(let prop in obj) {
+                      if (prop === '$schema' || prop === '$id')
+                        delete obj[prop];
+                      else if (typeof obj[prop] === 'object')
+                        removeMeta(obj[prop]);
+                    }
+                }
+                removeMeta(schema)
+                console.log(schema);                
+                var errorList = v.validate(instance, schema).errors;
+                if (errorList.length > 0) {
+                    errors.push(<ErrorSchema case={testCase} message="Schema validation failed." errors={errorList}/>)
+                }
+            } catch (err) {
+                console.log(err)
+                var errorList = [{ message: "Response body not in JSON format." }]
+                errors.push(<ErrorSchema case={testCase} message="Schema validation failed." errors={errorList}/>)
+            }
         }
 
         return errors;

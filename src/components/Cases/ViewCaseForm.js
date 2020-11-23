@@ -5,6 +5,7 @@ import {FiEdit} from "react-icons/fi";
 import { withRouter } from "react-router-dom";
 import {FaPlay} from "react-icons/fa";
 import { CgDetailsMore } from "react-icons/cg";
+import JsonSchemaEditor from "@optum/json-schema-editor";
 
 // Component imports
 import NumberedTextArea from "../Previews/NumberedTextArea";
@@ -37,7 +38,11 @@ class ViewCaseForm extends React.Component {
             givenRequestHeader: obj.givenRequestHeader,
             method: obj.method,
             url: obj.url,
+            readOnlySchema: !obj[CaseCheckOptions.FIVE],
+            
         };
+        this.schema = obj.schemaBody;
+
         this.edit = props.edit;
     }
 
@@ -131,6 +136,7 @@ class ViewCaseForm extends React.Component {
                     <Formik 
                         initialValues={this.state.caseObject} 
                         onSubmit={(data,actions) => { 
+                            data.schemaBody = this.schema;
                             var bool = this.editCase(data);
                             actions.setSubmitting(false);
                             if (bool)
@@ -198,8 +204,26 @@ class ViewCaseForm extends React.Component {
                                                 values[CaseCheckOptions.ONE],
                                                 values[CaseCheckOptions.TWO],
                                                 values[CaseCheckOptions.THREE],
-                                                values[CaseCheckOptions.FOUR]
+                                                values[CaseCheckOptions.FOUR],
+                                                values[CaseCheckOptions.FIVE]
                                             ]}
+                                            readOnlySchema={bool => {
+                                                this.setState({readOnlySchema: bool});
+                                            }}
+                                        />
+                                    )}
+                                </Field>
+
+                                <Field>
+                                    {({ form: { setFieldValue } }) => (
+                                        <JsonSchemaEditor 
+                                            data={JSON.parse(this.schema)}
+                                            key={this.state.readOnlySchema} 
+                                            schemaRoot="http://json-schema.org/draft-07/schema" 
+                                            onSchemaChange={e => {
+                                                this.schema = e;
+                                            }} 
+                                            readOnly={this.state.readOnlySchema}
                                         />
                                     )}
                                 </Field>
