@@ -2,6 +2,10 @@
 *   NewCaseForm CSS file 
 */
 
+.css-1w253tv {
+    /* border: 1px solid red !important; */
+}
+
 .new-case-window {
     margin-top: 25px;
     border-bottom-left-radius: 5px;
@@ -14,6 +18,10 @@
     background-color: white;
 }
 
+.new-case-form-table {
+    border-top: 1px solid lightgray;
+}
+
 .new-case-method-select {
     /* padding-bottom: 40px; */
     /* margin-bottom: 40px; */
@@ -22,7 +30,7 @@
 .check-options-container {
     padding-bottom: 20px;
     margin-bottom: 20px;
-    border-bottom: 1px solid lightgray;
+    /* border-bottom: 1px solid lightgray; */
 }
 
 .new-case-method-select select {

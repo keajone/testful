@@ -13,7 +13,9 @@ class Profile {
     
     static default_ResponseHeader = "";
     static default_ResponseHeaderMode = "javascript";
-    static default_RequestHeader = "";
+    static default_RequestHeader = 
+    "content-type: application/json; charset=utf-8";
+    
     static default_RequestHeaderMode = "javascript";
 
     static default_ResponseBody = "";

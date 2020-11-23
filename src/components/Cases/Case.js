@@ -13,6 +13,7 @@ export const CaseCheckOptions = {
     TWO: 'returns-expected-response-body',
     THREE: 'returns-any-response-header',
     FOUR: 'returns-expected-response-header',
+    FIVE: 'returns-response-body-schema',
 };
 
 /**
@@ -26,7 +27,9 @@ class Case {
     static default_method = "GET";
     static default_url = "";
     
-    static default_givenRequestHeader = "";
+    static default_givenRequestHeader = 
+    "content-type: application/json; charset=utf-8";
+
     static default_givenRequestBody = "";
 
     static default_expectedResponseHeader = "";
@@ -230,11 +233,13 @@ class Case {
             expectedResponseHeader: this.default_expectedResponseHeader,
             expectedResponseBody: this.default_expectedResponseBody,
             errors: this.default_errors,
+            schemaBody: "{}",
         };
         emptyCase[CaseCheckOptions.ONE] = false;
         emptyCase[CaseCheckOptions.TWO] = false;
         emptyCase[CaseCheckOptions.THREE] = false;
         emptyCase[CaseCheckOptions.FOUR] = false;
+        emptyCase[CaseCheckOptions.FIVE] = false;
 
         return emptyCase;
     };

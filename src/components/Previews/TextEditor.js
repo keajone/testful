@@ -7,6 +7,10 @@ import 'codemirror/mode/htmlmixed/htmlmixed';
 
 import '../css/Previews/TextEditor.css';
 
+/**
+ * This was the first editor component I implimented, NumberedTextArea is better, but
+ * I never bothered to change profiles from using TextEditor.
+ */
 class TextEditor extends Component {
     constructor(props) {
         super(props);

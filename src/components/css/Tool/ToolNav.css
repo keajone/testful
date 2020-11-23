@@ -9,6 +9,10 @@
     margin: 0;
     padding: 0;
 }
+.ToolNav img {
+    height: 50px;
+}
+
 .ToolNav ul {
     background-color: #0741ad;
     margin: 0;

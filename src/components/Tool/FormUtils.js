@@ -112,6 +112,7 @@ export class CheckOptions extends React.Component {
     constructor(props) {
         super(props);
         this.onChange = props.onChange;
+        this.readOnlySchema = props.readOnlySchema;
         this.name = props.name;
 
         // Set the suite values to the given initial option boolean values.
@@ -167,6 +168,17 @@ export class CheckOptions extends React.Component {
                                onChange={e => this.onChange(CaseCheckOptions.FOUR, e.target.checked)}
                                id={CaseCheckOptions.FOUR+"-input"}/>
                         Returns an <b>expected</b> response header(s)
+                    </label>
+                </div>
+                <div className="form-check">
+                    <label className="form-check-label">
+                        <input type="checkbox" className="form-check-input" value="" 
+                               onChange={(e) => {
+                                    this.onChange(CaseCheckOptions.FIVE, e.target.checked);
+                                    this.readOnlySchema(!e.target.checked);
+                                }}
+                               id={CaseCheckOptions.FIVE+"-input"}/>
+                        Returns a response body based on <b>schema</b> (json only)
                     </label>
                 </div>
             </div>

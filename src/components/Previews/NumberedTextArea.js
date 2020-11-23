@@ -8,6 +8,10 @@ import 'codemirror/mode/htmlmixed/htmlmixed';
 
 import '../css/Previews/NumberedTextArea.css';
 
+/**
+ * Numbered text area component. 
+ * Used for displaying response/request headers/body information.
+ */
 class NumberedTextArea extends Component {
     constructor(props) {
         super(props);

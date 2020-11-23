@@ -3,6 +3,13 @@ import React from "react";
 
 import "../css/Animations/LoadingAnimation.css";
 
+
+/**
+ * Loading animation for when the profile is being run.
+ * 
+ * CaseLoadingAnimation could be made generic enough to 
+ * replace this component, but other things took priority.
+ */
 class LoadingAnimation extends React.Component {
 
     constructor(props) {

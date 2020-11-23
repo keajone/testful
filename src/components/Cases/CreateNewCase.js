@@ -16,10 +16,6 @@ class CreateNewCase extends React.Component {
         this.state = {};
     }
 
-    // static getDerivedStateFromProps(props) {
-    //     return {tabs: props.tabs, currentTab: props.currentTab};
-    // }
-
     render() {
         return (
 

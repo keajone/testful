@@ -2,14 +2,10 @@
 import React from "react";
 import Collapsible from 'react-collapsible';
 
-// Component imports
-// import Case from "./Case";
-// import Error from "../ErrorHandling/Error";
-
-// CSS imports
-
 /**
- * Component for displaying HTTP errors
+ * Component for displaying errors for 'Any Response Header' checks.
+ * 
+ * In this case, a simple message is displayed under collapsable window.
  */
 class ErrorAnyResponseHeader extends React.Component {
 

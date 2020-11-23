@@ -8,7 +8,7 @@ import SuiteDetailsForm from "./SuiteDetailsForm";
 import PageHeader from "../Previews/PageHeader";
 
 /**
- * Component for managing the page that shows details of a running case or suite
+ * Abstract Component for managing the page that shows details of a running case or suite
  */
 class Details extends React.Component {
 

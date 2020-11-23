@@ -3,14 +3,12 @@ import React from "react";
 import Collapsible from 'react-collapsible';
 
 // Component imports
-// import Case from "./Case";
-// import Error from "../ErrorHandling/Error";
 import Diff from "../Details/DiffViewer";
 
-// CSS imports
-
 /**
- * Component for displaying HTTP errors
+ * Component for displaying errors for 'Expected Response Body' checks.
+ * 
+ * Displays a diff viewer of expected/given response output.
  */
 class ErrorExpectedResponseBody extends React.Component {
 

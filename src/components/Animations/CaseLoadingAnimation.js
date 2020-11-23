@@ -3,6 +3,14 @@ import React from "react";
 
 import "../css/Animations/CaseLoadingAnimation.css";
 
+/**
+ * Loading animation for run cases/suites are being run.
+ * 
+ * The passed in ID prop is how each animation component remains unique.
+ * This way they arent all triggered if multiple are on the screen.
+ * 
+ * i.e. when the user is viewing all cases and decides to run a single test case.
+ */
 class CaseLoadingAnimation extends React.Component {
 
     constructor(props) {

@@ -9,7 +9,7 @@ import "../css/Details/SuiteDetails.css";
 import CaseDetailsForm from "./CaseDetailsForm";
 
 /**
- * Component for displaying details of either a case run or suite run
+ * Component for displaying details of suite run
  */
 class SuiteDetailsForm extends React.Component {
 
@@ -24,27 +24,6 @@ class SuiteDetailsForm extends React.Component {
             failure: false,
         };
     }
-    // componentDidMount() {
-    //     // document.getElementById("pass_"+this.state.id).style.display = 'none';
-    //     // document.getElementById("fail_"+this.state.id).style.display = 'none';
-
-    //     // if (document.getElementById("fail_suite-details") !== null) {
-    //         // document.getElementById("pass_"+this.state.id).style.display = 'none';
-    //         // document.getElementById("fail_"+this.state.id).style.display = 'inline-block';
-    //         this.state.suite.status = "fail";
-    //         ReactDOM.render(<>&nbsp;&nbsp;&nbsp;Not all test cases passed.</>, document.getElementById("details-status-message"));
-
-    //         // document.getElementById("details-status-message").innerHTML = <>&nbsp; - Not all test cases passed.</>
-    //     } else {
-    //         document.getElementById("pass_"+this.state.id).style.display = 'inline-block';
-    //         this.state.suite.status = "pass";
-    //         ReactDOM.render(<>&nbsp;&nbsp;&nbsp;All test cases passed successfully.</>, document.getElementById("details-status-message"));
-
-    //         // document.getElementById("details-status-message").innerHTML = <>&nbsp; - All test cases passed successfully.</>
-
-    //     }
-    //     Suite.edit(this.state.suite);
-    // }
 
     setFailStatus = () => {
 

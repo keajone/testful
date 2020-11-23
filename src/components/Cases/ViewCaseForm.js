@@ -41,12 +41,6 @@ class ViewCaseForm extends React.Component {
         this.edit = props.edit;
     }
 
-    // componentDidMount() {
-    //     React.useEffect(() => {
-    //         window.scrollTo(0, 0);
-    //     }, []);
-    // }
-
     goToDetails = (e) => {
         this.props.history.push(DetailsPath+"/"+this.state.id);
     }

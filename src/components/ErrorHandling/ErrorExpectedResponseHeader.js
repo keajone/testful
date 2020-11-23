@@ -5,10 +5,10 @@ import Collapsible from 'react-collapsible';
 // Component imports
 import Diff from "../Details/DiffViewer";
 
-// CSS imports
-
 /**
- * Component for displaying HTTP errors
+ * Component for displaying errors for 'Expected Response Header(s)' checks.
+ * 
+ * Displays a diff viewer of expected/given response output.
  */
 class ErrorExpectedResponseHeader extends React.Component {
 

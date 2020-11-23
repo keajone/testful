@@ -17,8 +17,6 @@ import "../css/Cases/AllCasesForm.css";
 
 /**
  * Component for displaying the form to add a new case.
- * 
- * https://www.youtube.com/watch?v=FD50LPJ6bjE&ab_channel=BenAwad
  */
 class AllCasesForm extends React.Component {
 
@@ -76,8 +74,6 @@ class AllCasesForm extends React.Component {
         else
             return (<label className="badge badge-warning">{method}</label>);
     }
-
-    
 
     renderCases = (testCase) => {
         return (

@@ -2,6 +2,7 @@
 import React from "react";
 import { Formik, Field } from "formik";
 import { withRouter } from "react-router-dom";
+import JsonSchemaEditor from "@optum/json-schema-editor";
 
 // Component imports
 import NumberedTextArea from "../Previews/NumberedTextArea";
@@ -22,8 +23,13 @@ class NewCaseForm extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            readOnlySchema: true,
+            schema: "{}",
+        };
     }
+
+    schema = "{}";
 
     newCase = (data) => {
 
@@ -68,6 +74,8 @@ class NewCaseForm extends React.Component {
                     <Formik 
                         initialValues={Case.getEmptyCase()} 
                         onSubmit={(data,actions) => { 
+                            data.schemaBody = this.schema;
+                            console.log(data);
                             var bool = this.newCase(data); 
                             actions.setSubmitting(false);
                             if (bool)
@@ -130,16 +138,34 @@ class NewCaseForm extends React.Component {
                                             name="Checks"
                                             onChange={setFieldValue} 
                                             valueToChange="checks"
-                                            optionValues={[false, false, false, false]}
+                                            optionValues={[false, false, false, false, false]}
+                                            readOnlySchema={bool => {
+                                                this.setState({readOnlySchema: bool});
+                                            }}
                                         />
                                     )}
                                 </Field>
 
+                                <Field>
+                                    {({ form: { setFieldValue } }) => (
+                                        <JsonSchemaEditor 
+                                            data={{}}
+                                            key={this.state.readOnlySchema} 
+                                            schemaRoot="http://mycompany.com/root/" 
+                                            onSchemaChange={e => {
+                                                this.schema = e
+                                            }} 
+                                            readOnly={this.state.readOnlySchema}
+                                            />
+                                    )}
+                                </Field>
+
+                                <br />
                                 <table className="new-case-form-table"><tbody>
                                 <tr>
                                 <td>
                                     {/** Request header input */}
-                                    <NumberedTextArea title="Request Header" name="givenRequestHeader"/>
+                                    <NumberedTextArea title="Request Header" name="givenRequestHeader" value={values.givenRequestHeader}/>
                                 </td>
                                 <td>
                                     {/** Request body input */}

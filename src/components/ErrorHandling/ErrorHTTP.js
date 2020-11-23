@@ -1,14 +1,8 @@
 // Module imports
 import React from "react";
 
-// Component imports
-// import Case from "./Case";
-// import Error from "../ErrorHandling/Error";
-
-// CSS imports
-
 /**
- * Component for displaying HTTP errors
+ * Component for displaying an error message when a test case fails due to an HTTP problem.
  */
 class ErrorHTTP extends React.Component {
 

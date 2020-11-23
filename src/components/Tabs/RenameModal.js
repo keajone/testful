@@ -44,12 +44,10 @@ class RenameModal extends React.Component {
         }
     }
 
-    // Checks if other tabs share the passed in name.
+    // Checks if other tabs share the same name.
     checkDuplicateName = (value) => {
-        console.log(this.state);
         let tabs = this.state.tabs;
         var isMatch = false;
-        console.log(tabs);
         for(let i = 0; i < tabs.length; i++)
             if (tabs[i].name === value) { isMatch = true; }
         return isMatch;

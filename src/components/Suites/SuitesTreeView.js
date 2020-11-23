@@ -16,12 +16,10 @@ import {DetailsPath} from "../../App";
 import { withRouter } from "react-router-dom";
 import { CgDetailsMore } from "react-icons/cg";
 
-
+// default styles for suite dropdown menu 
 const useStyles = makeStyles({
   root: {
-    // height: 216,
     flexGrow: 1,
-    // maxWidth: 400,
   },
 });
 

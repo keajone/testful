@@ -60,7 +60,7 @@ function Home() {
                 <p>
                     <a className="btn btn-primary" href="https://gitlab.com/keajone/testful/">Source Code</a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" className="btn btn-primary">Documentation</button><br/>
-                </p>
+                </p><br/>
                 <h3>Quick Tutorial:</h3>
             </div>
         </div>

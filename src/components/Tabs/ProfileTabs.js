@@ -17,17 +17,19 @@ class ProfileTabs extends React.Component {
     counter: 1,
   };
 
-  // Renders all the tabs as well as a 'plus' to add another tab profile.
+  // Renders all the tabs as well as a button to add more tab profiles.
   createTabs = () => {
     const { tabs, currentTab } = this.state;
 
     const allTabs = tabs.map(tab => {
       return (
         <li className={currentTab.id === tab.id ? "tab active" : "tab"} key={tab.id}>
+        {/** profile name */}
         <label
             onClick={() => this.handleSelectTab(tab)}>
             {tab.name}
         </label>
+        {/** delete button */}
         <button onClick={() => this.handleDeleteTab(tab)} 
             type="button" className="close delete-btn" aria-label="Close">
             &times;
@@ -65,7 +67,6 @@ class ProfileTabs extends React.Component {
       },
       counter: counter,
     }
-    console.log(newState);
     this.setState(newState);
     localStorage.setItem('profiles',JSON.stringify(newState));
   }
@@ -165,7 +166,7 @@ class ProfileTabs extends React.Component {
     localStorage.setItem('profiles',JSON.stringify(newState));
   };
 
-  // Handler for selecting tabs.
+  // Handler for selecting tabs. Changes the current tab in the State.
   handleSelectTab = tab => {
     const newState = {
       tabs: this.state.tabs,
@@ -212,6 +213,7 @@ class ProfileTabs extends React.Component {
       return index !== tabToDeleteIndex;
     });
 
+    // finding the best tab to switch to after deletion.
     const previousTab =
       tabs[tabToDeleteIndex - 1] || tabs[tabToDeleteIndex + 1] || {};
 

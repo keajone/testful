@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react';
 import ReactDiffViewer from 'react-diff-viewer';
 
+/**
+ * Diff viewer component
+ */
 class Diff extends PureComponent {
   constructor(props) {
       super(props);

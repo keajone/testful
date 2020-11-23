@@ -2,7 +2,9 @@
 import React from "react";
 
 /**
- * This class is used for representation of Errors.
+ * This class is used for representation of generic Errors while using the client.
+ * 
+ * Creates a red banner on bottom of the screen that can be closed.
  */
 class Error extends React.Component {
 

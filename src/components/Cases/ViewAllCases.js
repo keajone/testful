@@ -17,10 +17,6 @@ class ViewAllCases extends React.Component {
         this.handleNameChange = props.handleNameChange;
     }
 
-    // static getDerivedStateFromProps(props) {
-    //     return {tabs: props.tabs, currentTab: props.currentTab};
-    // }
-
     render() {
         return (
             <div className="new-case-container">

@@ -123,14 +123,17 @@ class ProfileTabContent extends React.Component {
         <div className="tab-content">
             <div>
             <div className="tabs-content">
+
+                    {/**  Rename modal  */}
                     <div className="form-group rename-btn">
-                        {/**  This will trigger the "renameModal"  */}
                         <button type="button" className="btn btn-primary btn-sm" 
                                 data-toggle="modal" data-target="#renameModal">
                                     Rename
                         </button>
                         <RenameModal handleNameChange={this.handleNameChange} tabs={this.state.tabs} currentTab={this.state.currentTab}/>
                     </div>
+
+                    {/**  Method select  */}
                     <div className="form-group request-method-select">
                         <label>HTTP Method</label>
                         <select onChange={this.handleHttpChange} value={this.state.currentTab.httpMethod} className="form-control">
@@ -141,10 +144,14 @@ class ProfileTabContent extends React.Component {
                             <option>DELETE</option>
                         </select>
                     </div>
+
+                    {/**  URL input */}
                     <div className="form-group request-url">
                         <label>URL</label>
                         <input onChange={this.handleUrlChange} value={this.state.currentTab.url} type="text" className="form-control" placeholder='Example: "https://api.github.com"' name="url-input" />
                     </div>
+
+                    {/**  Send button  */}
                     <div className="form-group send-btn">
                         <button type="button" onClick={this.handleSendClick} className="btn btn-primary">SEND</button>
                     </div>
@@ -153,6 +160,8 @@ class ProfileTabContent extends React.Component {
                     <h4 id="response-header">Response</h4>
                     <br/>
                     <Tabs tabType="tabs-request">
+
+                        {/**  Request Body editor  */}
                         <div label="Body">
                             <TextEditor name="requestBody" readOnly={false} 
                                 value={this.state.currentTab.requestBody} 
@@ -160,6 +169,8 @@ class ProfileTabContent extends React.Component {
                                 onValueChange={this.handleEditorChange} 
                                 onModeChange={this.handleEditorChange}/>
                         </div>
+
+                        {/**  Request Header editor  */}
                         <div label="Header">
                             <TextEditor name="requestHeader" readOnly={false} 
                                 value={this.state.currentTab.requestHeader} 
@@ -169,6 +180,8 @@ class ProfileTabContent extends React.Component {
                         </div>
                     </Tabs>
                     <Tabs tabType="tabs-response">
+
+                        {/**  Response Body editor (Cannot edit)  */}
                         <div label="Body">
                             <TextEditor name="responseBody" readOnly="nocursor" 
                                 value={this.state.currentTab.responseBody} 
@@ -176,6 +189,8 @@ class ProfileTabContent extends React.Component {
                                 onValueChange={this.handleEditorChange} 
                                 onModeChange={this.handleEditorChange}/>
                         </div>
+
+                        {/**  Response Header editor (Cannot edit)  */}
                         <div label="Header">
                             <TextEditor name="responseHeader" readOnly="nocursor" 
                                 value={this.state.currentTab.responseHeader} 
