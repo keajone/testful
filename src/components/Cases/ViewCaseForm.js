@@ -137,6 +137,7 @@ class ViewCaseForm extends React.Component {
                         initialValues={this.state.caseObject} 
                         onSubmit={(data,actions) => { 
                             data.schemaBody = this.schema;
+                            console.log(data);
                             var bool = this.editCase(data);
                             actions.setSubmitting(false);
                             if (bool)
@@ -215,17 +216,24 @@ class ViewCaseForm extends React.Component {
                                 </Field>
 
                                 <Field>
-                                    {({ form: { setFieldValue } }) => (
+                                    {({ form: { setFieldValue } }) => {
+                                        var s;
+                                        try {
+                                            s = JSON.parse(this.schema)
+                                        } catch (err) {
+                                            s = {}
+                                        }
+                                        return (
                                         <JsonSchemaEditor 
-                                            data={JSON.parse(this.schema)}
+                                            data={s}
                                             key={this.state.readOnlySchema} 
                                             schemaRoot="http://json-schema.org/draft-07/schema" 
                                             onSchemaChange={e => {
                                                 this.schema = e;
                                             }} 
                                             readOnly={this.state.readOnlySchema}
-                                        />
-                                    )}
+                                        />)
+                                    }}
                                 </Field>
 
                                 <table className="new-case-form-table"><tbody>

@@ -31,7 +31,7 @@ class Case {
     static default_url = "";
     
     static default_givenRequestHeader = 
-    "content-type: application/json; charset=utf-8";
+    '{\n  "Content-Type": "application/json; charset=utf-8"\n}';
 
     static default_givenRequestBody = "";
 
@@ -45,6 +45,32 @@ class Case {
     constructor(jsonObject) {
 
         try {
+
+            // theres a bug where some "included" fields dont exist
+            function removeSomeFields(obj) {
+                var properties = obj["properties"]
+                var required = obj["required"]
+                console.log(properties)
+                console.log(required)
+                for (let i=0; i<required.length; i++) {
+                  if (required[i] in properties) {}
+                  else {
+                      required.splice(i, 1)
+                  }
+                }
+                console.log(properties)
+                console.log(required)
+                for (let prop in properties) {
+                    if (prop.type === "object") {
+                        removeSomeFields(prop);
+                    }
+                }
+            }
+            if (jsonObject.schemaBody !== "{}") {
+                var s = JSON.parse(jsonObject.schemaBody)
+                removeSomeFields(s)
+                jsonObject.schemaBody = JSON.stringify(s);
+            }
             Case.verify(jsonObject);
         }
         catch (err) {
@@ -163,6 +189,35 @@ class Case {
 
     static edit = (caseObj) => {
         try {
+
+            // theres a bug where some "included" fields dont exist
+            function removeSomeFields(obj) {
+                var properties = obj["properties"]
+                var required = obj["required"]
+                console.log(properties)
+                console.log(required)
+                for (let i=0; i<required.length; i++) {
+                  if (required[i] in properties) {}
+                  else {
+                      required.splice(i, 1)
+                  }
+                }
+                console.log(properties)
+                console.log(required)
+                for (let prop in properties) {
+                    if (prop.type === "object") {
+                        removeSomeFields(prop);
+                    }
+                }
+            }
+            if (caseObj.schemaBody !== "{}") {
+                var s = JSON.parse(caseObj.schemaBody)
+                removeSomeFields(s)
+                removeSomeFields(s)
+            }
+            caseObj.schemaBody = JSON.stringify(s);
+
+
             // verify the change
             this.verify(caseObj);
 
@@ -210,8 +265,9 @@ class Case {
             await http.request();
         }
         catch (err) {
-            testCase.responseBody = http.responseBody;
-            errors.push(<ErrorHTTP case={testCase} message={err.message}/>);
+            console.log(err.stack)
+            // testCase.responseBody = http.responseBody;
+            errors.push(<ErrorHTTP case={testCase} message={err.stack}/>);
             return errors;
         }
         testCase.responseBody = http.responseBody;
@@ -229,9 +285,12 @@ class Case {
         }
         // Expected response body
         if (testCase[CaseCheckOptions.TWO] === true) {
-            if (testCase.responseBody !== testCase.expectedResponseBody)
-                // throw new Error("Response body doesn't match the expected value.");
+            if (
+                JSON.stringify(JSON.parse(testCase.responseBody), null, 2) !== 
+                JSON.stringify(JSON.parse(testCase.expectedResponseBody), null, 2)
+            )
                 errors.push(<ErrorExpectedResponseBody case={testCase} message="Response body doesn't match the expected value."/>);
+            
         }
         // Any response header was returned
         if (testCase[CaseCheckOptions.THREE] === true) {
@@ -241,7 +300,10 @@ class Case {
         }
         // Expected response header
         if (testCase[CaseCheckOptions.FOUR] === true) {
-            if (testCase.responseHeader !== testCase.expectedResponseHeader)
+            if (
+                JSON.stringify(JSON.parse(testCase.responseHeader), null, 2) !== 
+                JSON.stringify(JSON.parse(testCase.expectedResponseHeader), null, 2)
+            )
                 // throw new Error();
                 errors.push(<ErrorExpectedResponseHeader case={testCase} message="Response header(s) doesn't match the expected value."/>);
         }
@@ -249,8 +311,8 @@ class Case {
         if (testCase[CaseCheckOptions.FIVE] === true) {
             let v = new Validator();
             try {
-                // var instance = JSON.parse(testCase.responseBody);
-                var instance = {one: 1, two: 2};
+                var instance = JSON.parse(testCase.responseBody);
+                // var instance = {one: 1, two: 2};
                 var schema = JSON.parse(testCase.schemaBody);
 
                 // Get rid of some meta that could cause dumb failures (for now)

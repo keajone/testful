@@ -1,8 +1,21 @@
 class HTTP {
 
     constructor(header, body, method, url) {
+
+        console.log(body);
+
+        if (typeof header === "string" && header.length > 0)
+            header = JSON.parse(header);
+        else if (header === "")
+            header = undefined
         this.requestHeader = header;
+        if (typeof body === "string" && body.length > 0) {
+            body = JSON.parse(body);
+            console.log("JJJEJE");
+        } else if (body === "")
+            body = undefined
         this.requestBody = body;
+        console.log(this.requestBody)
         this.method = method;
         this.url = url;
         this.responseBody = "";
@@ -10,16 +23,21 @@ class HTTP {
     }
 
     request = async () => {
+        var err = undefined
+        console.log(this.url)
+        console.log(this.method)
+        console.log(this.requestHeader)
+        console.log(this.requestBody)
         try {
             const response = await fetch(this.url, {
                 method: this.method,
-                headers: this.headers,
-                body: JSON.stringify(this.body),
+                headers: this.requestHeader,
+                body: JSON.stringify(this.requestBody),
             });
+            console.log("here")
 
             if (!response.ok) {
-                // const err = await response.text();
-                throw new Error(response.status + " (" + response.statusText + ")");
+                err = new Error(response.status + " (" + response.statusText + ")");
             }
 
             // Collect response header information
@@ -46,7 +64,9 @@ class HTTP {
                 // process Text/HTML/XML
                 const text = await response.text();
                 this.responseBody = text;
-            }  
+            }
+            // if (err !== undefined)
+            //     throw err;
         }
         catch (err) {
             console.log(err);

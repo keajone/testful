@@ -44,8 +44,8 @@ function Home() {
                     <li>Rejects Incorrectly sized input</li>
                 </ul>
                 <br/><p>
-                These kinds of testing would help eliminate the possibility of security risks. <b>Command/SQL injections</b>
-                could be harmful to a host’s operating system or databases. <b>Unauthorized endpoints</b> – It’s important to
+                These kinds of testing would help eliminate the possibility of security risks. 
+                <b>Command/SQL injections</b> could be harmful to a host’s operating system or databases. <b>Unauthorized endpoints</b> – It’s important to
                 make sure some endpoints are strictly for developers only so that data, networks, devices, etc. aren’t exposed.
                 <b>Unhandled HTTP requests</b> are a vulnerability/flaw to any API and should be tested. I really can see this
                 project as being very security minded, and possibly popular among software developers today.
@@ -53,7 +53,7 @@ function Home() {
                 could require additional testing.  
                 </p>
             </div>
-            <div id="dev-info-header">
+            {/* <div id="dev-info-header">
                 <h2>Developer Info</h2><hr />
             </div>
             <div className="dev-info-content">
@@ -62,7 +62,7 @@ function Home() {
                     <button type="button" className="btn btn-primary">Documentation</button><br/>
                 </p><br/>
                 <h3>Quick Tutorial:</h3>
-            </div>
+            </div> */}
         </div>
     );
 }

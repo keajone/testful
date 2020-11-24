@@ -14,14 +14,14 @@ class Profile {
     static default_ResponseHeader = "";
     static default_ResponseHeaderMode = "javascript";
     static default_RequestHeader = 
-    "content-type: application/json; charset=utf-8";
+    '{\n  "Content-Type": "application/json; charset=utf-8"\n}';
     
     static default_RequestHeaderMode = "javascript";
 
     static default_ResponseBody = "";
     static default_ResponseBodyMode = "javascript";
     static default_RequestBody = "";
-    static default_RequestBodeMode = "javascript";
+    static default_RequestBodyMode = "javascript";
 
     // Returns the default tab configuration
     static getDefaultTab = () => {

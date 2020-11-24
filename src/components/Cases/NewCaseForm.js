@@ -185,7 +185,7 @@ class NewCaseForm extends React.Component {
                                 </tr>
                                 </tbody></table>
 
-                                <pre>{JSON.stringify(values, null, 2)}</pre>
+                                {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
                             </form>
                         )}
                     </Formik>
