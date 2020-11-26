@@ -19,7 +19,6 @@ import './App.css';
 
 // Route paths
 // TODO: Is this the "React" way?
-/** TODO: make profiles endpoint rather than 'TestToolPath' */
 const HomePath = "/";
 const TestToolPath = "/profiles";
 const CreateNewCasePath = "/cases/new";
@@ -32,7 +31,7 @@ const DetailsPath = "/details";
 
 function App() {
   return (
-    <Router basename={"/testful"}>
+    <Router>
       <div id="App">
         <Switch>
 
