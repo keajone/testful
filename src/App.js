@@ -19,19 +19,19 @@ import './App.css';
 
 // Route paths
 // TODO: Is this the "React" way?
-const HomePath = "/";
-const TestToolPath = "/profiles";
-const CreateNewCasePath = "/cases/new";
-const ViewAllCasesPath = "/cases";
-const EditCasePath = "/cases/edit";
-const CreateNewSuitePath = "/suites/new";
-const ViewAllSuitesPath = "/suites";
-const EditSuitePath = "/suites/edit";
-const DetailsPath = "/details";
+const HomePath = "/testful";
+const TestToolPath = "/testful/profiles";
+const CreateNewCasePath = "/testful/cases/new";
+const ViewAllCasesPath = "/testful/cases";
+const EditCasePath = "/testful/cases/edit";
+const CreateNewSuitePath = "/testful/suites/new";
+const ViewAllSuitesPath = "/testful/suites";
+const EditSuitePath = "/testful/suites/edit";
+const DetailsPath = "/testful/details";
 
 function App() {
   return (
-    <Router>
+    <Router basename={"/testful"}>
       <div id="App">
         <Switch>
 
