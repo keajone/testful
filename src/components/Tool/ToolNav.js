@@ -21,7 +21,7 @@ const ToolNav = () => (
         <ul>
             {/* Logo */}
             <li>
-                <a href={HomePath}>
+                <a href={"/testful" + HomePath}>
                     <img src="/logo-nav.jpg" alt="Home"/>
                 </a>
             </li>
@@ -30,7 +30,7 @@ const ToolNav = () => (
 
             {/* Create test cases */}
             <li className="dropdown-container">
-                <a type="button" className="btn btn-primary" href={TestToolPath}>Profiles</a>                  
+                <a type="button" className="btn btn-primary" href={"/testful" + TestToolPath}>Profiles</a>                  
             </li>
 
             {/* Create test cases */}
@@ -40,8 +40,8 @@ const ToolNav = () => (
                         Test Cases
                     </button>
                     <div className="dropdown-menu">
-                        <a href={CreateNewCasePath} className="dropdown-item">Create New</a>
-                        <a href={ViewAllCasesPath} className="dropdown-item">View All</a>
+                        <a href={"/testful" + CreateNewCasePath} className="dropdown-item">Create New</a>
+                        <a href={"/testful" + ViewAllCasesPath} className="dropdown-item">View All</a>
                         {/* <button className="dropdown-item">Link 3</button> */}
                     </div>
                 </div>
@@ -54,8 +54,8 @@ const ToolNav = () => (
                         Test Suites
                     </button>
                     <div className="dropdown-menu">
-                        <a href={CreateNewSuitePath} className="dropdown-item">Create New</a>
-                        <a href={ViewAllSuitesPath} className="dropdown-item">View All</a>
+                        <a href={"/testful" + CreateNewSuitePath} className="dropdown-item">Create New</a>
+                        <a href={"/testful" + ViewAllSuitesPath} className="dropdown-item">View All</a>
                         {/* <button className="dropdown-item">Link 3</button> */}
                     </div>
                 </div>
@@ -64,7 +64,7 @@ const ToolNav = () => (
             {/* Home link */}
             <li>
                 {/* <a type="button" className="btn btn-primary" href={HomePath}><AiFillHome/></a> */}
-                <a type="button" className="btn btn-primary" href={HomePath}>Home</a>
+                <a type="button" className="btn btn-primary" href={"/testful" + HomePath}>Home</a>
             </li>
 
         </ul>
