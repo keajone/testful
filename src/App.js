@@ -32,7 +32,7 @@ const DetailsPath = "/details";
 
 function App() {
   return (
-    <Router>
+    <Router basename={"/testful"}>
       <div id="App">
         <Switch>
 
