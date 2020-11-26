@@ -19,7 +19,7 @@ import './App.css';
 
 // Route paths
 // TODO: Is this the "React" way?
-const HomePath = "/testful";
+const HomePath = "/";
 const TestToolPath = "/testful/profiles";
 const CreateNewCasePath = "/testful/cases/new";
 const ViewAllCasesPath = "/testful/cases";
