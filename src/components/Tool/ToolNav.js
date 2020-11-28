@@ -22,7 +22,7 @@ const ToolNav = () => (
             {/* Logo */}
             <li>
                 <a href={"/testful" + HomePath}>
-                    <img src="/testful/logo-nav.jpg" alt="Home"/>
+                    <img src="/logo-nav.jpg" alt="Home"/>
                 </a>
             </li>
 
