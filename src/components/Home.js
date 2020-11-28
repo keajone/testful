@@ -20,7 +20,7 @@ function Home() {
             </div>
 
             <div className="top-header-container"> 
-                <img className="header-mountain-pic" src="/mountains.jpg" alt="Testful"/>
+                <img className="header-mountain-pic" src="/testful/mountains.jpg" alt="Testful"/>
             </div>
             <div id="about-header">
                 <h2>About</h2><hr />
