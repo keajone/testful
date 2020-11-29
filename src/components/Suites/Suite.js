@@ -41,7 +41,7 @@ class Suite {
 
     addToLocalStorage = () => {
         let s = sessionStorage.getItem('Suites');
-        if (s !== undefined && s !== null) {
+        if (s !== undefined && s !== null && s !== "null") {
             Suite.Suites = JSON.parse(sessionStorage.getItem('Suites'));
             Suite.Suites.push(this.jsonObject);
             sessionStorage.setItem('Suites',JSON.stringify(Suite.Suites));
