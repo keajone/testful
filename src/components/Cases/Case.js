@@ -149,19 +149,19 @@ class Case {
     }
 
     static getAll = () => {
-        if (localStorage.getItem('cases') !== null)
-            return JSON.parse(localStorage.getItem('cases'));
+        if (sessionStorage.getItem('cases') !== null)
+            return JSON.parse(sessionStorage.getItem('cases'));
         else
             return [];
     }
 
     addToLocalStorage = () => {
-        if (localStorage.getItem('cases')) {
-            Case.cases = JSON.parse(localStorage.getItem('cases'));
+        if (sessionStorage.getItem('cases')) {
+            Case.cases = JSON.parse(sessionStorage.getItem('cases'));
             Case.cases.push(this.jsonObject);
-            localStorage.setItem('cases',JSON.stringify(Case.cases));
+            sessionStorage.setItem('cases',JSON.stringify(Case.cases));
         } else {
-            localStorage.setItem('cases',JSON.stringify([this.jsonObject]));   
+            sessionStorage.setItem('cases',JSON.stringify([this.jsonObject]));   
         }
     }
 
