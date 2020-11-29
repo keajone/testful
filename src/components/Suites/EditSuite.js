@@ -22,7 +22,7 @@ class EditSuite extends React.Component {
 
     // Finds and returns suite object from local storage given the ID.
     getSuite = (id) => {
-        let suiteList = localStorage.getItem('Suites');
+        let suiteList = sessionStorage.getItem('Suites');
         let suiteObj = {};
 
         if (suiteList.length > 0) {

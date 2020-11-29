@@ -36,27 +36,27 @@ class Suite {
     }
 
     static getAll = () => {
-        return JSON.parse(localStorage.getItem('Suites'));
+        return JSON.parse(sessionStorage.getItem('Suites'));
     }
 
     addToLocalStorage = () => {
-        if (localStorage.getItem('Suites')) {
-            Suite.Suites = JSON.parse(localStorage.getItem('Suites'));
+        if (sessionStorage.getItem('Suites')) {
+            Suite.Suites = JSON.parse(sessionStorage.getItem('Suites'));
             Suite.Suites.push(this.jsonObject);
-            localStorage.setItem('Suites',JSON.stringify(Suite.Suites));
+            sessionStorage.setItem('Suites',JSON.stringify(Suite.Suites));
         } else {
-            localStorage.setItem('Suites',JSON.stringify([this.jsonObject]));   
+            sessionStorage.setItem('Suites',JSON.stringify([this.jsonObject]));   
         }
     }
 
     static remove = (suiteToRemove) => {
         try {
 
-            let array = JSON.parse(localStorage.getItem('Suites'));
+            let array = JSON.parse(sessionStorage.getItem('Suites'));
             array = array.filter(function( obj ) {
                 return obj.id !== suiteToRemove.id;
             });
-            localStorage.setItem('Suites', JSON.stringify(array));
+            sessionStorage.setItem('Suites', JSON.stringify(array));
             return true;
         }
         catch (err) {
@@ -68,7 +68,7 @@ class Suite {
         try {
             this.verify(SuiteObj);
 
-            let array = JSON.parse(localStorage.getItem('Suites'));
+            let array = JSON.parse(sessionStorage.getItem('Suites'));
             if (array.length > 0) {
                 for (var i in array) {
                     if (array[i].id === SuiteObj.id) {
@@ -76,7 +76,7 @@ class Suite {
                     break;
                     }
                 }
-                localStorage.setItem('Suites', JSON.stringify(array));
+                sessionStorage.setItem('Suites', JSON.stringify(array));
                 return true;
             }
         }

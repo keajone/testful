@@ -18,9 +18,9 @@ class Details extends React.Component {
 
         // determine if the element is a test case or suite
         var isCase;
-        if (JSON.parse(localStorage.getItem('cases')).find(obj => obj.id === id) !== undefined) {
+        if (JSON.parse(sessionStorage.getItem('cases')).find(obj => obj.id === id) !== undefined) {
             isCase = true;
-        } else if (JSON.parse(localStorage.getItem('Suites')).find(obj => obj.id === id) !== undefined) {
+        } else if (JSON.parse(sessionStorage.getItem('Suites')).find(obj => obj.id === id) !== undefined) {
             isCase = false;
         } else {
             isCase = undefined;
@@ -35,7 +35,7 @@ class Details extends React.Component {
 
     // Retrieve case object from local storage
     getCase = (id) => {
-        let caseList = localStorage.getItem('cases');
+        let caseList = sessionStorage.getItem('cases');
         let caseObj = {};
 
         if (caseList.length > 0) {
@@ -46,7 +46,7 @@ class Details extends React.Component {
 
     // Retrieve suite object from local storage
     getSuite = (id) => {
-        let suiteList = localStorage.getItem('Suites');
+        let suiteList = sessionStorage.getItem('Suites');
         let suiteObj = {};
 
         if (suiteList.length > 0) {

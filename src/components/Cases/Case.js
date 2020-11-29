@@ -167,19 +167,19 @@ class Case {
 
     static remove = (caseObj) => {
         try {
-            let array = JSON.parse(localStorage.getItem('cases'));
+            let array = JSON.parse(sessionStorage.getItem('cases'));
             array = array.filter(function( obj ) {
                 return obj.id !== caseObj.id;
             });
-            localStorage.setItem('cases', JSON.stringify(array));
+            sessionStorage.setItem('cases', JSON.stringify(array));
 
-            let array2 = JSON.parse(localStorage.getItem('Suites'));
+            let array2 = JSON.parse(sessionStorage.getItem('Suites'));
             for (let i=0; i < array2.length; i++) {
                 array2[i].caseList = array2[i].caseList.filter(function (obj) {
                     return obj.id !== caseObj.id;
                 })
             }
-            localStorage.setItem('Suites', JSON.stringify(array2));
+            sessionStorage.setItem('Suites', JSON.stringify(array2));
             return true;
         }
         catch (err) {
@@ -223,7 +223,7 @@ class Case {
             this.verify(caseObj);
 
             // Update test case
-            let array = JSON.parse(localStorage.getItem('cases'));
+            let array = JSON.parse(sessionStorage.getItem('cases'));
             if (array.length > 0) {
                 for (var i in array) {
                     if (array[i].id === caseObj.id) {
@@ -231,10 +231,10 @@ class Case {
                         break;
                     }
                 }
-                localStorage.setItem('cases', JSON.stringify(array));
+                sessionStorage.setItem('cases', JSON.stringify(array));
                 
                 // Update the case lists inside suites
-                let array2 = JSON.parse(localStorage.getItem('Suites'));
+                let array2 = JSON.parse(sessionStorage.getItem('Suites'));
                 for (let j=0; j < array2.length; j++) {
                     for (var h in array2[j].caseList) {
                         if (array2[j].caseList[h].id === caseObj.id) {
@@ -243,7 +243,7 @@ class Case {
                         }
                     }
                 }
-                localStorage.setItem('Suites', JSON.stringify(array2));
+                sessionStorage.setItem('Suites', JSON.stringify(array2));
             }
         }
         catch (err) {

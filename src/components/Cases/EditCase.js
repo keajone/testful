@@ -23,7 +23,7 @@ class EditCase extends React.Component {
 
     // Finds and returns case object from local storage given the ID.
     getCase = (id) => {
-        let caseList = localStorage.getItem('cases');
+        let caseList = sessionStorage.getItem('cases');
         let caseObj = {};
 
         if (caseList.length > 0) {

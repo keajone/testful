@@ -68,7 +68,7 @@ class ProfileTabs extends React.Component {
       counter: counter,
     }
     this.setState(newState);
-    localStorage.setItem('profiles',JSON.stringify(newState));
+    sessionStorage.setItem('profiles',JSON.stringify(newState));
   }
 
   // Handler for changing the select HTTP method.
@@ -93,7 +93,7 @@ class ProfileTabs extends React.Component {
       counter: this.state.counter,
     }
     this.setState(newState);
-    localStorage.setItem('profiles',JSON.stringify(newState));
+    sessionStorage.setItem('profiles',JSON.stringify(newState));
   };
 
   // Handler for changing the URL.
@@ -118,7 +118,7 @@ class ProfileTabs extends React.Component {
       counter: this.state.counter,
     }
     this.setState(newState);
-    localStorage.setItem('profiles',JSON.stringify(newState));
+    sessionStorage.setItem('profiles',JSON.stringify(newState));
   };
 
   // Handler for changing text editor info (value/mode).
@@ -163,7 +163,7 @@ class ProfileTabs extends React.Component {
     }
     newState.counter = this.state.counter;
     this.setState(newState);
-    localStorage.setItem('profiles',JSON.stringify(newState));
+    sessionStorage.setItem('profiles',JSON.stringify(newState));
   };
 
   // Handler for selecting tabs. Changes the current tab in the State.
@@ -174,7 +174,7 @@ class ProfileTabs extends React.Component {
       counter: this.state.counter,
     }
     this.setState(newState);
-    localStorage.setItem('profiles',JSON.stringify(newState));
+    sessionStorage.setItem('profiles',JSON.stringify(newState));
   };
 
   // Handler for adding new tab profiles.
@@ -201,7 +201,7 @@ class ProfileTabs extends React.Component {
       counter: tmpCount + 1,
     };
     this.setState(newState);
-    localStorage.setItem('profiles',JSON.stringify(newState));
+    sessionStorage.setItem('profiles',JSON.stringify(newState));
   };
 
   // Handler for deleting a selected tab.
@@ -223,13 +223,13 @@ class ProfileTabs extends React.Component {
       counter: this.state.counter,
     };
     this.setState(newState);
-    localStorage.setItem('profiles',JSON.stringify(newState));
+    sessionStorage.setItem('profiles',JSON.stringify(newState));
   };
 
   // React Life Cycle, loading from localstorage on refresh.
   componentDidMount() {
-      if (localStorage.getItem('profiles')) {
-          this.profilesData = JSON.parse(localStorage.getItem('profiles'));
+      if (sessionStorage.getItem('profiles')) {
+          this.profilesData = JSON.parse(sessionStorage.getItem('profiles'));
           this.setState(this.profilesData);
       } else {
           this.setState({
