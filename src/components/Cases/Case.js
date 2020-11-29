@@ -195,19 +195,21 @@ class Case {
             function removeSomeFields(obj) {
                 var properties = obj["properties"]
                 var required = obj["required"]
-                console.log(properties)
-                console.log(required)
-                for (let i=0; i<required.length; i++) {
-                  if (required[i] in properties) {}
-                  else {
-                      required.splice(i, 1)
-                  }
+                if (required !== undefined) {
+                    for (let i=0; i<required.length; i++) {
+                        if (required[i] in properties) {}
+                        else {
+                            required.splice(i, 1)
+                        }
+                    }
                 }
                 console.log(properties)
                 console.log(required)
-                for (let prop in properties) {
-                    if (prop.type === "object") {
-                        removeSomeFields(prop);
+                if (properties !== undefined) {
+                    for (let prop in properties) {
+                        if (prop.type === "object") {
+                            removeSomeFields(prop);
+                        }
                     }
                 }
             }
