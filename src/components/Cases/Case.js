@@ -235,11 +235,13 @@ class Case {
                 
                 // Update the case lists inside suites
                 let array2 = JSON.parse(sessionStorage.getItem('Suites'));
-                for (let j=0; j < array2.length; j++) {
-                    for (var h in array2[j].caseList) {
-                        if (array2[j].caseList[h].id === caseObj.id) {
-                            array2[j].caseList[h] = caseObj;
-                            break;
+                if (array2 !== null) {
+                    for (let j=0; j < array2.length; j++) {
+                        for (var h in array2[j].caseList) {
+                            if (array2[j].caseList[h].id === caseObj.id) {
+                                array2[j].caseList[h] = caseObj;
+                                break;
+                            }
                         }
                     }
                 }
