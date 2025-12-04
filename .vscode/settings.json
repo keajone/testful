@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "__functional_03": "c",
+        "cstdlib": "c",
+        "functional": "c",
+        "*.tcc": "c",
+        "bitset": "c",
+        "chrono": "c",
+        "system_error": "c",
+        "typeinfo": "c"
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}

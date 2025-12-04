@@ -1,0 +1,22 @@
+image: node:12.18.3 # can be upgraded, depending on your node version used
+
+cache:
+  paths:
+  - node_modules
+
+before_script:
+  - rm -rf build
+  - CI=false npm install
+
+pages:
+  stage: deploy
+  script:
+  - CI=false npm run build
+  - rm -rf public
+  - cp build/index.html build/404.html
+  - mv build public
+  artifacts:
+    paths:
+    - public # mandatory, other folder won't work
+  only:
+  - master # or dev, the branch you want to publish
